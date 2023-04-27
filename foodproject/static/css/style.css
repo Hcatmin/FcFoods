@@ -1,0 +1,11 @@
+nav.navbar {
+  background-color: #7C99AC;
+}
+
+body {
+  background-color: #FFEFEF;
+  padding-top: 70px;
+  padding-bottom: 90px;
+}
+
+section#tail { display: none; }

@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+<div class="container my-4">
+  <p class="h4">Menu Principal:</p>
+  <!-- Set up your HTML -->
+  <div class="row">
+    <div class="large-12 columns">
+      <h4 id="center-with-loop">Recientes</h4>
+      <div class="loop owl-carousel owl-theme">
+        <div class="item">
+          <div class="card">
+            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Title</h4>
+              <p class="card-text">Text</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="card">
+            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Title</h4>
+              <p class="card-text">Text</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="card">
+            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Title</h4>
+              <p class="card-text">Text</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="card">
+            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Title</h4>
+              <p class="card-text">Text</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="card">
+            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Title</h4>
+              <p class="card-text">Text</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <br>
+      <h4 id="center-without-loop">Populares</h4>
+      <div class="nonloop owl-carousel">
+        <div class="item">
+          <div class="card">
+            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Title</h4>
+              <p class="card-text">Text</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="card">
+            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Title</h4>
+              <p class="card-text">Text</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="card">
+            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Title</h4>
+              <p class="card-text">Text</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="card">
+            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Title</h4>
+              <p class="card-text">Text</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <div class="card">
+            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
+            <div class="card-body">
+              <h4 class="card-title">Title</h4>
+              <p class="card-text">Text</p>
+              <a href="#" class="card-link">Card link</a>
+              <a href="#" class="card-link">Another link</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+</div>
+{% endblock %}
