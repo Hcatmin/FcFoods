@@ -8,4 +8,8 @@ def home(request):
     ad_response = advices.render()
 
     return HttpResponse(ad_response)
-    
+
+def perfil(request):
+    advices = get_template("perfil.html")
+    ad_response = advices.render()
+    return HttpResponse(ad_response)   
