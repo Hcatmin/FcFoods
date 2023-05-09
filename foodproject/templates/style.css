@@ -1,79 +1,78 @@
 body {
-    background-color: #f8f8f8; 
-    font-family: Arial, sans-serif;
-    font-size: 16px;
-    line-height: 1.5;
-  }
-  
-  h1, h2, h3 {
-    color: #4b4b4b; 
-    font-weight: bold;
-  }
-  
-  a {
-    color: #8c4bff; 
-    text-decoration: none;
-  }
-  
-  a:hover {
-    text-decoration: underline;
-  }
-  
-  p {
-    color: #4b4b4b; 
-  }
-  
-  button {
-    background-color: #B19CD9; 
-    border: none;
-    border-radius: 3px;
-    color: #fff; 
-    cursor: pointer;
-    padding: 8px 16px;
-  }
-  
-  button:hover {
-    background-color: #7238b5; 
-  }
- 
-div a {
-    display: block;
-    margin: 10px 0;
-  }
-  
- 
-  img {
-    display: block;
-    margin: 0 auto;
-  }
-  body {
-    display: flex;
-    flex-direction: column;
-    justify-content: center; 
-    align-items: center; 
-    height: 100vh; 
-  }
+  background-color: #f8f8f8; 
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.5;
+}
 
-  .botones-inferiores {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    padding: 10px;
-    background-color: #f2f2f2;
-    text-align: center;
-  }
-  
-  .botones-inferiores button {
-    margin: 0 10px;
-    padding: 10px 20px;
-    border-radius: 5px;
-    background-color: #B19CD9;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .botones-inferiores button:hover {
-    background-color: #B19CD9
-  }
+h1, h2, h3 {
+  color: #4b4b4b; 
+  font-weight: bold;
+}
+
+a {
+  color: #8c4bff; 
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+p {
+  color: #4b4b4b; 
+}
+
+button {
+  background-color: #B19CD9; 
+  border: none;
+  border-radius: 3px;
+  color: #fff; 
+  cursor: pointer;
+  padding: 8px 16px;
+}
+
+button:hover {
+  background-color: #7238b5; 
+}
+
+div a {
+  display: block;
+  margin: 10px 0;
+}
+
+
+img {
+  display: block;
+  margin: 0 auto;
+  width: 50%
+}
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+}
+
+.botones-inferiores {
+  position: fixed;
+  bottom: 0;
+  padding: 10px;
+  background-color: #f2f2f2;
+  text-align: center;
+}
+
+.botones-inferiores button {
+  margin: 0 10px;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #B19CD9;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.botones-inferiores button:hover {
+  background-color: #B19CD9
+}
