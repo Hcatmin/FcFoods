@@ -1,3 +1,5 @@
+{% load static %}
+{% block content %}
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -5,13 +7,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registro ComidaComida</title>
-    <link rel="stylesheet" href="registro.css">
+    <link rel="stylesheet" href="../static/css/registro.css">
 </head>
 <body>
     <div class="center-v">
         <div class="container">
             <h1>Registro de usuario</h1>
-            <form>
+            <form method="post">
+                {% csrf_token %}
                 <label for="name">Nombre Completo</label>
                 <input type="text" id="name" name="name" required>
     
@@ -29,3 +32,4 @@
 
 </body>
 </html>
+{% endblock %}
