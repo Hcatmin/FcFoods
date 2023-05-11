@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mapa</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href= "{% static 'css/mapa.css' %}">
 </head>
 <body>
   <div id="espacio-arriba"></div>
@@ -16,7 +17,7 @@
     <h1>Mapa</h1>
     <div>
         <p>Mapa ilustrativo de los puestos de comida </p></div>
-        <img src="Mapa comida.png" usemap="#miMapa">
+        <img src="{% static 'images/Mapacomida.png' %}" usemap="#miMapa">
 
         <map name="miMapa">
           <area shape="rect" coords="45,105,70,130" href="#fajitascolaciones" title="Fajitas Colaciones">
