@@ -27,9 +27,7 @@ def register_user(request):
 def register_user(request):
     if request.method == 'GET': #Si estamos cargando la página
         #Mostrar el template
-        advices = get_template("registro.html")
-        ad_response = advices.render()
-        return HttpResponse(ad_response)
+        return render(request, 'registro.html')
     
     elif request.method == 'POST': #Si estamos recibiendo el form de registro
      #Tomar los elementos del formulario que vienen en request.POST
