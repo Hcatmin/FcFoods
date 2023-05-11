@@ -4,6 +4,22 @@ body {
   font-size: 16px;
   line-height: 1.5;
 }
+#espacio-abajo {
+
+  width: 100%;
+  padding: 50px;
+  background-color: #f8f8f8;
+  text-align: center;
+}
+
+#espacio-arriba {
+
+  width: 100%;
+  padding: 150px;
+  background-color: #f8f8f8;
+  text-align: center;
+}
+
 
 h1, h2, h3 {
   color: #4b4b4b; 
@@ -11,7 +27,7 @@ h1, h2, h3 {
 }
 
 a {
-  color: #8c4bff; 
+  color: #B19CD9; 
   text-decoration: none;
 }
 
@@ -45,7 +61,8 @@ div a {
 img {
   display: block;
   margin: 0 auto;
-  width: 50%
+  width: 370px;
+  height: 380px;
 }
 body {
   display: flex;
@@ -58,8 +75,8 @@ body {
 .botones-inferiores {
   position: fixed;
   bottom: 0;
-  padding: 10px;
-  background-color: #f2f2f2;
+  padding: 5px;
+  background-color: #f8f8f8;
   text-align: center;
 }
 
@@ -75,4 +92,42 @@ body {
 
 .botones-inferiores button:hover {
   background-color: #B19CD9
+}
+form {
+  position: center;
+  top: 0;
+  left: 0;
+  right: 0;
+  background-color: #f8f8f8;
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+form input[type="text"] {
+  display: block;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 5px;
+  border: none;
+  font-size: 16px;
+  margin-right: 10px;
+  width: 200px;
+}
+
+form button[type="submit"] {
+  display: block;
+  margin: 10px 0;
+  padding: 10px 20px;
+  border-radius: 5px;
+  background-color: #B19CD9;
+  color: white;
+  font-size: 16px;
+  cursor: pointer;
+  border: none;
+}
+
+form button[type="submit"]:hover {
+  background-color: #8c68b7;
 }
