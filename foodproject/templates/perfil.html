@@ -1,13 +1,12 @@
 {% extends 'base.html' %}
 
 {% load static %}
-<!DOCTYPE html>
+{% block content %}
 <head>
   <link rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
 </head>
-{% block content %}
 <body>
   <div class="container">
     <div class="img" style="    background-color: #D3DEDC;
@@ -216,5 +215,4 @@
     $('[data-toggle="tooltip"]').tooltip();
   });
 </script>
-</html>
 {% endblock %}
