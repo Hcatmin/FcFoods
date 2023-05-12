@@ -1,3 +1,7 @@
+{% block content %}
+
+{% load crispy_forms_tags %}
+
 <!doctype html>
 <html lang="en">
 
@@ -18,7 +22,9 @@
   <div class="container-sm my-5">
     <div class="col-12 col-md-8 col-lg-6 col-xl-5 text-center mx-auto rounded-5 px-2 py-4 shadow-lg login-box ">
       <h2 class="mt-4">Bienvenido</h2>
-      <form>
+      <form method="POST">
+        {% csrf_token %}
+        {{ login_form|crispy }}
         <div class="mb-3 mx-4 mx-sm-5 my-5 text-start">
           <label for="" class="form-label">Correo electrónico</label>
           <input type="email" class="form-control bg-transparent text-white" name="" id="" aria-describedby="emailHelpId" placeholder="abc@mail.com">
@@ -28,7 +34,7 @@
           <input type="password" class="form-control bg-transparent text-white" name="" id="" placeholder=" ">
         </div>
         <p class="small mb-5 pb-lg-2"><a class="" href="#!">Forgot password?</a></p>
-        <p class=""><button type="button" class="btn shadow-sm">Iniciar sesión</button></p>
+        <p class=""><button type="submit" class="btn shadow-sm">Iniciar sesión</button></p>
       </form>
       <p class="register">¿No estas registrado? <a href="#">Crear cuenta</a></p>
     </div>
@@ -44,3 +50,5 @@
 </body>
 
 </html>
+
+{% endblock %}
