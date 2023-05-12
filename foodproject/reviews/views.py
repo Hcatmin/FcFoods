@@ -2,10 +2,13 @@
 from django.http import HttpResponse
 from django.template import Template, Context
 from django.template.loader import get_template
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from reviews.models import User
 from django.http import HttpResponseRedirect
-
+from django.contrib.auth.forms import AuthenticationForm
+from reviews.forms import NewUserForm
+from django.contrib.auth import login, authenticate #add this
+from django.contrib import messages #add this
 
 def home(request): 
     advices = get_template("home.html")
@@ -41,5 +44,21 @@ def register_user(request):
      #Redireccionar la página /tareas
         return HttpResponseRedirect('/home')
     
-    
-    
+def login_request(request):
+    if request.method == "POST":
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('mail')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                messages.info(request, f"You are now logged in as {username}.")
+                print("gola")
+                return redirect("home")
+            else:
+                messages.error(request,"Invalid username or password.")
+        else:
+            messages.error(request,"Invalid username or password.")
+    form = AuthenticationForm()
+    return render(request=request, template_name="registration/login.html", context={"login_form":form})
