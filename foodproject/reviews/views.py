@@ -41,3 +41,5 @@ def register_user(request):
      #Redireccionar la página /tareas
         return HttpResponseRedirect('/home')
     
+    
+    
