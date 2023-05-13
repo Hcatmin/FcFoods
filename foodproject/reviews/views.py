@@ -9,6 +9,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from reviews.forms import NewUserForm
 from django.contrib.auth import login, authenticate #add this
 from django.contrib import messages #add this
+from reviews.models import Evaluacion
+from django.views.generic.list import ListView
 
 def home(request): 
     advices = get_template("home.html")
@@ -62,3 +64,11 @@ def login_request(request):
             messages.error(request,"Invalid username or password.")
     form = AuthenticationForm()
     return render(request=request, template_name="registration/login.html", context={"login_form":form})
+
+
+def lista_de_reviews(request):
+
+    reviews = Evaluacion.objects.all()  # quering all todos with the object manager
+
+    if request.method == "GET":
+        return render(request, "lista_de_reviews.html", {"reviews_list": reviews})

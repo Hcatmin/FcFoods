@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+<div class="mx-4">
+  <h1 class="my-4">Lista de reseñas</h1>
+  <ul>
+    <!-- Iterate over reviews -->
+    {% for review in reviews_list %}
+      <div>
+        <div class="d-flex flex-row mb-3">
+          <div class="p-2">Foto</div>
+          <div class="p-2">review.usuario</div>
+        </div>
+        <li>Puesto de comida: {{ review.local_comida }}</li>
+        <li>Calificación: {{ review.calificacion }}</li>
+        <li>Comentario: {{ review.comentario }}</li>
+      </div>
+      <hr/>
+      <!-- If object_list is empty  -->
+      {% empty %}
+      <li>No reviews yet.</li>
+    {% endfor %}
+  </ul>
+</div>
+{% endblock %}
