@@ -9,6 +9,8 @@ from django.contrib.auth.forms import AuthenticationForm
 from reviews.forms import NewUserForm
 from django.contrib.auth import login, authenticate #add this
 from django.contrib import messages #add this
+from reviews.models import Puesto_de_comida
+from django.views.generic.list import ListView
 
 def home(request): 
     advices = get_template("home.html")
@@ -62,3 +64,8 @@ def login_request(request):
             messages.error(request,"Invalid username or password.")
     form = AuthenticationForm()
     return render(request=request, template_name="registration/login.html", context={"login_form":form})
+
+
+class lista_de_puestos(ListView):
+    # specify the model for list view
+    model = Puesto_de_comida
