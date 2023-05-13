@@ -26,5 +26,5 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('mapa/', include ('mapa.urls')),
     path('login/', login_request, name="login"),
-    path('listaPuestos/', lista_de_reviews),
+    path('reviews/', lista_de_reviews),
 ]
