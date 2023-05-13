@@ -15,18 +15,18 @@
 
 <body>
   <ul>
-      <!-- Iterate over object_list -->
-      {% for object in object_list %}
+    <!-- Iterate over reviews -->
+    {% for review in reviews_list %}
       <!-- Display Objects -->
-      <li>{{ object.title }}</li>
-      <li>{{ object.description }}</li>
-  
+      <li>{{ review.nombre }}</li>
+      <li>{{ review.duseño }}</li>
+    
       <hr/>
       <!-- If object_list is empty  -->
       {% empty %}
-      <li>No objects yet.</li>
-      {% endfor %}
-  </ul>
+      <li>No reviews yet.</li>
+    {% endfor %}
+</ul>
   <!-- Bootstrap JavaScript Libraries -->
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
     integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous">
