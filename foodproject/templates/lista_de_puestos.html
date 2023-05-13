@@ -18,8 +18,10 @@
     <!-- Iterate over reviews -->
     {% for review in reviews_list %}
       <!-- Display Objects -->
-      <li>{{ review.nombre }}</li>
-      <li>{{ review.duseño }}</li>
+      <li>{{ review.usuario }}</li>
+      <li>{{ review.local_comida }}</li>
+      <li>{{ review.comentario }}</li>
+      <li>{{ review.calificacion }}</li>
     
       <hr/>
       <!-- If object_list is empty  -->
