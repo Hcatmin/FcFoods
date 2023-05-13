@@ -71,4 +71,4 @@ def lista_de_reviews(request):
     reviews = Evaluacion.objects.all()  # quering all todos with the object manager
 
     if request.method == "GET":
-        return render(request, "lista_de_puestos.html", {"reviews_list": reviews})
+        return render(request, "lista_de_reviews.html", {"reviews_list": reviews})
