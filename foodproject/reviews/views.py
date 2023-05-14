@@ -85,4 +85,4 @@ def Crear_reseña(request):
                 Evaluacion.objects.create(**cleaned_data,owner=request.user)
             else:
                 Evaluacion.objects.create(**cleaned_data)
-        return render(request, "todoapp/index.html", {"form_tarea": form_crear_reseña})
+        return render(request, "crear_reseña.html", {"form_tarea": form_crear_reseña})
