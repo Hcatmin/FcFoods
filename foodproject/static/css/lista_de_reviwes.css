@@ -1,0 +1,10 @@
+img {
+    max-width: 20%;
+    border: 2px solid rgb(75, 104, 125);
+  }
+figcaption {
+    display: block;
+    margin-top: 10px;
+    font-size: 1.7rem;
+  }
+  
