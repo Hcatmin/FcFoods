@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from reviews.models import User
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
-from reviews.forms import NewUserForm
+from reviews.forms import NewUserForm, CrearReseñaForm
 from django.contrib.auth import login, authenticate #add this
 from django.contrib import messages #add this
 from reviews.models import Evaluacion
@@ -71,3 +71,18 @@ def lista_de_reviews(request):
 
     if request.method == "GET":
         return render(request, "lista_de_reviews.html", {"reviews_list": reviews})
+    
+
+def Crear_reseña(request):
+    if request.method == "GET":
+        form_crear_reseña = CrearReseñaForm()
+        return render(request, "crear_reseña.html", {"form_tarea": form_crear_reseña})
+    if request.method == "POST":
+        form_crear_reseña = CrearReseñaForm(request.POST)
+        if form_crear_reseña.is_valid():
+            cleaned_data = form_crear_reseña.cleaned_data
+            if request.user.is_authenticated:
+                Evaluacion.objects.create(**cleaned_data,owner=request.user)
+            else:
+                Evaluacion.objects.create(**cleaned_data)
+        return render(request, "todoapp/index.html", {"form_tarea": form_crear_reseña})
