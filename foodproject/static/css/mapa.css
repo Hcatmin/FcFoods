@@ -15,7 +15,7 @@ body {
 #espacio-arriba {
 
   width: 100%;
-  padding: 150px;
+  padding: 1px;
   background-color: #f8f8f8;
   text-align: center;
 }
@@ -72,27 +72,6 @@ body {
   height: 100vh; 
 }
 
-.botones-inferiores {
-  position: fixed;
-  bottom: 0;
-  padding: 5px;
-  background-color: #f8f8f8;
-  text-align: center;
-}
-
-.botones-inferiores button {
-  margin: 0 10px;
-  padding: 10px 20px;
-  border-radius: 5px;
-  background-color: #B19CD9;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.botones-inferiores button:hover {
-  background-color: #B19CD9
-}
 form {
   position: center;
   top: 0;
