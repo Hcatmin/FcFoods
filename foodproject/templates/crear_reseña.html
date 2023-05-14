@@ -27,6 +27,7 @@
     <div class="modal-dialog modal-dialog-centered">
       <div class="modal-content">
         <form action="" method="post">
+          {% csrf_token %}
             <div class="card-body">
                 {{ form_tarea.as_p }}
                 <button class="btn btn-primary" name="taskAdd" type="submit">Crear reseña</button>
