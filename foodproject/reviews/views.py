@@ -6,7 +6,7 @@ from django.shortcuts import render, redirect
 from reviews.models import User
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
-from reviews.forms import NewUserForm
+from reviews.forms import NewUserForm, CrearReseñaForm
 from django.contrib.auth import login, authenticate #add this
 from django.contrib import messages #add this
 from reviews.models import Evaluacion
@@ -50,18 +50,17 @@ def login_request(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('mail')
+            username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"You are now logged in as {username}.")
-                print("gola")
+                messages.info(request, f"Te has logueado como {username}.")
                 return redirect("home")
             else:
-                messages.error(request,"Invalid username or password.")
+                messages.error(request,"Usuario o contraseña inválidos.")
         else:
-            messages.error(request,"Invalid username or password.")
+            messages.error(request,"Usuario o contraseña inválidos")
     form = AuthenticationForm()
     return render(request=request, template_name="registration/login.html", context={"login_form":form})
 
@@ -72,3 +71,15 @@ def lista_de_reviews(request):
 
     if request.method == "GET":
         return render(request, "lista_de_reviews.html", {"reviews_list": reviews})
+    
+
+def Crear_reseña(request):
+    if request.method == "GET":
+        form_crear_reseña = CrearReseñaForm()
+        return render(request, "crear_reseña.html", {"form_tarea": form_crear_reseña})
+    if request.method == "POST":
+        form_crear_reseña = CrearReseñaForm(request.POST)
+        if form_crear_reseña.is_valid():
+            cleaned_data = form_crear_reseña.cleaned_data
+            Evaluacion.objects.create(**cleaned_data)
+        return render(request, "crear_reseña.html", {"form_tarea": form_crear_reseña})
