@@ -1,5 +1,5 @@
 body {
-  background-color: #D3DEDC;
+  background-color: #FFEFEF;
   color: #28384d;
 
 }
@@ -66,7 +66,7 @@ body {
   height: 150px;
   border-radius: 50%;
   margin-bottom: 20px;
-  border: 5px solid #D3DEDC;
+  border: 5px solid #FFEFEF;
   /*border: 10px solid #70b5e6ee;*/
 }
 
@@ -378,13 +378,13 @@ ul.friend-list .right p {
 }
  
 .see-more:hover {
-  background-color: #D3DEDC;
+  background-color: #FFEFEF;
   color: darkblue;
-  border-color: #D3DEDC;
+  border-color: #FFEFEF;
 
   
 }
 
 .hello {
-  background-color: #FFEFEF;
+  background-color: #D3DEDC;
 }

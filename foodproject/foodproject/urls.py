@@ -20,7 +20,7 @@ from reviews.views import home, perfil, register_user, login_request, lista_de_r
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('home/', home),
+    path('home/', home, name="home"),
     path('profile/', perfil),
     path('register', register_user, name='register_user'),
     path('accounts/', include('django.contrib.auth.urls')),

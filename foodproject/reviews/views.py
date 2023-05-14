@@ -50,18 +50,17 @@ def login_request(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
-            username = form.cleaned_data.get('mail')
+            username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"You are now logged in as {username}.")
-                print("gola")
+                messages.info(request, f"Te has logueado como {username}.")
                 return redirect("home")
             else:
-                messages.error(request,"Invalid username or password.")
+                messages.error(request,"Usuario o contraseña inválidos.")
         else:
-            messages.error(request,"Invalid username or password.")
+            messages.error(request,"Usuario o contraseña inválidos")
     form = AuthenticationForm()
     return render(request=request, template_name="registration/login.html", context={"login_form":form})
 
