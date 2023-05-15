@@ -81,5 +81,5 @@ def Crear_reseña(request):
         form_crear_reseña = CrearReseñaForm(request.POST)
         if form_crear_reseña.is_valid():
             cleaned_data = form_crear_reseña.cleaned_data
-            Evaluacion.objects.create(**cleaned_data)
+            Evaluacion.objects.create(**cleaned_data, usuario=request.user)
         return render(request, "crear_reseña.html", {"form_tarea": form_crear_reseña})
