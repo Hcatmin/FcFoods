@@ -69,9 +69,15 @@ def login_request(request):
 def lista_de_reviews(request):
 
     reviews = Evaluacion.objects.all()  # quering all todos with the object manager
-
     if request.method == "GET":
-        return render(request, "lista_de_reviews.html", {"reviews_list": reviews})
+        form_crear_reseña = CrearReseñaForm()
+        return render(request, "lista_de_reviews.html", {"form_tarea": form_crear_reseña, "reviews_list": reviews})
+    if request.method == "POST":
+        form_crear_reseña = CrearReseñaForm(request.POST)
+        if form_crear_reseña.is_valid():
+            cleaned_data = form_crear_reseña.cleaned_data
+            Evaluacion.objects.create(**cleaned_data, usuario=request.user)
+        return render(request, "crear_reseña.html", {"form_tarea": form_crear_reseña, "reviews_list": reviews})
 
 
 # TODO: Add this demo to mapa.html
