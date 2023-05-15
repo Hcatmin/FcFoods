@@ -4,6 +4,7 @@ from django.template import Template, Context
 from django.template.loader import get_template
 from django.shortcuts import render, redirect
 from reviews.models import User
+from reviews.models import Puesto_de_comida
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
 from reviews.forms import NewUserForm
@@ -72,3 +73,25 @@ def lista_de_reviews(request):
 
     if request.method == "GET":
         return render(request, "lista_de_reviews.html", {"reviews_list": reviews})
+
+
+# TODO: Add this demo to mapa.html
+def stores(request): 
+    advices = get_template("stores.html")
+    queryset = Puesto_de_comida.objects.all()
+    context = {"list": queryset}
+    ad_response = advices.render(context)
+
+    return HttpResponse(ad_response)
+
+def search_store(request):
+    queryset = Puesto_de_comida.objects.all() # TODO: Se esta haciendo de nuevo la misma query
+    if request.GET["local"]:
+        puesto = request.GET["local"]
+
+        local = Puesto_de_comida.objects.get(id=puesto)
+        return render(request, "show_store.html", {"local": local, "list": queryset})
+    else:
+        message = "Debes seleccionar un campo"
+        return HttpResponse(message)
+

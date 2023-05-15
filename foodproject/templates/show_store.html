@@ -1,0 +1,42 @@
+{% extends 'stores.html' %}
+
+{% block content2 %}
+{% if local %}
+
+<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{local.nombre}}</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
+        <dl class="row">
+            <img src="..." class="img-fluid" alt="">
+            <dt class="col-sm-3">Dueño</dt>
+            <dd class="col-sm-9">{{local.dueño}}</dd>
+
+
+            <dt class="col-sm-3">Descripción </dt>
+            <dd class="col-sm-9 text-truncate">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime tenetur
+                voluptates
+                vitae aspernatur nesciunt magni consequatur. Saepe velit eum cupiditate, odio molestiae vitae! Maxime
+                omnis animi nobis mollitia ipsa quaerat.</dd>
+            <div class="dropdown mt-3">
+                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+                    Dropdown button
+                </button>
+                <ul class="dropdown-menu">
+                    <li><a class="dropdown-item" href="#">Action</a></li>
+                    <li><a class="dropdown-item" href="#">Another action</a></li>
+                    <li><a class="dropdown-item" href="#">Something else here</a></li>
+                </ul>
+            </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById("offcanvasExample").classList.add('show');
+</script>
+{% else %}
+
+{% endif %}
+{% endblock %}
