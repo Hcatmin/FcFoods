@@ -5,7 +5,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Bootstrap demo</title>
+  <title>Food Project</title>
 
   <!-- Owl Carousel 2 CSS -->
   <link rel="stylesheet" href="{% static 'owlcarousel/owl.carousel.min.css' %}">
@@ -21,7 +21,7 @@
   <header>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark " aria-label="Ninth navbar example">
       <div class="container-xl">
-        <a class="navbar-brand" href="#">Container XL</a>
+        <a class="navbar-brand">Grupo 15</a>
 
         <form role="search">
           <input class="form-control" type="search" placeholder="Search" aria-label="Search">
@@ -30,28 +30,22 @@
         <div class="navbar-collapse" id="nav-pc" hidden>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
-              <a class="nav-link active" aria-current="page" href="#">
+              <a class="nav-link active" aria-current="page" href="{% url 'home' %}">
                 <i class="bi bi-house"></i>
                 Home
               </a>
 
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-
+              <a class="nav-link active" aria-current="page" href="{% url 'mapa' %}">
                 <i class="bi bi-geo-alt"></i>
-                Link
+                Mapa
               </a>
             </li>
             <li class="nav-item">
-              <a class="nav-link" href="#">
-
-                <i class="bi bi-geo-alt"></i>
-                Link
+              <a class="nav-link inactive" aria-current="page" href="{% url 'test' %}">
+                Test
               </a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link disabled">Disabled</a>
             </li>
           </ul>
 
@@ -67,15 +61,20 @@
               <hr class="d-lg-none my-2 text-white-50">
             </li>
 
-            <li class="nav-item dropdown  py-2 py-lg-1 col-4 col-lg-auto">
+            <li class="nav-item dropdown dropstart py-2 py-lg-1 col-4 col-lg-auto">
               <a class="nav-link dropdown-toggle fs-4" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-person-circle"></i>
               </a>
-              <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#">Action</a></li>
-                <li><a class="dropdown-item" href="#">Another action</a></li>
-                <li><a class="dropdown-item" href="#">Something else here</a></li>
-              </ul>
+              <!-- Dropup menu for profile -->
+              <div class="dropdown-menu" aria-labelledby="dropdownMenuProfile">
+                <a class="dropdown-item" href="{% url 'profile' %}">Your Profile</a>
+                <a class="dropdown-item" href="#">Your favourites</a>
+                <a class="dropdown-item" href="#">Your </a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Settings</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" href="#">Exit</a>
+              </div>
             </li>
           </ul>
 
@@ -87,29 +86,22 @@
     <nav class="navbar navbar-dark navbar-expand fixed-bottom py-0" id="nav-mobile" hidden>
       <ul class="navbar-nav nav-justified w-100">
         <li class="nav-item">
-          <a href="#" class="nav-link text-center fs-3">
+          <a href="{% url 'home' %}" class="nav-link text-center fs-3">
             <i class="bi bi-house"></i>
             <span class="small d-block">Home</span>
           </a>
         </li>
         <li class="nav-item">
-          <a href="#" class="nav-link text-center fs-3">
+          <a href="{% url 'mapa' %}" class="nav-link text-center fs-3">
             <i class="bi bi-geo-alt"></i>
-            <span class="small d-block">Search</span>
+            <span class="small d-block">Mapa</span>
           </a>
         </li>
         <li class="nav-item dropup">
-          <a href="#" class="nav-link text-center fs-3">
+          <a href="{% url 'profile' %}" class="nav-link text-center fs-3">
             <i class="bi bi-person-circle"></i>
-            <span class="small d-block">Profile</span>
+            <span class="small d-block">Perfil</span>
           </a>
-          <!-- Dropup menu for profile -->
-          <div class="dropdown-menu" aria-labelledby="dropdownMenuProfile">
-            <a class="dropdown-item" href="#">Edit Profile</a>
-            <a class="dropdown-item" href="#">Notification</a>
-            <div class="dropdown-divider"></div>
-            <a class="dropdown-item" href="#">Logout</a>
-          </div>
         </li>
       </ul>
     </nav>
