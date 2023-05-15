@@ -9,13 +9,13 @@ body {
   width: 100%;
   padding: 50px;
   background-color: #f8f8f8;
-  text-align: center;
+ 
 }
 
 #espacio-arriba {
 
   width: 100%;
-  padding: 1px;
+  padding: 15px;
   background-color: #f8f8f8;
   text-align: center;
 }
@@ -31,9 +31,7 @@ a {
   text-decoration: none;
 }
 
-a:hover {
-  text-decoration: underline;
-}
+
 
 p {
   color: #4b4b4b; 
@@ -48,9 +46,6 @@ button {
   padding: 8px 16px;
 }
 
-button:hover {
-  background-color: #7238b5; 
-}
 
 div a {
   display: block;
@@ -67,7 +62,6 @@ img {
 body {
   display: flex;
   flex-direction: column;
-  justify-content: center; 
   align-items: center; 
   height: 100vh; 
 }
