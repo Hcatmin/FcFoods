@@ -18,18 +18,20 @@
 <body>
   <main>
     <div class="bottom-0 position-sticky">
-      <div class="container-fluid d-flex justify-content-between align-items-center p-3" style="background-color: #7C99AC;">
-        <h3>¡Deseas contribuir?</h3>
+      <div class="container-fluid d-flex justify-content-between align-items-center p-2" style="background-color: #7C99AC;">
+        <h3 class="mx-3">¿Deseas contribuir?</h3>
         <!-- Button trigger modal -->
         {% if user.is_authenticated %}
           <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#createResena">
             Crear reseña
           </button>
         {% else %}
-          <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#createResena" disabled>
-            Crear reseña
-          </button>
-          <p class="fs-6 text-warning">Necesitas iniciar sesión para crear una reseña.</p>
+          <div class="text-center mx-5 d-block align-self-center">
+            <button type="button" class="btn btn-primary my-auto" data-bs-toggle="modal" data-bs-target="#createResena" disabled>
+              Crear reseña
+            </button>
+            <p class="fs-6 text-danger fw-bold my-auto">Necesitas iniciar sesión para crear una reseña.</p>
+          </div>
         {% endif %}
       </div>
     </div>
