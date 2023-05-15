@@ -10,11 +10,11 @@
   <title>Mapa</title>
   <link rel="stylesheet" href= "{% static 'css/lista_de_reviwes.css' %}">
 </head>
-<main class="mx-4">
+<main class="">
   <header>
-    <h1 class="my-4">Lista de reseñas</h1>
+    <h1 class="mx-4 my-4">Lista de reseñas</h1>
   </header>
-  <section>
+  <section class="mx-4">
     <ul>
       {% for review in reviews_list %}
       <article>
@@ -38,6 +38,37 @@
       {% endfor %}
     </ul>
   </section>
+  <div class="bottom-0 position-sticky mx-0">
+    <div class="container-fluid d-flex justify-content-between align-items-center p-3" style="background-color: #7C99AC;">
+      <h3>¿Deseas contribuir?</h3>
+      <!-- Button trigger modal -->
+      {% if user.is_authenticated %}
+        <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#createResena">
+          Crear reseña
+        </button>
+      {% else %}
+        <button type="button" class="btn btn-primary m-3" data-bs-toggle="modal" data-bs-target="#createResena" disabled>
+          Crear reseña
+        </button>
+        <p class="fs-6 text-warning">Necesitas iniciar sesión para crear una reseña.</p>
+      {% endif %}
+    </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade" id="createResena">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content p-4">
+        <h1 class="modal-title fs-3 mb-4">Crear una reseña</h1>
+        <form action="" method="post">
+          {% csrf_token %}
+            <div class="card-body">
+                {{ form_tarea.as_p }}
+                <button class="btn btn-primary" name="taskAdd" type="submit">Crear reseña</button>
+            </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </main>
 
 {% endblock %}
