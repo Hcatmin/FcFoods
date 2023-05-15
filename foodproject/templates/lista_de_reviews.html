@@ -3,26 +3,41 @@
 {% load static %}
 
 {% block content %}
-
-<div class="mx-4">
-  <h1 class="my-4">Lista de reseñas</h1>
-  <ul>
-    <!-- Iterate over reviews -->
-    {% for review in reviews_list %}
-      <div>
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mapa</title>
+  <link rel="stylesheet" href= "{% static 'css/lista_de_reviwes.css' %}">
+</head>
+<main class="mx-4">
+  <header>
+    <h1 class="my-4">Lista de reseñas</h1>
+  </header>
+  <section>
+    <ul>
+      {% for review in reviews_list %}
+      <article>
         <div class="d-flex flex-row mb-3">
-          <div class="p-2">Foto</div>
-          <div class="p-2">review.usuario</div>
+          <div class="img">
+            <img src="{% static 'img/perfilsf.png' %}" alt="Foto de {{ review.usuario }}">
+            <figcaption class="d-2">{{ review.usuario }}</figcaption> 
+          </div>
         </div>
-        <li>Puesto de comida: {{ review.local_comida }}</li>
-        <li>Calificación: {{ review.calificacion }}</li>
-        <li>Comentario: {{ review.comentario }}</li>
-      </div>
-      <hr/>
-      <!-- If object_list is empty  -->
+        <ul>
+          <li>Puesto de comida: {{ review.local_comida }}</li>
+          <li>Calificación de comida: {{ review.calificacion_comida }}</li>
+          <li>Calificación de precio: {{ review.calificacion_precio }}</li>
+          <li>Calificación de presentación: {{ review.calificacion_presentacion }}</li>
+          <li>Comentario: {{ review.comentario }}</li>
+        </ul>
+      </article>
+      <hr>
       {% empty %}
-      <li>No reviews yet.</li>
-    {% endfor %}
-  </ul>
-</div>
+      <li>No hay reseñas todavía.</li>
+      {% endfor %}
+    </ul>
+  </section>
+</main>
+
 {% endblock %}

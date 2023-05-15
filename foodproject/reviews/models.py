@@ -22,7 +22,9 @@ class Evaluacion(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     local_comida = models.ForeignKey(Puesto_de_comida, related_name='evaluaciones', on_delete=models.CASCADE)
     comentario = models.TextField()
-    calificacion = models.IntegerField()
+    calificacion_comida = models.IntegerField()
+    calificacion_precio = models.IntegerField()
+    calificacion_presentacion = models.IntegerField()
 
     def __str__(self):
         return "f'{self.usuario.username} evaluo {self.local_comida.comida.nombre}'"
