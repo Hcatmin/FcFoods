@@ -1,5 +1,8 @@
 {% extends 'stores.html' %}
 
+{% load static %}
+
+
 {% block content2 %}
 {% if local %}
 
@@ -10,7 +13,10 @@
     </div>
     <div class="offcanvas-body">
         <dl class="row">
-            <img src="..." class="img-fluid" alt="">
+
+            {% if local.FotoLocal%}
+            <img src="{{ local.FotoLocal.url }}" class="img-fluid" alt="">
+            {% endif %}
             <dt class="col-sm-3">Dueño</dt>
             <dd class="col-sm-9">{{local.dueño}}</dd>
 
@@ -36,6 +42,7 @@
 <script>
     document.getElementById("offcanvasExample").classList.add('show');
 </script>
+
 {% else %}
 
 {% endif %}
