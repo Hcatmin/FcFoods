@@ -78,7 +78,7 @@ def lista_de_reviews(request):
         if form_crear_reseña.is_valid():
             cleaned_data = form_crear_reseña.cleaned_data
             Evaluacion.objects.create(**cleaned_data, usuario=request.user)
-        return render(request, "crear_reseña.html", {"form_tarea": form_crear_reseña, "reviews_list": reviews})
+        return render(request, "lista_de_reviews.html", {"form_tarea": form_crear_reseña, "reviews_list": reviews})
 
 # Vista que permite mostrar la página dedicada a buscar y mostrar información de las tiendas
 # Cuando se intenta acceder a stores/ se ejecuta esta vista
