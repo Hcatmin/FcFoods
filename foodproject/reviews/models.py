@@ -5,10 +5,13 @@ from django.db import models
 
 from django.contrib.auth.models import AbstractUser
 
+# Modelo que representa a los usuarios
+# Posee de atributos: username, mail, pronombre, y contraseña
 class User(AbstractUser):
   apodo = models.CharField(max_length=30, default='user1')
 
-#modelo de Mapa de comida
+# Modelo que representa los puestos de comida que se instalan fuera de 850
+# Posee de atributos: el nombre, el dueño, y la foto del local
 class Puesto_de_comida(models.Model):
     nombre = models.CharField(max_length=200)
     dueño = models.CharField(max_length=200)
@@ -17,7 +20,9 @@ class Puesto_de_comida(models.Model):
     def __str__(self):
         return self.nombre
 
-#modelo de Evaluaciones
+# Modelo que representa las reseñas de los puestos de comida
+# Posee de atributos: el usuario que creo la reseña, el puesto de comida, un comentario, y 
+#                     calficaciones de la comida, el precio, y la presentación.
 class Evaluacion(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     local_comida = models.ForeignKey(Puesto_de_comida, related_name='evaluaciones', on_delete=models.CASCADE)
