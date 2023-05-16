@@ -8,7 +8,8 @@ from django.contrib.auth.models import AbstractUser
 # Modelo que representa a los usuarios
 # Posee de atributos: username, mail, pronombre, y contraseña
 class User(AbstractUser):
-  apodo = models.CharField(max_length=30, default='user1')
+  pronombres = [('La','La'),('El','El'), ('Le','Le'),('Otro','Otro')]
+  pronombre = models.CharField(max_length=5,choices=pronombres)
 
 # Modelo que representa los puestos de comida que se instalan fuera de 850
 # Posee de atributos: el nombre, el dueño, y la foto del local
