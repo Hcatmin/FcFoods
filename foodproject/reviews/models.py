@@ -35,7 +35,12 @@ class Evaluacion(models.Model):
     def __str__(self):
         return "f'{self.usuario.username} evaluo {self.local_comida.comida.nombre}'"
 
+
 #Modelo que representa la calificación que se le da a una reseña    
+#Atributos : la evaluación que está siendo calificada y comentada
+#            el usuario calificante, que es quien califica la reseña
+#            la calificación otorgada a la reseña
+#            comentario opcional a la reseña
 class Calificacion(models.Model):
     evaluacion = models.ForeignKey(Evaluacion, related_name='calificaciones', on_delete=models.CASCADE)
     calificante = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -43,4 +48,4 @@ class Calificacion(models.Model):
     comentario = models.TextField(blank=True)
 
     def __str__(self):
-      return f"{self.calificante.username} calificó la evaluación de {self.evaluacion.usuario.username}"
+      return "f'{self.calificante.username} calificó la evaluación de {self.evaluacion.usuario.username}'"
