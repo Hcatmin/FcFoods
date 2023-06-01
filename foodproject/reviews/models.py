@@ -24,6 +24,7 @@ class Puesto_de_comida(models.Model):
 # Modelo que representa las reseñas de los puestos de comida
 # Posee de atributos: el usuario que creo la reseña, el puesto de comida, un comentario, y 
 #                     calficaciones de la comida, el precio, y la presentación.
+#                     también incluye las evaluaciones positivas y negativas dadas a la reseña
 class Evaluacion(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     local_comida = models.ForeignKey(Puesto_de_comida, related_name='evaluaciones', on_delete=models.CASCADE)
@@ -52,11 +53,10 @@ class Evaluacion(models.Model):
         self.dislikes -= 1
         self.save()
 
-#Modelo que representa la calificación que se le da a una reseña    
-#Atributos : la evaluación que está siendo calificada y comentada
-#            el usuario calificante, que es quien califica la reseña
-#            la calificación otorgada a la reseña
-#            comentario opcional a la reseña
+#Modelo que representa el comentario que se le da a una reseña    
+#Atributos : la evaluación que está comentada
+#            el usuario calificante, que es quien califica la reseña     
+#            comentario a la reseña
 class Comentario(models.Model):
     evaluacion = models.ForeignKey(Evaluacion, related_name='calificaciones', on_delete=models.CASCADE)
     comentarista = models.ForeignKey(User, on_delete=models.CASCADE)
