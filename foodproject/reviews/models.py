@@ -34,7 +34,13 @@ class Evaluacion(models.Model):
 
     def __str__(self):
         return "f'{self.usuario.username} evaluo {self.local_comida.comida.nombre}'"
-    
 
- 
-    
+#Modelo que representa la calificación que se le da a una reseña    
+class Calificacion(models.Model):
+    evaluacion = models.ForeignKey(Evaluacion, related_name='calificaciones', on_delete=models.CASCADE)
+    calificante = models.ForeignKey(User, on_delete=models.CASCADE)
+    calificacion = models.IntegerField()
+    comentario = models.TextField(blank=True)
+
+    def __str__(self):
+      return f"{self.calificante.username} calificó la evaluación de {self.evaluacion.usuario.username}"
