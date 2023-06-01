@@ -31,10 +31,26 @@ class Evaluacion(models.Model):
     calificacion_comida = models.IntegerField()
     calificacion_precio = models.IntegerField()
     calificacion_presentacion = models.IntegerField()
-
+    likes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default = 0)
     def __str__(self):
         return "f'{self.usuario.username} evaluo {self.local_comida.comida.nombre}'"
-
+    
+    def dar_like(self):
+        self.likes += 1
+        self.save()
+    
+    def quitar_like(self):
+        self.likes -= 1
+        self.save()
+    
+    def dar_dislike(self):
+        self.dislikes += 1
+        self.save()
+    
+    def quitar_dislike(self):
+        self.dislikes -= 1
+        self.save()
 
 #Modelo que representa la calificación que se le da a una reseña    
 #Atributos : la evaluación que está siendo calificada y comentada
