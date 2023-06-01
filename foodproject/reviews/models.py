@@ -41,11 +41,10 @@ class Evaluacion(models.Model):
 #            el usuario calificante, que es quien califica la reseña
 #            la calificación otorgada a la reseña
 #            comentario opcional a la reseña
-class Calificacion(models.Model):
+class Comentario(models.Model):
     evaluacion = models.ForeignKey(Evaluacion, related_name='calificaciones', on_delete=models.CASCADE)
-    calificante = models.ForeignKey(User, on_delete=models.CASCADE)
-    calificacion = models.IntegerField()
+    comentarista = models.ForeignKey(User, on_delete=models.CASCADE)
     comentario = models.TextField(blank=True)
 
     def __str__(self):
-      return "f'{self.calificante.username} calificó la evaluación de {self.evaluacion.usuario.username}'"
+      return "f'{self.comentarista.username} comentó la evaluación de {self.evaluacion.usuario.username}'"
