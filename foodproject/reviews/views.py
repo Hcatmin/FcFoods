@@ -97,9 +97,9 @@ def search_store(request):
     queryset = Puesto_de_comida.objects.all() # TODO: Se esta haciendo de nuevo la misma query
     if request.GET["local"]:
         puesto = request.GET["local"]
-
         local = Puesto_de_comida.objects.get(id=puesto)
-        return render(request, "show_store.html", {"local": local, "list": queryset})
+        reviews = Evaluacion.objects.filter(local_comida = local)
+        return render(request, "show_store.html", {"local": local, "list": queryset, "reviews_list": reviews})
     else:
         message = "Debes seleccionar un campo"
         return HttpResponse(message)
