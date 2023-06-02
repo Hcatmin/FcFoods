@@ -7,7 +7,7 @@ from reviews.models import User
 from reviews.models import Puesto_de_comida
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
-from reviews.forms import NewUserForm, CrearReseñaForm
+from reviews.forms import NewUserForm, CrearReseñaForm, SearchForm
 from django.contrib.auth import login, authenticate #add this
 from django.contrib import messages #add this
 from reviews.models import Evaluacion
@@ -128,3 +128,18 @@ def Crear_reseña(request):
             cleaned_data = form_crear_reseña.cleaned_data
             Evaluacion.objects.create(**cleaned_data, usuario=request.user)
         return render(request, "crear_reseña.html", {"form_tarea": form_crear_reseña})
+    
+
+def buscador(request):
+    if request.method == 'POST':
+        form_busqueda = SearchForm(request.POST)
+        resultados = ""
+        if form_busqueda.is_valid():
+            cleaned_data = form_busqueda.cleaned_data
+            resultados = Evaluacion.objects.filter(comentario__icontains=cleaned_data['busqueda'])  # Realiza la búsqueda en el campo deseado
+            return render(request, 'resultados.html', {'resultados': resultados})
+        else:
+            return render(request, 'buscar.html', {"form_busqueda": form_busqueda})
+    if request.method == "GET":
+        form_busqueda = SearchForm()
+        return render(request, "buscar.html", {"form_busqueda": form_busqueda})

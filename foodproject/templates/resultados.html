@@ -1,0 +1,18 @@
+{% for review in resultados %}
+<article>
+    <div class="d-flex flex-row mb-3">
+      <div class="img">
+        <figcaption class="d-2">{{ review.usuario }}</figcaption> 
+      </div>
+    </div>
+    <ul>
+      <li>Puesto de comida: {{ review.local_comida }}</li>
+      <li>Calificación de comida: {{ review.calificacion_comida }}</li>
+      <li>Calificación de precio: {{ review.calificacion_precio }}</li>
+      <li>Calificación de presentación: {{ review.calificacion_presentacion }}</li>
+      <li>Comentario: {{ review.comentario }}</li>
+    </ul>
+</article>
+{% empty %}
+    <p>No se encontraron resultados.</p>
+{% endfor %}

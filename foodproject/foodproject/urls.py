@@ -18,7 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from reviews.views import home, perfil, register_user, login_request, lista_de_reviews, Crear_reseña, stores, search_store
+from reviews.views import home, perfil, register_user, login_request, lista_de_reviews, \
+                          Crear_reseña, stores, search_store, buscador
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -32,4 +33,5 @@ urlpatterns = [
     path('crear_reseña', Crear_reseña),
     path('stores/', stores, name='test'),
     path('search_store/', search_store),
+    path('buscar/', buscador),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
