@@ -24,6 +24,7 @@ class Puesto_de_comida(models.Model):
 # Modelo que representa las reseñas de los puestos de comida
 # Posee de atributos: el usuario que creo la reseña, el puesto de comida, un comentario, y 
 #                     calficaciones de la comida, el precio, y la presentación.
+#                     también incluye las evaluaciones positivas y negativas dadas a la reseña
 class Evaluacion(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     local_comida = models.ForeignKey(Puesto_de_comida, related_name='evaluaciones', on_delete=models.CASCADE)
@@ -31,10 +32,35 @@ class Evaluacion(models.Model):
     calificacion_comida = models.IntegerField()
     calificacion_precio = models.IntegerField()
     calificacion_presentacion = models.IntegerField()
-
+    likes = models.IntegerField(default=0)
+    dislikes = models.IntegerField(default = 0)
     def __str__(self):
         return "f'{self.usuario.username} evaluo {self.local_comida.comida.nombre}'"
     
-
- 
+    def dar_like(self):
+        self.likes += 1
+        self.save()
     
+    def quitar_like(self):
+        self.likes -= 1
+        self.save()
+    
+    def dar_dislike(self):
+        self.dislikes += 1
+        self.save()
+    
+    def quitar_dislike(self):
+        self.dislikes -= 1
+        self.save()
+
+#Modelo que representa el comentario que se le da a una reseña    
+#Atributos : la evaluación que está comentada
+#            el usuario calificante, que es quien califica la reseña     
+#            comentario a la reseña
+class Comentario(models.Model):
+    evaluacion = models.ForeignKey(Evaluacion, related_name='calificaciones', on_delete=models.CASCADE)
+    comentarista = models.ForeignKey(User, on_delete=models.CASCADE)
+    comentario = models.TextField(blank=True)
+
+    def __str__(self):
+      return "f'{self.comentarista.username} comentó la evaluación de {self.evaluacion.usuario.username}'"
