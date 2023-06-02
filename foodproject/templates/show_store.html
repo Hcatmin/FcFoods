@@ -26,16 +26,33 @@
                 voluptates
                 vitae aspernatur nesciunt magni consequatur. Saepe velit eum cupiditate, odio molestiae vitae! Maxime
                 omnis animi nobis mollitia ipsa quaerat.</dd>
-            <div class="dropdown mt-3">
-                <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
-                    Dropdown button
-                </button>
-                <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Action</a></li>
-                    <li><a class="dropdown-item" href="#">Another action</a></li>
-                    <li><a class="dropdown-item" href="#">Something else here</a></li>
-                </ul>
-            </div>
+
+            <dt class="col-sm-3">Reseñas</dt>
+
+            <dd class="flex-row">
+                <section class="my-2">
+                    {% for review in reviews_list %}
+                        {% if review.local_comida == local %}
+                        <div class="d-flex flex-row mb-3">
+                            <div class="img">
+                                <img src="{% static 'img/perfilsf.png' %}" alt="Foto de {{ review.usuario }}" style="max-width: 20%;">
+                                <figcaption class="d-2">{{ review.usuario }}</figcaption> 
+                            </div>
+                        </div>
+                        <ul>
+                            <li>Puesto de comida: {{ review.local_comida }}</li>
+                            <li>Calificación de comida: {{ review.calificacion_comida }}</li>
+                            <li>Calificación de precio: {{ review.calificacion_precio }}</li>
+                            <li>Calificación de presentación: {{ review.calificacion_presentacion }}</li>
+                            {% if review.comentario != '' %}
+                                <li>Comentario: {{ review.comentario }}</li>
+                            {% endif %}
+                        </ul>
+                        <hr>
+                        {% endif %}
+                    {% endfor %}
+                </section>
+            </dd>
     </div>
 </div>
 
