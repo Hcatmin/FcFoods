@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from reviews.views import home, perfil, register_user, login_request, lista_de_reviews, \
-                          Crear_reseña, stores, search_store, buscador
+                          Crear_reseña, stores, search_store, buscador, grid_stores
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,7 +27,7 @@ urlpatterns = [
     path('profile/', perfil, name="profile"),
     path('register', register_user, name='register_user'),
     path('accounts/', include('django.contrib.auth.urls')),
-    path('mapa/', include ('mapa.urls'), name='mapa'),
+    path('mapa/', grid_stores, name='mapa'),
     path('login/', login_request, name="login"),
     path('reviews/', lista_de_reviews),
     path('crear_reseña', Crear_reseña),

@@ -3,56 +3,37 @@
 {% load static %}
 
 {% block content %}
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mapa</title>
-    <link rel="stylesheet" href= "{% static 'css/mapa.css' %}">
-</head>
-<body>
-  <div id="espacio-arriba"></div>
-  <div id="espacio-arriba"></div>
-    <h1>Mapa</h1>
-    <div>
-        <p>Mapa ilustrativo de los puestos de comida </p></div>
-        <img src="{% static 'img/Mapacomida.png' %}" usemap="#miMapa">
 
-        <map name="miMapa">
-          <area shape="rect" coords="45,105,70,130" href="#fajitascolaciones" title="Fajitas Colaciones">
-          <area shape="rect" coords="75,105,105,130" href="#tacos" title="Tacos">
-          <area shape="rect" coords="110,105,140,130" href="#empanadas" title="Empanadas">
-          <area shape="rect" coords="130,100,160,130" href="#sopaipillas" title="Sopaipillas">
-          <area shape="rect" coords="45,145,65,170" href="#asuquerico" title="Asuque Rico">
-          <area shape="rect" coords="70,145,85,170" href="#jorgeelcurioso" title="Jorge el curioso">
-          <area shape="rect" coords="90,145,105,170" href="#menucasero" title="Menú casero">
-          <area shape="rect" coords="110,145,125,170" href="#empanadasalhorno" title="Empanadas al horno">
-          <area shape="rect" coords="130,145,145,170" href="#tiazule" title="Tía Zule">
-          <area shape="rect" coords="150,145,170,170" href="#alfajores" title="Alfajores">
-          <area shape="rect" coords="85,50,100,75" href="#almuerzosjaponenes" title="Almuerzos Japoneses">
-          <area shape="rect" coords="140,55,150,95" href="#fajitas" title="Fajitas">
-        </map>
-    <div>
-        <h2>Lista de comercios</h2>
-        <a href="#">Fajitas colaciones</a>
-        <a href="#">Tacos</a>
-        <a href="#">Empanadas</a>
-        <a href="#">Sopaipillas</a>
-        <a href="#">Asuque Rico</a>
-        <a href="#">Jorge el curioso</a>
-        <a href="#">Menú Casero</a>
-        <a href="#">Empanadas al horno</a>
-        <a href="#">Tía Zule</a>
-        <a href="#">Alfajores</a>
-        <a href="#">Almuerzos Japoneses</a>
-        <a href="#">Fajitas</a>
+<div class="container my-4">
+  <h2>Lista de comercios</h2>
+  <div class="container text-center">
+    <div class="row row-cols-4">
+      {% for local in list %}
 
+
+      <div class="col">
+        <div class="card">
+          {% if local.FotoLocal%}
+          <img class="card-img-top" src="{{local.FotoLocal.url}}" alt="Card image cap">
+          {% endif %}
+          <div class="card-body">
+            <h4 class="card-title">{{local.nombre}}</h4>
+            <p class="card-text">{{local.dueño}}</p>
+            <a href="#" class="card-link">Card link</a>
+            <a href="#" class="card-link">Another link</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
     </div>
-    <div id="espacio-abajo"></div>
+  </div>
 
-     
-</body>
+
+
+</div>
+
+<script>
+    
+</script>
 
 {% endblock %}
-

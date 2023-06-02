@@ -91,6 +91,14 @@ def stores(request):
 
     return HttpResponse(ad_response)
 
+def grid_stores(request): 
+    advices = get_template("mapa.html")
+    queryset = Puesto_de_comida.objects.all()
+    context = {"list": queryset}
+    ad_response = advices.render(context)
+
+    return HttpResponse(ad_response)
+
 # Vista que permite mostrar la información de un puesto de comida
 # Cuando se presiona el botón "Mostrar puesto de comida", en la página stores/
 def search_store(request):
