@@ -96,10 +96,12 @@ def stores(request):
 def search_store(request):
     queryset = Puesto_de_comida.objects.all() # TODO: Se esta haciendo de nuevo la misma query
     if request.method == "POST":
+        puesto = request.GET["local"]
+        local = Puesto_de_comida.objects.get(id=puesto)
         form_crear_reseña = CrearReseñaForm(request.POST)
         if form_crear_reseña.is_valid():
             cleaned_data = form_crear_reseña.cleaned_data
-            Evaluacion.objects.create(**cleaned_data, usuario=request.user)
+            Evaluacion.objects.create(**cleaned_data, usuario=request.user, local_comida=local)
         return render(request, "stores.html", {"list": queryset})
     if request.GET["local"]:
         puesto = request.GET["local"]
