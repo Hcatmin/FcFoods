@@ -12,6 +12,7 @@ from django.contrib.auth import login, authenticate #add this
 from django.contrib import messages #add this
 from reviews.models import Evaluacion
 from django.views.generic.list import ListView
+from django.contrib.auth.decorators import login_required
 
 # Vista que permite mostrar la pagina principal (home) del sitio web
 # Cuando se intenta acceder a home/ se ejecuta esta vista
@@ -22,10 +23,10 @@ def home(request):
 
 # Vista que permite mostrar el perfil de un usuario
 # Cuando se intenta acceder a profile/ se ejecuta esta vista
+@login_required
 def perfil(request):
-    advices = get_template("perfil.html")
-    ad_response = advices.render()
-    return HttpResponse(ad_response)   
+    reviews_usuario = Evaluacion.objects.filter(usuario_id = request.user)
+    return render(request, "perfil.html", {"reviews_usuario" : reviews_usuario})
 
 # Vista que permite mostrar la página de registro de un usuario
 # Cuando se intenta acceder a register/ se ejecuta esta vista

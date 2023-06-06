@@ -7,6 +7,7 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
 </head>
+{% if request.user.is_authenticated %}
 <body>
   <div class="container">
     <div class="img" style="    background-color: #FFEFEF;
@@ -17,7 +18,7 @@
         <div class="wrapper">
           <img src="https://img.freepik.com/premium-photo/cat-dressed-formal-business-suit-anthropomorphic-businessman-generative-ai_796128-1479.jpg?w=740" alt="" class="user-profile">
           <h3>Nombre</h3>
-          <p>@nickname</p>
+          <p>{{request.user.username}}</p>
         </div>
       </div>
     </div>
@@ -32,16 +33,8 @@
             <div class="row">
               <div class="col-6">
                 <div class="social-info">
-                  <i class="fas fa-birthday-cake mr-2" style="color: #92A9BD"></i>
-                  <span>15/08/1991</span>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-6">
-                <div class="social-info">
                   <i class="fas fas fa-users mr-2" style="color: #92A9BD"></i>
-                  <span>Female</span>
+                  <span>Pronombres: {{request.user.pronombre}}</span>
                 </div>
               </div>
             </div>
@@ -49,7 +42,7 @@
               <div class="col-6">
                 <div class="social-info">
                   <i class="fas fas fa-envelope mr-2" style="color: #92A9BD"></i>
-                  <span>like@example.com</span>
+                  <span>Mail: {{request.user.email}}</span>
                 </div>
               </div>
             </div>
@@ -60,11 +53,12 @@
         <div class="card info-card hello">
           <div class="card-body">
             <h2 class="text-blue">Mis Reseñas</h2>
+            {% for review in reviews_usuario %}
             <div class="row">
               <div class="col-lg-8">
-                <h5>Lugar</h5>
+                <h5>{{review.local_comida}}</h5>
                   <div class="mb-3">
-                    <p>La comida es muy rica. La comida es muy rica. La comida es muy rica. La comida es muy rica. La comida es muy rica. </p>
+                    <p>{{review.comentario}} </p>
                   </div>
               </div>
               <div class="col-lg-4">
@@ -78,44 +72,7 @@
                 </div>
               </div>
             </div>
-            <div class="row">
-              <div class="col-lg-8">
-                <h5>Lugar</h5>
-                <div class="mb-3">
-                  <p>La comida es muy rica. La comida es muy rica. La comida es muy rica. La comida es muy rica. La comida es muy rica. </p>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <h5>Evalución</h5>
-                <div class="mb-3">
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-8">
-                <h5>Lugar</h5>
-                <div class="mb-3">
-                  <p>Muy buen lugar... super rico los sabores de helados y los demás productos que venden... el lugar está bien ubicado, es fácil llegar... tiene mesitas afuera, atienden rápido y bien... son muy amables las chicas que trabajan ahí... todo limpio y ordenado, dentro y fuera del local... totalmente recomendable. </p>
-                </div>
-              </div>
-              <div class="col-lg-4">
-                <h5>Evaluación</h5>
-                <div class="mb-3">
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <div class="col-lg-8">
-            </div>
+            {% endfor %}
             <div class="col-lg-5">
               <button class="btn see-more" id="see-more" data-toggle="modal" data-target="#exampleModal">Ver Más ></button>
             </div>
@@ -139,80 +96,58 @@
           <table class="table table-bordered">
             <thead>
               <tr>
-                <th scope="col"></th>
-                <th class="w-50" scope="col">Reseña</th>
-                <th scope="col">Fecha</th>
-                <th scope="col">Lugar</th>
-                <th scope="col"></th>  
+                <th scope="col">Reseña</th>
+                <th scope="col">Comida</th>
+                <th scope="col">Presentación</th>
+                <th scope="col">Precio</th>
+                <th scope="col">Lugar</th>  
               </tr>
             </thead>
             <tbody>
-              <tr>
-                <th scope="row">1</th>
-                <td>Muy buen lugar... super rico los sabores de helados y los demás productos que venden... el lugar está bien ubicado, es fácil llegar... tiene mesitas afuera, atienden rápido y bien... son muy amables las chicas que trabajan ahí... todo limpio y ordenado, dentro y fuera del local... totalmente recomendable.</td>
-                <td>14-01-2023</td>
-                <td>Lugar</td>
-                <td>
-                  <ul class="list-inline m-0">
-                    <li class="list-inline-item">
-                      <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit"></i></button>
-                    </li>
-                    <li class="list-inline-item">
-                      <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Borrar"><i class="fa fa-trash"></i></button>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">2</th>
-                <td>La comida es muy rica. La comida es muy rica. La comida es muy rica. La comida es muy rica. La comida es muy rica.</td>
-                <td>31-12-2022</td>
-                <td>Lugar</td>
-                <td>
-                  <ul class="list-inline m-0">
-                    <li class="list-inline-item">
-                      <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit"></i></button>
-                    </li>
-                    <li class="list-inline-item">
-                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Borrar"><i class="fa fa-trash"></i></button>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-              <tr>
-                <th scope="row">3</th>
-                <td>La comida es muy rica. La comida es muy rica. La comida es muy rica. La comida es muy rica. La comida es muy rica.</td>
-                <td>31-10-2022</td>
-                <td>Lugar</td>
-                <td>
-                  <ul class="list-inline m-0">
-                    <li class="list-inline-item">
-                      <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar"><i class="fa fa-edit"></i></button>
-                    </li>
-                    <li class="list-inline-item">
-                      <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Borrar"><i class="fa fa-trash"></i></button>
-                    </li>
-                  </ul>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+              {% for review in reviews_usuario %}
+                <tr>
+                  <td>{{review.comentario}}</td>
+                  <td>{{review.calificacion_comida}}</td>
+                  <td>{{review.calificacion_presentacion}}</td>
+                  <td>{{review.calificacion_precio}}</td>
+                  <td>{{review.local_comida}}</td>
+                  <td>
+                    <ul class="list-inline m-0">
+                      <li class="list-inline-item">
+                        <a href="#">
+                          <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar">
+                          <i class="fa fa-edit"></i>
+                          </button>
+                        </a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="#">
+                          <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Borrar">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </a>  
+                      </li>
+                    </ul>
+                  </td>
+                </tr>
+              {% endfor %}  
+              </tbody>
+            </table>
+          </div>
         </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        <button type="button" class="btn btn-primary">Guardar Cambios</button>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
       </div>
     </div>
   </div>
-</div>
-</div>
-</body>
-<script src="{% static 'js/jquery.min.js' %}"></script>
-<script src="{% static 'js/bundle.min.js' %}"></script>
-<script>
-  $(function () {
-    $('[data-toggle="tooltip"]').tooltip();
-  });
-</script>
-{% endblock %}
+  </div>
+  </body>
+  <script src="{% static 'js/jquery.min.js' %}"></script>
+  <script src="{% static 'js/bundle.min.js' %}"></script>
+  <script>
+    $(function () {
+      $('[data-toggle="tooltip"]').tooltip();
+    });
+  </script>
+  {%endif%}
+  {% endblock %}          
