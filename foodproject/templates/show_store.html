@@ -11,8 +11,8 @@
         <h5 class="offcanvas-title" id="offcanvasExampleLabel">{{local.nombre}}</h5>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body">
-        <dl class="row">
+    <div class="offcanvas-body p-0">
+        <dl class="row m-1">
 
             {% if local.FotoLocal%}
             <img src="{{ local.FotoLocal.url }}" class="img-fluid" alt="">
@@ -27,52 +27,45 @@
                 vitae aspernatur nesciunt magni consequatur. Saepe velit eum cupiditate, odio molestiae vitae! Maxime
                 omnis animi nobis mollitia ipsa quaerat.</dd>
 
-            <dt class="col-sm-3">Reseñas</dt>
-
-            <dd class="flex-row">
+            <dd class="flex-row mt-4">
                 <section class="my-2">
                     {% for review in reviews_list %}
-                        {% if review.local_comida == local %}
-                        <div class="d-flex flex-row mb-3">
-                            <div class="img">
-                                <img src="{% static 'img/perfilsf.png' %}" alt="Foto de {{ review.usuario }}" style="max-width: 20%;">
-                                <figcaption class="d-2">{{ review.usuario }}</figcaption> 
-                            </div>
-                        </div>
-                        <ul>
-                            <li>Puesto de comida: {{ review.local_comida }}</li>
-                            <li>Calificación de comida: {{ review.calificacion_comida }}</li>
-                            <li>Calificación de precio: {{ review.calificacion_precio }}</li>
-                            <li>Calificación de presentación: {{ review.calificacion_presentacion }}</li>
-                            {% if review.comentario != '' %}
-                                <li>Comentario: {{ review.comentario }}</li>
-                            {% endif %}
-                        </ul>
-                        <hr>
+                    <div class="d-flex align-items-center mb-3">
+                        <img class="rounded-circle me-3" src="{% static 'img/perfilsf.png' %}" alt="Foto de {{ review.usuario }}" style="max-width: 10%;">
+                        <figcaption class="d-2">{{ review.usuario }}</figcaption> 
+                    </div>
+                    <ul class="list-unstyled">
+                        <li>Calificación de comida: {{ review.calificacion_comida }}</li>
+                        <li>Calificación de precio: {{ review.calificacion_precio }}</li>
+                        <li>Calificación de presentación: {{ review.calificacion_presentacion }}</li>
+                        {% if review.comentario != '' %}
+                            <li>Comentario:</li>
+                            <li>{{ review.comentario }}</li>
                         {% endif %}
+                        <hr>
+                    </ul>
                     {% endfor %}
                 </section>
             </dd>
-
-            <div class="bottom-0 position-sticky">
-                <div class="d-flex align-items-center p-2" style="background-color: #7C99AC;">
-                    <h5 class="">¿Deseas contribuir?</h5>
-                    <!-- Button trigger modal -->
-                    {% if user.is_authenticated %}
-                    <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#createResena">
-                      Crear reseña
-                    </button>
-                    {% else %}
-                    <div class="text-center d-block align-self-center">
-                        <button type="button" class="btn btn-primary my-auto" data-bs-toggle="modal" data-bs-target="#createResena" disabled>
-                        Crear reseña
-                        </button>
-                        <p class="text-danger fw-bold my-auto">Necesitas iniciar sesión para crear una reseña.</p>
-                    </div>
-                    {% endif %}
-                </div>
-            </div>
         </dl>
+        <div class="bottom-0 position-sticky">
+            <div class="d-flex align-items-center p-2 justify-content-around" style="background-color: #7C99AC;">
+                <h5 class="">¿Deseas contribuir?</h5>
+                <!-- Button trigger modal -->
+                {% if user.is_authenticated %}
+                <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#createResena">
+                  Crear reseña
+                </button>
+                {% else %}
+                <div class="text-center d-block align-self-center">
+                    <button type="button" class="btn btn-primary my-auto" data-bs-toggle="modal" data-bs-target="#createResena" disabled>
+                    Crear reseña
+                    </button>
+                    <p class="text-danger fw-bold my-auto">Necesitas iniciar sesión para crear una reseña.</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
     </div>
 </div>
 
