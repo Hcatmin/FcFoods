@@ -107,11 +107,14 @@ def search_store(request):
     if request.method == "POST":
         puesto = request.GET["local"]
         local = Puesto_de_comida.objects.get(id=puesto)
+        reviews = Evaluacion.objects.filter(local_comida = local)
         form_crear_reseña = CrearReseñaForm(request.POST)
         if form_crear_reseña.is_valid():
             cleaned_data = form_crear_reseña.cleaned_data
             Evaluacion.objects.create(**cleaned_data, usuario=request.user, local_comida=local)
-        return render(request, "stores.html", {"list": queryset})
+        return render(request, "show_store.html", {
+            "local": local, "form_tarea": form_crear_reseña, "list": queryset, "reviews_list": reviews
+            })
     if request.GET["local"]:
         puesto = request.GET["local"]
         local = Puesto_de_comida.objects.get(id=puesto)
