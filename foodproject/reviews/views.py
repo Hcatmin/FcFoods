@@ -171,3 +171,17 @@ def editar_reseña(request, id):
         else:
             messages.error(request, "Los siguientes campos son erróneos: ")
             return render(request, "editar_reseña.html", {'form': form})
+
+# Vista que permite borrar las reseñas del usuario
+# Cuando se intenta acceder a profile/delete/id se ejecuta esta vista
+def borrar_reseña(request, id):
+    post = get_object_or_404(Evaluacion, pk=id)
+    context = {'post': post}    
+    
+    if request.method == 'GET':
+        return render(request, 'borrar_reseña.html', context)
+    
+    elif request.method == 'POST':
+        post.delete()
+        messages.success(request, "La reseña se ha borrado correctamente")
+        return redirect('profile')
