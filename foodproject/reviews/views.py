@@ -2,7 +2,7 @@
 from django.http import HttpResponse
 from django.template import Template, Context
 from django.template.loader import get_template
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from reviews.models import User
 from reviews.models import Puesto_de_comida
 from django.http import HttpResponseRedirect
@@ -152,3 +152,22 @@ def buscador(request):
     if request.method == "GET":
         form_busqueda = SearchForm()
         return render(request, "buscar.html", {"form_busqueda": form_busqueda})
+
+# Vista que permite editar las reseñas del usuario
+# Cuando se intenta acceder a profile/edit/id se ejecuta esta vista
+def editar_reseña(request, id):
+    post = get_object_or_404(Evaluacion, id=id)
+
+    if request.method == 'GET':
+        context = {'form' : CrearReseñaForm(instance=post), "id": id}
+        return render(request, "editar_reseña.html", context)
+    
+    elif request.method == 'POST':
+        form = CrearReseñaForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Los cambios se han realizado con exito")
+            return redirect('profile')
+        else:
+            messages.error(request, "Los siguientes campos son erróneos: ")
+            return render(request, "editar_reseña.html", {'form': form})
