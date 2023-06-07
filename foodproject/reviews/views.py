@@ -8,7 +8,7 @@ from reviews.models import Puesto_de_comida
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
 from reviews.forms import NewUserForm, CrearReseñaForm, SearchForm
-from django.contrib.auth import login, authenticate #add this
+from django.contrib.auth import login, authenticate, logout #add this
 from django.contrib import messages #add this
 from reviews.models import Evaluacion
 from django.views.generic.list import ListView
@@ -188,3 +188,8 @@ def borrar_reseña(request, id):
         post.delete()
         messages.success(request, "La reseña se ha borrado correctamente")
         return redirect('profile')
+
+
+def cerrar_sesion(request):
+    logout(request)
+    return redirect('login')
