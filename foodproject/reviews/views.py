@@ -82,18 +82,9 @@ def lista_de_reviews(request):
         return render(request, "lista_de_reviews.html", {"form_tarea": form_crear_reseña, "reviews_list": reviews})
 
 # Vista que permite mostrar la página dedicada a buscar y mostrar información de las tiendas
-# Cuando se intenta acceder a stores/ se ejecuta esta vista
-# TODO: Add this demo to mapa.html
-def stores(request): 
-    advices = get_template("stores.html")
-    queryset = Puesto_de_comida.objects.all()
-    context = {"list": queryset}
-    ad_response = advices.render(context)
-
-    return HttpResponse(ad_response)
-
+# Cuando se intenta acceder a tiendas/ se ejecuta esta vista
 def grid_stores(request): 
-    advices = get_template("mapa.html")
+    advices = get_template("tiendas.html")
     queryset = Puesto_de_comida.objects.all()
     context = {"list": queryset}
     ad_response = advices.render(context)

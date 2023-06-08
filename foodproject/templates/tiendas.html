@@ -7,33 +7,38 @@
 <div class="container my-4">
   <h2>Lista de comercios</h2>
   <div class="container text-center">
-    <div class="row row-cols-4">
+    <div class="row ">
       {% for local in list %}
 
 
       <div class="col">
         <div class="card">
           {% if local.FotoLocal%}
-          <img class="card-img-top" src="{{local.FotoLocal.url}}" alt="Card image cap">
+          <div class="centering">
+            <img class="card-img-top centering" src="{{local.FotoLocal.url}}" alt="Card image cap" style="min-width: 150px; height: 200px; object-fit: cover;">
+          </div>
           {% endif %}
           <div class="card-body">
             <h4 class="card-title">{{local.nombre}}</h4>
             <p class="card-text">{{local.dueño}}</p>
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
+
+            <form action="/search_store/" method="get">
+              <button class="btn btn-primary" type="submit" name ="local" value="{{local.id}}">
+                Mostrar
+              </button>
+            </form>
           </div>
         </div>
       </div>
       {% endfor %}
+
+      {% block content2 %}
+      {% endblock %}
+
     </div>
   </div>
-
-
-
 </div>
 
-<script>
-    
-</script>
+
 
 {% endblock %}
