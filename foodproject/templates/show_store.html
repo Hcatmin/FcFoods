@@ -6,17 +6,18 @@
 {% block content2 %}
 {% if local %}
 
-<div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+<div class="offcanvas offcanvas-start p-0" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h3 class="offcanvas-title" id="offcanvasExampleLabel">{{local.nombre}}</h3>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
     <div class="offcanvas-body p-0">
-        <dl class="row m-1">
-
+        <dl class="row">
             {% if local.FotoLocal%}
             <img src="{{ local.FotoLocal.url }}" class="img-fluid" alt="">
             {% endif %}
+        </dl>
+        <dl class="row m-1">
             <dt class="col-sm-3">Dueño</dt>
             <dd class="col-sm-9">{{local.dueño}}</dd>
 
