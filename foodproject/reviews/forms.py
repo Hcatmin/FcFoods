@@ -7,10 +7,11 @@ class NewUserForm(forms.Form):
 
 
 class CrearReseñaForm(forms.ModelForm):
-   calificacion_comida = forms.IntegerField(max_value=5, min_value=1)
-   calificacion_precio = forms.IntegerField(max_value=5, min_value=1)
-   calificacion_presentacion = forms.IntegerField(max_value=5, min_value=1)
-   comentario = forms.CharField(widget=forms.Textarea(), required=False) # <textarea> en vez de <input>
+   CHOICES = [(5, '☆'), (4, '☆'), (3, '☆'), (2, '☆'), (1, '☆')]
+   calificacion_comida = forms.ChoiceField(widget=forms.RadioSelect(), choices=CHOICES)
+   calificacion_precio = forms.ChoiceField(widget=forms.RadioSelect(), choices=CHOICES)
+   calificacion_presentacion = forms.ChoiceField(widget=forms.RadioSelect(), choices=CHOICES)
+   comentario = forms.CharField(widget=forms.Textarea(attrs={'rows':'4'}), required=False) # <textarea> en vez de <input>
 
    class Meta:
       model = Evaluacion

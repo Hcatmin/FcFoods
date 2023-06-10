@@ -6,6 +6,10 @@
 {% block content2 %}
 {% if local %}
 
+{% block styles %}
+    <link rel="stylesheet" href="{% static 'css/crear_reseña_style_objetivo.css' %}">
+{% endblock %}
+
 <div class="offcanvas offcanvas-start p-0" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h3 class="offcanvas-title" id="offcanvasExampleLabel">{{local.nombre}}</h3>
@@ -72,12 +76,50 @@
 <div class="modal fade text-start" id="createResena">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-4">
-            <h1 class="modal-title fs-3 mb-4">Crear una reseña</h1>
-            <form action="" method="post">
-            {% csrf_token %}
-                <div class="card-body">
-                    {{ form_tarea.as_p }}
-                    <button class="btn btn-primary mt-2" name="enviarResena" type="submit">Enviar reseña</button>
+            <div class="modal-header">
+                <h1 class="modal-title fs-5">Crear una reseña</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#createResena" aria-label="Close"></button>
+            </div>
+            <form method="post" action="#">
+                {% csrf_token %}
+                {{ form.non_field_errors }}
+                <div class="modal-body">
+                    <div class="row">
+                        <p class="col-3 my-auto">Comida:</p> 
+                        <div class="rating col-auto"> 
+                            {% for radio in form_tarea.calificacion_comida %}
+                            {{ radio.tag }}
+                            <label for="{{ radio.id_for_label }}">☆</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="col-3 my-auto">Precio:</p> 
+                        <div class="rating col-auto"> 
+                            {% for radio in form_tarea.calificacion_precio %}
+                            {{ radio.tag }}
+                            <label for="{{ radio.id_for_label }}">☆</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <p class="col-3 my-auto">Presentación:</p> 
+                        <div class="rating col-auto"> 
+                            {% for radio in form_tarea.calificacion_presentacion %}
+                            {{ radio.tag }}
+                            <label for="{{ radio.id_for_label }}">☆</label>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    <div class="textAreaWrapper">
+                        {{ form_tarea.comentario.errors }}
+                        <label for="{{ form_tarea.comentario.id_for_label }}" class="row m-auto mt-3 mb-2">Deja tus comentarios</label>
+                        {{ form_tarea.comentario }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="submit" class="btn btn-primary">Confirmar</button>
                 </div>
             </form>
         </div>
