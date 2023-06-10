@@ -11,13 +11,13 @@
         <h3 class="offcanvas-title" id="offcanvasExampleLabel">{{local.nombre}}</h3>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
     </div>
-    <div class="offcanvas-body p-0">
+    <div class="offcanvas-body p-0 overflow-x-hidden">
         <dl class="row">
             {% if local.FotoLocal%}
             <img src="{{ local.FotoLocal.url }}" class="img-fluid" alt="">
             {% endif %}
         </dl>
-        <dl class="row m-1">
+        <dl class="row m-1 text-start">
             <dt class="col-sm-3">Dueño</dt>
             <dd class="col-sm-9">{{local.dueño}}</dd>
 
@@ -69,7 +69,7 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="createResena">
+<div class="modal fade text-start" id="createResena">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-4">
             <h1 class="modal-title fs-3 mb-4">Crear una reseña</h1>
