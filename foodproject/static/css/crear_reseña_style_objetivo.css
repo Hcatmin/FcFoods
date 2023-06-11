@@ -46,3 +46,9 @@
     background-color: #7C99AC;
     width: 100%;
 }
+
+.calificacion span {
+    font-weight: 300;
+    color: #415461;
+    width: 1em;
+}
