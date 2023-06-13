@@ -1,0 +1,28 @@
+.formulario{
+  text-align: flex;
+  justify-content: center;
+  width: 550px;
+  height: 500px;
+  margin: 0 auto;
+  background-color:#92A9BD;
+}
+
+#id_calificacion_comida, #id_calificacion_precio, #id_calificacion_presentacion, #id_comentario{
+  display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
+  margin: 0 auto;
+}
+
+body {
+  background-color: #7C99AC;
+  text-align: center;
+}
+
+input[type="submit"]{
+  background-color: #FFEFEF;
+  color: black;
+  border-color: #7C99AC;
+  border-radius: 20%;
+}
+
