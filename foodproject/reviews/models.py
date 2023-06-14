@@ -61,6 +61,34 @@ class Comentario(models.Model):
     evaluacion = models.ForeignKey(Evaluacion, related_name='calificaciones', on_delete=models.CASCADE)
     comentarista = models.ForeignKey(User, on_delete=models.CASCADE)
     comentario = models.TextField(blank=True)
+    es_util = models.BooleanField(default=False)
+    like_comentario = models.IntegerField(default=0)
+    dislike_comentario = models.IntegerField(default=0)
 
     def __str__(self):
       return "f'{self.comentarista.username} comentó la evaluación de {self.evaluacion.usuario.username}'"
+    
+    def valirizar_util(self):
+        self.es_util = True
+        self.save()
+
+    def valorizar_no_util(self):
+        self.es_util = False
+        self.save()
+
+    def dar_likeComentario(self):
+        self.like_comentario += 1
+        self.save()
+
+    def quitar_likeComentario(self):
+        self.like_comentario -= 1
+        self.save()
+
+    def dar_dislikeComentario(self):
+        self.dislike_comentario += 1
+        self.save()
+
+    def quitar_dislikeComentario(self):
+        self.dislike_comentario -= 1
+        self.save()
+        
