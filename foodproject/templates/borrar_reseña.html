@@ -1,15 +1,21 @@
 {% extends 'base.html' %} 
 
+{% load static %}
 {% block content %}
-<h2>Borrar Reseña</h2>
-
-<form method="POST">
-  {% csrf_token %}
-  <p>¿Estás segur@ que deseas borrar la reseña al puesto de comida: "{{post.local_comida}}"?</p>
-  <div>
-    <button type="submit">Sí, borrar</button>
-    <a href="{% url 'profile' %}">Cancelar</a>
+<head>
+  <link rel="stylesheet" href="{% static 'css/borrar_reseña.css' %}">
+</head>
+<body>
+  <div class="container">
+    <h2>Borrar Reseña n° {{post.id}}</h2>
+    <form method="POST">
+      {% csrf_token %}
+      <p>¿Estás segur@ que deseas borrar la reseña al puesto de comida: "{{post.local_comida}}"?</p>
+      <div class="opciones">
+        <button type="submit">Sí, borrar</button>
+        <a class="boton" href="{% url 'profile' %}">Cancelar</a>
+      </div>
+    </form>
   </div>
-</form>
-
+</body>
 {% endblock content %}

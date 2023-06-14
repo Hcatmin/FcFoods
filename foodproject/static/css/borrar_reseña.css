@@ -1,0 +1,39 @@
+.container {
+  text-align: flex;
+  justify-content: center;
+  width: 550px;
+  height: 200px;
+  margin: 0 auto;
+  background-color:#92A9BD;
+}
+
+h2, .opciones{
+  text-align: center;
+}
+
+button[type="submit"] {
+  background-color: #FFEFEF;
+  color: black;
+  border-color: #7C99AC;
+  border-radius: 20%;
+  font-size: large;
+}
+
+.boton {
+  font: bold 11px Arial;
+  text-decoration: none;
+  background-color: #FFEFEF;
+  color: grey;
+  padding: 2px 6px 2px 6px;
+  border-top: 1px solid #CCCCCC;
+  border-right: 1px solid #000;
+  border-bottom: 1px solid #000;
+  border-left: 1px solid #CCCCCC;
+  font-size: medium;
+  border-radius: 20%;
+}
+
+body{
+  background-color: #7C99AC;
+}
+
