@@ -1,8 +1,3 @@
-body {
-  background-color: #FFEFEF;
-  color: #28384d;
-
-}
 /*social */
 .card-one {
   position: relative;
@@ -386,5 +381,5 @@ ul.friend-list .right p {
 }
 
 .hello {
-  background-color: #D3DEDC;
+  background-color: #FFEFEF;
 }

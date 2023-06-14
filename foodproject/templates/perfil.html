@@ -10,7 +10,7 @@
 {% if request.user.is_authenticated %}
 <body>
   <div class="container">
-    <div class="img" style="    background-color: #FFEFEF;
+    <div class="img" style="    background-color:#D3DEDC;
       height: 150px;background-size: cover;">
     </div>
     <div class="card social-prof">
@@ -53,7 +53,7 @@
         <div class="card info-card hello">
           <div class="card-body">
             <h2 class="text-blue">Mis Reseñas</h2>
-            {% for review in reviews_usuario %}
+            {% for review in reviews_usuario|slice:":3" %}
             <div class="row">
               <div class="col-lg-8">
                 <h5>{{review.local_comida}}</h5>
