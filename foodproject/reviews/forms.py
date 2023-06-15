@@ -21,4 +21,14 @@ class SearchForm(forms.Form):
    busqueda = forms.CharField(required=True)
 
 
+class ComentarioReseña(forms.ModelForm):
+   class Meta:
+      model = Comentario
+      fields = ['comentario', 'es_util']
+
+      widgets = {
+         'comentario' : forms.Textarea(attrs={'rows' : 3}), #estilo del campo de texto
+         'es_util' : forms.CheckboxInput()
+      }
+
 
