@@ -63,13 +63,14 @@
               </a>
               <!-- Dropup menu for profile -->
               <div class="dropdown-menu" aria-labelledby="dropdownMenuProfile">
-                <a class="dropdown-item" href="{% url 'profile' %}">Your Profile</a>
-                <a class="dropdown-item" href="#">Your favourites</a>
-                <a class="dropdown-item" href="#">Your </a>
+                {% if user.is_authenticated %}
+                <a class="dropdown-item" href="{% url 'profile' %}">Mi perfil</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Settings</a>
-                <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="{% url 'logout' %}">Exit</a>
+                <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                <a class="dropdown-item" href="{% url 'login' %}">Login</a>
+                <a class="dropdown-item" href="{% url 'register_user' %}">Register</a>
+                {% endif %}
               </div>
             </li>
           </ul>
