@@ -58,7 +58,7 @@ def login_request(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                messages.info(request, f"Te has logueado como {username}.")
+                messages.success(request, f"Te has logueado como {username}.")
                 return redirect("home")
             else:
                 messages.error(request,"Usuario o contraseña inválidos.")
