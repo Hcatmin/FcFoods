@@ -16,10 +16,8 @@ from django.contrib.auth.decorators import login_required
 
 # Vista que permite mostrar la pagina principal (home) del sitio web
 # Cuando se intenta acceder a home/ se ejecuta esta vista
-def home(request): 
-    advices = get_template("home.html")
-    ad_response = advices.render()
-    return HttpResponse(ad_response)
+def home(request):
+    return render(request, "home.html")
 
 # Vista que permite mostrar el perfil de un usuario
 # Cuando se intenta acceder a profile/ se ejecuta esta vista
