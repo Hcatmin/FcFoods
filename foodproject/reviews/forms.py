@@ -1,5 +1,5 @@
 from django import forms
-from reviews.models import Puesto_de_comida, User, Evaluacion
+from reviews.models import Puesto_de_comida, User, Evaluacion, Comentario
 
 class NewUserForm(forms.Form):
    
