@@ -79,9 +79,29 @@
           </div>
         </div>
       </div>
-    </div>
-  </div>      
-      <!-- Modal -->
+      <div class="col-lg-6">
+        <div class="card info-card hello">
+          <div class="card-body">
+            <h2 class="text-blue">Mis Comentarios</h2>
+            <div class="row">
+              <div class="col-lg-8">
+                <h5>Local de comida</h5>
+                  <div class="mb-3">
+                    <p>Reseña</p>
+                  </div>
+              </div>
+              <div class="col-lg-4">
+                <p>Comentario</p>
+              </div>
+              <div class="col-lg-5">
+                <button class="btn see-more" id="see-more" data-toggle="modal" data-target="#CommentsModal">Ver Más ></button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>      
+      <!-- Modal Reseñas -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
       <div class="modal-content">
@@ -137,17 +157,72 @@
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
       </div>
     </div>
   </div>
+
+  <!--Modal Comentarios-->
+  <div class="modal fade" id="CommentsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+        <div class="modal-header float-right">
+          <h5>Mis Reseñas</h5>
+            <div class="text-right">
+              <i data-dismiss="modal" aria-label="Close" class="fa fa-close"></i>
+            </div>
+        </div>
+      <div class="modal-body">
+        <div>
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th scope="col">Lugar</th>
+                <th scope="col">Reseña</th>
+                <th scope="col">Mi comentario</th>
+              </tr>
+            </thead>
+            <tbody>
+                <tr>
+                  <td>Localll</td>
+                  <td>Reseñaaa</td>
+                  <td>Comentarioooo</td>
+                  <td>
+                    <ul class="list-inline m-0">
+                      <li class="list-inline-item">
+                        <a href="#">
+                          <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar">
+                          <i class="fa fa-edit"></i>
+                          </button>
+                        </a>
+                      </li>
+                      <li class="list-inline-item">
+                        <a href="#">
+                          <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Borrar">
+                            <i class="fa fa-trash"></i>
+                          </button>
+                        </a>  
+                      </li>
+                    </ul>
+                  </td>
+                </tr> 
+              </tbody>
+            </table>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
   </div>
-  </body>
-  <script src="{% static 'js/jquery.min.js' %}"></script>
-  <script src="{% static 'js/bundle.min.js' %}"></script>
-  <script>
-    $(function () {
-      $('[data-toggle="tooltip"]').tooltip();
-    });
-  </script>
-  {%endif%}
-  {% endblock %}          
+</body>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+<script src="{% static 'js/bundle.min.js' %}"></script>
+<script>
+  $(function () {
+    $('[data-toggle="tooltip"]').tooltip();
+  });
+</script>
+{%endif%}
+{% endblock %}          
