@@ -50,6 +50,10 @@ def register_user(request):
 def login_request(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
+        # To clean the messages
+        system_messages = messages.get_messages(request)
+        for message in system_messages:
+            pass
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
@@ -82,12 +86,8 @@ def lista_de_reviews(request):
 # Vista que permite mostrar la página dedicada a buscar y mostrar información de las tiendas
 # Cuando se intenta acceder a tiendas/ se ejecuta esta vista
 def grid_stores(request): 
-    advices = get_template("tiendas.html")
     queryset = Puesto_de_comida.objects.all()
-    context = {"list": queryset}
-    ad_response = advices.render(context)
-
-    return HttpResponse(ad_response)
+    return render(request, "tiendas.html", {"list": queryset})
 
 # Vista que permite mostrar la información de un puesto de comida
 # Cuando se presiona el botón "Mostrar puesto de comida", en la página stores/
@@ -115,21 +115,6 @@ def search_store(request):
     else:
         message = "Debes seleccionar un campo"
         return HttpResponse(message)
-
-# Vista que permite mostrar la página que solo tiene un botón para crear reseñas
-# Cuando se intenta acceder a crear_reseña/ se ejecuta esta vista
-# Esta vista no tiene funcionalidad para el producto final, solo esta creada para el desarrollo
-def Crear_reseña(request):
-    if request.method == "GET":
-        form_crear_reseña = CrearReseñaForm()
-        return render(request, "crear_reseña.html", {"form_tarea": form_crear_reseña})
-    if request.method == "POST":
-        form_crear_reseña = CrearReseñaForm(request.POST)
-        if form_crear_reseña.is_valid():
-            cleaned_data = form_crear_reseña.cleaned_data
-            Evaluacion.objects.create(**cleaned_data, usuario=request.user)
-        return render(request, "crear_reseña.html", {"form_tarea": form_crear_reseña})
-    
 
 def buscador(request):
     if request.method == 'POST':
