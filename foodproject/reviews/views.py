@@ -86,12 +86,8 @@ def lista_de_reviews(request):
 # Vista que permite mostrar la página dedicada a buscar y mostrar información de las tiendas
 # Cuando se intenta acceder a tiendas/ se ejecuta esta vista
 def grid_stores(request): 
-    advices = get_template("tiendas.html")
     queryset = Puesto_de_comida.objects.all()
-    context = {"list": queryset}
-    ad_response = advices.render(context)
-
-    return HttpResponse(ad_response)
+    return render(request, "tiendas.html", {"list": queryset})
 
 # Vista que permite mostrar la información de un puesto de comida
 # Cuando se presiona el botón "Mostrar puesto de comida", en la página stores/
