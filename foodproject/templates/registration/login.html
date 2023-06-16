@@ -18,7 +18,21 @@
 </head>
 
 <body>
-  <div class="container-sm my-5">
+  <div class="container-lg p-0">
+    {% if messages %}
+    <ul class="messages list-unstyled">
+        {% for message in messages %}
+          {% if message.tags == 'error' %}
+            <div class="alert alert-warning alert-dismissible fade show py-3 mt-2" role="alert">
+              {{ message }}
+              <button type="button" class="btn-close py-3 mt-2" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+          {% endif %}
+        {% endfor %}
+    </ul>
+    {% endif %}
+  </div>
+  <div class="container-sm my-4">
     <div class="col-12 col-md-8 col-lg-6 col-xl-5 text-center mx-auto rounded-5 px-2 py-4 shadow-lg login-box ">
       <h2 class="mt-4">Bienvenido</h2>
       <form method="POST">
