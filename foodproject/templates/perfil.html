@@ -63,12 +63,22 @@
               </div>
               <div class="col-lg-4">
                 <h5>Evaluación</h5>
-                <div class="mb-3">
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
-                  <i class="fas fa-star" style="color:#92A9BD"></i>
+                <div class="stars-class mb-3 fs-5">
+                  {% if review.calificacion_comida == 1 %}
+                      <span>★☆☆☆☆</span>
+                  {% endif %}
+                  {% if review.calificacion_comida == 2 %}
+                      <span>★★☆☆☆</span>
+                  {% endif %}
+                  {% if review.calificacion_comida == 3 %}
+                      <span>★★★☆☆</span>
+                  {% endif %}
+                  {% if review.calificacion_comida == 4 %}
+                      <span>★★★★☆</span>
+                  {% endif %}
+                  {% if review.calificacion_comida == 5 %}
+                      <span>★★★★★</span>
+                  {% endif %}
                 </div>
               </div>
             </div>
