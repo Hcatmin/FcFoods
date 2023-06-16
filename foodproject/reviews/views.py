@@ -50,6 +50,10 @@ def register_user(request):
 def login_request(request):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
+        # To clean the messages
+        system_messages = messages.get_messages(request)
+        for message in system_messages:
+            pass
         if form.is_valid():
             username = form.cleaned_data.get('username')
             password = form.cleaned_data.get('password')
