@@ -43,7 +43,7 @@ def register_user(request):
         user = User.objects.create_user(username=nombre, password=contraseña, email=mail)
 
      #Redireccionar la página /tareas
-        return HttpResponseRedirect('/home')
+        return HttpResponseRedirect('')
 
 # Vista que permite mostrar la página de ingreso de un usuario
 # Cuando se intenta acceder a login/ se ejecuta esta vista

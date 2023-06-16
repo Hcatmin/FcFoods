@@ -64,6 +64,7 @@ class Comentario(models.Model):
     es_util = models.BooleanField(default=False)
     like_comentario = models.IntegerField(default=0)
     dislike_comentario = models.IntegerField(default=0)
+    fechaComentario = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
       return "f'{self.comentarista.username} comentó la evaluación de {self.evaluacion.usuario.username}'"

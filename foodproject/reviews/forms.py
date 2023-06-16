@@ -1,5 +1,5 @@
 from django import forms
-from reviews.models import Puesto_de_comida, User, Evaluacion
+from reviews.models import Puesto_de_comida, User, Evaluacion, Comentario
 
 class NewUserForm(forms.Form):
    
@@ -20,5 +20,15 @@ class CrearReseñaForm(forms.ModelForm):
 class SearchForm(forms.Form):
    busqueda = forms.CharField(required=True)
 
+
+class ComentarioReseña(forms.ModelForm):
+   class Meta:
+      model = Comentario
+      fields = ['comentario', 'es_util']
+
+      widgets = {
+         'comentario' : forms.Textarea(attrs={'rows' : 3}), #estilo del campo de texto
+         'es_util' : forms.CheckboxInput()
+      }
 
 
