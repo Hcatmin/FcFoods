@@ -19,7 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from reviews.views import home, perfil, register_user, login_request, lista_de_reviews, \
-                          Crear_reseña, search_store, buscador, grid_stores, editar_reseña, \
+                          search_store, buscador, grid_stores, editar_reseña, \
                           borrar_reseña, cerrar_sesion
 
 urlpatterns = [
@@ -31,7 +31,6 @@ urlpatterns = [
     path('tiendas/', grid_stores, name='tiendas'),
     path('login/', login_request, name="login"),
     path('reviews/', lista_de_reviews),
-    path('crear_reseña', Crear_reseña),
     path('search_store/', search_store),
     path('buscar/', buscador),
     path('profile/edit/<int:id>/', editar_reseña, name="edit_review"),

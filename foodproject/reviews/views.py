@@ -116,21 +116,6 @@ def search_store(request):
         message = "Debes seleccionar un campo"
         return HttpResponse(message)
 
-# Vista que permite mostrar la página que solo tiene un botón para crear reseñas
-# Cuando se intenta acceder a crear_reseña/ se ejecuta esta vista
-# Esta vista no tiene funcionalidad para el producto final, solo esta creada para el desarrollo
-def Crear_reseña(request):
-    if request.method == "GET":
-        form_crear_reseña = CrearReseñaForm()
-        return render(request, "crear_reseña.html", {"form_tarea": form_crear_reseña})
-    if request.method == "POST":
-        form_crear_reseña = CrearReseñaForm(request.POST)
-        if form_crear_reseña.is_valid():
-            cleaned_data = form_crear_reseña.cleaned_data
-            Evaluacion.objects.create(**cleaned_data, usuario=request.user)
-        return render(request, "crear_reseña.html", {"form_tarea": form_crear_reseña})
-    
-
 def buscador(request):
     if request.method == 'POST':
         form_busqueda = SearchForm(request.POST)
