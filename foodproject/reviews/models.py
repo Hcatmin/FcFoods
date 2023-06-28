@@ -34,6 +34,8 @@ class Evaluacion(models.Model):
     calificacion_presentacion = models.IntegerField()
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default = 0)
+    fecha = models.DateTimeField(auto_now_add=True)
+    
     def __str__(self):
         return "f'{self.usuario.username} evaluo {self.local_comida.comida.nombre}'"
     
