@@ -184,7 +184,7 @@ def editar_comentario(request, id):
 
 # Vista que permite borrar los comentarios del usuario
 # Cuando se intenta acceder a profile/delete_comment/id se ejecuta esta vista
-def borrar_reseña(request, id):
+def borrar_comentario(request, id):
     post = get_object_or_404(Comentario, pk=id)
     context = {'post': post}    
     
