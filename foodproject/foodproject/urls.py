@@ -32,7 +32,7 @@ urlpatterns = [
     path('login/', login_request, name="login"),
     path('reviews/', lista_de_reviews),
     path('search_store/', search_store),
-    path('buscar/', buscador),
+    path('buscar/', buscador, name="buscador"),
     path('profile/edit_review/<int:id>/', editar_reseña, name="edit_review"),
     path('profile/delete_review/<int:id>/', borrar_reseña, name="delete_review"),
     path('profile/edit_comment/<int:id>/', editar_comentario, name="edit_comment"),
