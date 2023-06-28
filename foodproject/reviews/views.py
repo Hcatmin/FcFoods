@@ -124,7 +124,7 @@ def buscador(request):
         resultados = ""
         if form_busqueda.is_valid():
             cleaned_data = form_busqueda.cleaned_data
-            resultados = Evaluacion.objects.filter(comentario__icontains=cleaned_data['busqueda'])  # Realiza la búsqueda en el campo deseado
+            resultados = Evaluacion.objects.filter(detalle__icontains=cleaned_data['busqueda'])  # Realiza la búsqueda en el campo deseado
             return render(request, 'resultados.html', {'resultados': resultados})
         else:
             return render(request, 'buscar.html', {"form_busqueda": form_busqueda})
