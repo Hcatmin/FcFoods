@@ -102,7 +102,7 @@ def search_store(request):
         if form_crear_reseña.is_valid():
             cleaned_data = form_crear_reseña.cleaned_data
             Evaluacion.objects.create(**cleaned_data, usuario=request.user, local_comida=local)
-        if form_agregar_comentario.is_valid():
+        elif form_agregar_comentario.is_valid():
             evaluacion = request.POST['evaluacion']
             cleaned_data = form_agregar_comentario.cleaned_data
             Comentario.objects.create(**cleaned_data, comentarista=request.user, evaluacion_id = evaluacion)
