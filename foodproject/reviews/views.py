@@ -170,7 +170,7 @@ def editar_comentario(request, id):
 
     if request.method == 'GET':
         context = {'form' : ComentarioReseña(instance=post), "id": id}
-        return render(request, "editar_reseña.html", context)
+        return render(request, "editar_comentario.html", context)
     
     elif request.method == 'POST':
         form = ComentarioReseña(request.POST, instance=post)
@@ -181,6 +181,20 @@ def editar_comentario(request, id):
         else:
             messages.error(request, "Los siguientes campos son erróneos: ")
             return render(request, "editar_comentario.html", {'form': form})
+
+# Vista que permite borrar los comentarios del usuario
+# Cuando se intenta acceder a profile/delete_comment/id se ejecuta esta vista
+def borrar_reseña(request, id):
+    post = get_object_or_404(Comentario, pk=id)
+    context = {'post': post}    
+    
+    if request.method == 'GET':
+        return render(request, 'borrar_comentario.html', context)
+    
+    elif request.method == 'POST':
+        post.delete()
+        messages.success(request, "El comentario se ha borrado correctamente")
+        return redirect('profile')
 
 # Vista que permite cerrar sesión
 def cerrar_sesion(request):
