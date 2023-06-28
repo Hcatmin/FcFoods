@@ -1,6 +1,16 @@
-<form action="" method="post">
-    {% csrf_token %}
-    {{ form_busqueda.as_p }}
-    <button class="btn btn-primary" type="submit">Buscar</button>
-</form>
-<h2>Editar Reseña</h2>
+{% extends 'base.html' %} 
+{% load static %}
+{% block content %}
+
+<head>
+    <link rel="stylesheet" href="{% static 'css/buscar.css' %}">
+  </head>
+  <div class="container">
+    <form action="" method="post" class="centered-form">
+      {% csrf_token %}
+      {{ form_busqueda.as_p }}
+      <button class="btn btn-primary" type="submit">Buscar</button>
+    </form>
+  </div>
+  
+{% endblock content %}

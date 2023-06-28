@@ -152,7 +152,7 @@ def editar_reseña(request, id):
             return render(request, "editar_reseña.html", {'form': form})
 
 # Vista que permite borrar las reseñas del usuario
-# Cuando se intenta acceder a profile/delete/id se ejecuta esta vista
+# Cuando se intenta acceder a profile/delete_review/id se ejecuta esta vista
 def borrar_reseña(request, id):
     post = get_object_or_404(Evaluacion, pk=id)
     context = {'post': post}    
@@ -165,7 +165,40 @@ def borrar_reseña(request, id):
         messages.success(request, "La reseña se ha borrado correctamente")
         return redirect('profile')
 
+# Vista que permite editar los comentarios realizados a reseñas
+# Cuando se intenta acceder a profile/edit_comment/id se ejecuta esta vista
+def editar_comentario(request, id):
+    post = get_object_or_404(Comentario, id=id)
 
+    if request.method == 'GET':
+        context = {'form' : ComentarioReseña(instance=post), "id": id}
+        return render(request, "editar_comentario.html", context)
+    
+    elif request.method == 'POST':
+        form = ComentarioReseña(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Los cambios se han realizado con exito")
+            return redirect('profile')
+        else:
+            messages.error(request, "Los siguientes campos son erróneos: ")
+            return render(request, "editar_comentario.html", {'form': form})
+
+# Vista que permite borrar los comentarios del usuario
+# Cuando se intenta acceder a profile/delete_comment/id se ejecuta esta vista
+def borrar_comentario(request, id):
+    post = get_object_or_404(Comentario, pk=id)
+    context = {'post': post}    
+    
+    if request.method == 'GET':
+        return render(request, 'borrar_comentario.html', context)
+    
+    elif request.method == 'POST':
+        post.delete()
+        messages.success(request, "El comentario se ha borrado correctamente")
+        return redirect('profile')
+
+# Vista que permite cerrar sesión
 def cerrar_sesion(request):
     logout(request)
     return redirect('login')

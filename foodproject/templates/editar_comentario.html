@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% block content %}
+<head>
+  <!--<link rel="stylesheet" href="{% static 'css/editar_reseña.css' %}">-->
+</head>
+<body>
+	<div class="formulario">
+		<h2>Editar Comentario</h2>
+		<form method="post" novalidate>
+			{% csrf_token %}
+			{{ form.as_p }}
+			<input type="submit" value="Guardar Cambios"/>
+		</form>
+	</div>
+</body>
+{% endblock content %}

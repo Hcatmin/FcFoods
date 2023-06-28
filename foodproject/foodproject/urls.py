@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from reviews.views import home, perfil, register_user, login_request, lista_de_reviews, \
                           search_store, buscador, grid_stores, editar_reseña, \
-                          borrar_reseña, cerrar_sesion
+                          borrar_reseña, cerrar_sesion, editar_comentario, borrar_comentario
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -33,7 +33,9 @@ urlpatterns = [
     path('reviews/', lista_de_reviews),
     path('search_store/', search_store),
     path('buscar/', buscador),
-    path('profile/edit/<int:id>/', editar_reseña, name="edit_review"),
-    path('profile/delete/<int:id>/', borrar_reseña, name="delete_review"),
+    path('profile/edit_review/<int:id>/', editar_reseña, name="edit_review"),
+    path('profile/delete_review/<int:id>/', borrar_reseña, name="delete_review"),
+    path('profile/edit_comment/<int:id>/', editar_comentario, name="edit_comment"),
+    path('profile/delete_comment/<int:id>/', borrar_comentario, name="delete_comment"),
     path('logout/', cerrar_sesion, name= "logout")
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
