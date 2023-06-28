@@ -11,11 +11,11 @@ class CrearReseñaForm(forms.ModelForm):
    calificacion_comida = forms.ChoiceField(widget=forms.RadioSelect(), choices=CHOICES)
    calificacion_precio = forms.ChoiceField(widget=forms.RadioSelect(), choices=CHOICES)
    calificacion_presentacion = forms.ChoiceField(widget=forms.RadioSelect(), choices=CHOICES)
-   comentario = forms.CharField(widget=forms.Textarea(attrs={'rows':'4'}), required=False) # <textarea> en vez de <input>
+   detalle = forms.CharField(widget=forms.Textarea(attrs={'rows':'4'}), required=False) # <textarea> en vez de <input>
 
    class Meta:
       model = Evaluacion
-      fields = ["calificacion_comida", "calificacion_precio", "calificacion_presentacion", "comentario"]
+      fields = ["calificacion_comida", "calificacion_precio", "calificacion_presentacion", "detalle"]
 
 class SearchForm(forms.Form):
    busqueda = forms.CharField(required=True)

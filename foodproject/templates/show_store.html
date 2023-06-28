@@ -7,7 +7,7 @@
 {% if local %}
 
 {% block styles %}
-    <link rel="stylesheet" href="{% static 'css/crear_reseña_style_objetivo.css' %}">
+<link rel="stylesheet" href="{% static 'css/crear_reseña_style_objetivo.css' %}">
 {% endblock %}
 
 <div class="offcanvas offcanvas-start p-0" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
@@ -37,8 +37,9 @@
                     {% for review in reviews_list %}
                     <div class="review-card mx-3 mt-3">
                         <div class="d-flex align-items-center mb-3">
-                            <img class="rounded-circle me-3" src="{% static 'img/perfilsf.png' %}" alt="Foto de {{ review.usuario }}" style="max-width: 10%;">
-                            <figcaption class="d-2">{{ review.usuario }}</figcaption> 
+                            <img class="rounded-circle me-3" src="{% static 'img/perfilsf.png' %}"
+                                alt="Foto de {{ review.usuario }}" style="max-width: 10%;">
+                            <figcaption class="d-2">{{ review.usuario }}</figcaption>
                         </div>
                         <div class="row">
                             <ul class="list-unstyled fs-6 col-4">
@@ -49,62 +50,75 @@
                             <ul class="list-unstyled fs-6 col-3">
                                 <li class="calificacion">
                                     {% if review.calificacion_comida == 1 %}
-                                        <span>★☆☆☆☆</span>
+                                    <span>★☆☆☆☆</span>
                                     {% endif %}
                                     {% if review.calificacion_comida == 2 %}
-                                        <span>★★☆☆☆</span>
+                                    <span>★★☆☆☆</span>
                                     {% endif %}
                                     {% if review.calificacion_comida == 3 %}
-                                        <span>★★★☆☆</span>
+                                    <span>★★★☆☆</span>
                                     {% endif %}
                                     {% if review.calificacion_comida == 4 %}
-                                        <span>★★★★☆</span>
+                                    <span>★★★★☆</span>
                                     {% endif %}
                                     {% if review.calificacion_comida == 5 %}
-                                        <span>★★★★★</span>
+                                    <span>★★★★★</span>
                                     {% endif %}
                                 </li>
                                 <li class="calificacion">
                                     {% if review.calificacion_precio == 1 %}
-                                        <span>★☆☆☆☆</span>
+                                    <span>★☆☆☆☆</span>
                                     {% endif %}
                                     {% if review.calificacion_precio == 2 %}
-                                        <span>★★☆☆☆</span>
+                                    <span>★★☆☆☆</span>
                                     {% endif %}
                                     {% if review.calificacion_precio == 3 %}
-                                        <span>★★★☆☆</span>
+                                    <span>★★★☆☆</span>
                                     {% endif %}
                                     {% if review.calificacion_precio == 4 %}
-                                        <span>★★★★☆</span>
+                                    <span>★★★★☆</span>
                                     {% endif %}
                                     {% if review.calificacion_precio == 5 %}
-                                        <span>★★★★★</span>
+                                    <span>★★★★★</span>
                                     {% endif %}
                                 </li>
                                 <li class="calificacion">
                                     {% if review.calificacion_presentacion == 1 %}
-                                        <span>★☆☆☆☆</span>
+                                    <span>★☆☆☆☆</span>
                                     {% endif %}
                                     {% if review.calificacion_presentacion == 2 %}
-                                        <span>★★☆☆☆</span>
+                                    <span>★★☆☆☆</span>
                                     {% endif %}
                                     {% if review.calificacion_presentacion == 3 %}
-                                        <span>★★★☆☆</span>
+                                    <span>★★★☆☆</span>
                                     {% endif %}
                                     {% if review.calificacion_presentacion == 4 %}
-                                        <span>★★★★☆</span>
+                                    <span>★★★★☆</span>
                                     {% endif %}
                                     {% if review.calificacion_presentacion == 5 %}
-                                        <span>★★★★★</span>
+                                    <span>★★★★★</span>
                                     {% endif %}
                                 </li>
                             </ul>
                         </div>
                         <ul class="list-unstyled">
-                            {% if review.comentario != '' %}
-                            <li>Comentario:</li>
-                            <li>{{ review.comentario }}</l>
+                            {% if review.detalle != '' %}
+                            <li>{{ review.detalle }}</li>
                             {% endif %}
+                        </ul>
+                        <ul class="list-unstyled">
+                            <i class="bi bi-hand-thumbs-up"></i> {{review.likes}} <i class="bi bi-hand-thumbs-down"></i> {{review.dislikes}}
+                        </ul>
+                        <ul class="list-unstyled">
+                            <li>
+
+                                <form method="post" action="">
+                                    {% csrf_token %}
+                                    <input type="hidden" name="evaluacion" value="{{ review.id }}">
+                                    {{ form_comentario.as_p }}
+                                    <button type="submit" class="btn btn-primary">Enviar</button>
+                                </form>
+                            </li>
                         </ul>
                     </div>
                     <div class="my-0" style="border: 1px solid gray; width: 100%; opacity: 0.6;"></div>
@@ -119,7 +133,7 @@
             {% if user.is_authenticated %}
             <h5 class="">¿Deseas contribuir?</h5>
             <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#createResena">
-              Crear reseña
+                Crear reseña
             </button>
             {% else %}
             <div class="text-center d-block align-self-center">
@@ -137,15 +151,16 @@
         <div class="modal-content p-4">
             <div class="modal-header">
                 <h1 class="modal-title fs-3">Crear una reseña</h1>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#createResena" aria-label="Close"></button>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" data-bs-target="#createResena"
+                    aria-label="Close"></button>
             </div>
             <form method="post" action="#">
                 {% csrf_token %}
                 {{ form.non_field_errors }}
                 <div class="modal-body">
                     <div class="row">
-                        <p class="col-4 my-auto fs-5">Comida:</p> 
-                        <div class="rating col-auto"> 
+                        <p class="col-4 my-auto fs-5">Comida:</p>
+                        <div class="rating col-auto">
                             {% for radio in form_tarea.calificacion_comida %}
                             {{ radio.tag }}
                             <label for="{{ radio.id_for_label }}">☆</label>
@@ -153,8 +168,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <p class="col-4 my-auto fs-5">Precio:</p> 
-                        <div class="rating col-auto"> 
+                        <p class="col-4 my-auto fs-5">Precio:</p>
+                        <div class="rating col-auto">
                             {% for radio in form_tarea.calificacion_precio %}
                             {{ radio.tag }}
                             <label for="{{ radio.id_for_label }}">☆</label>
@@ -162,8 +177,8 @@
                         </div>
                     </div>
                     <div class="row">
-                        <p class="col-4 my-auto fs-5">Presentación:</p> 
-                        <div class="rating col-auto"> 
+                        <p class="col-4 my-auto fs-5">Presentación:</p>
+                        <div class="rating col-auto">
                             {% for radio in form_tarea.calificacion_presentacion %}
                             {{ radio.tag }}
                             <label for="{{ radio.id_for_label }}">☆</label>
@@ -171,9 +186,10 @@
                         </div>
                     </div>
                     <div class="textAreaWrapper fs-5">
-                        {{ form_tarea.comentario.errors }}
-                        <label for="{{ form_tarea.comentario.id_for_label }}" class="row m-auto mt-3 mb-2">Deja tus comentarios</label>
-                        {{ form_tarea.comentario }}
+                        {{ form_tarea.detalle.errors }}
+                        <label for="{{ form_tarea.detalle.id_for_label }}" class="row m-auto mt-3 mb-2">Deja tu
+                            comentario</label>
+                        {{ form_tarea.detalle }}
                     </div>
                 </div>
                 <div class="modal-footer">

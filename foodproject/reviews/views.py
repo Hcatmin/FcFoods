@@ -7,10 +7,10 @@ from reviews.models import User
 from reviews.models import Puesto_de_comida
 from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
-from reviews.forms import NewUserForm, CrearReseñaForm, SearchForm
+from reviews.forms import NewUserForm, CrearReseñaForm, SearchForm, ComentarioReseña
 from django.contrib.auth import login, authenticate, logout #add this
 from django.contrib import messages #add this
-from reviews.models import Evaluacion
+from reviews.models import Evaluacion, Comentario
 from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 
@@ -93,28 +93,30 @@ def grid_stores(request):
 # Cuando se presiona el botón "Mostrar puesto de comida", en la página stores/
 def search_store(request):
     queryset = Puesto_de_comida.objects.all() # TODO: Se esta haciendo de nuevo la misma query
+    puesto = request.GET["local"]
+    local = Puesto_de_comida.objects.get(id=puesto)
     if request.method == "POST":
-        puesto = request.GET["local"]
-        local = Puesto_de_comida.objects.get(id=puesto)
+        form_agregar_comentario = ComentarioReseña(request.POST)
         reviews = Evaluacion.objects.filter(local_comida = local)
         form_crear_reseña = CrearReseñaForm(request.POST)
         if form_crear_reseña.is_valid():
             cleaned_data = form_crear_reseña.cleaned_data
             Evaluacion.objects.create(**cleaned_data, usuario=request.user, local_comida=local)
+        if form_agregar_comentario.is_valid():
+            evaluacion = request.POST['evaluacion']
+            cleaned_data = form_agregar_comentario.cleaned_data
+            Comentario.objects.create(**cleaned_data, comentarista=request.user, evaluacion_id = evaluacion)
+
         return render(request, "show_store.html", {
-            "local": local, "form_tarea": form_crear_reseña, "list": queryset, "reviews_list": reviews
+            "local": local, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario,"list": queryset, "reviews_list": reviews
             })
     if request.GET["local"]:
-        puesto = request.GET["local"]
-        local = Puesto_de_comida.objects.get(id=puesto)
+        form_agregar_comentario = ComentarioReseña()
         reviews = Evaluacion.objects.filter(local_comida = local)
         form_crear_reseña = CrearReseñaForm()
         return render(request, "show_store.html", {
-            "local": local, "form_tarea": form_crear_reseña, "list": queryset, "reviews_list": reviews
+            "local": local, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario, "list": queryset, "reviews_list": reviews
             })
-    else:
-        message = "Debes seleccionar un campo"
-        return HttpResponse(message)
 
 def buscador(request):
     if request.method == 'POST':

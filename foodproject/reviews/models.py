@@ -28,7 +28,7 @@ class Puesto_de_comida(models.Model):
 class Evaluacion(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     local_comida = models.ForeignKey(Puesto_de_comida, related_name='evaluaciones', on_delete=models.CASCADE)
-    comentario = models.TextField(blank=True)
+    detalle = models.TextField(blank=True)
     calificacion_comida = models.IntegerField()
     calificacion_precio = models.IntegerField()
     calificacion_presentacion = models.IntegerField()
@@ -64,7 +64,7 @@ class Comentario(models.Model):
     es_util = models.BooleanField(default=False)
     like_comentario = models.IntegerField(default=0)
     dislike_comentario = models.IntegerField(default=0)
-    fechaComentario = models.DateTimeField(auto_now_add=True)
+    # fechaComentario = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
       return "f'{self.comentarista.username} comentó la evaluación de {self.evaluacion.usuario.username}'"
