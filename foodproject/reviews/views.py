@@ -26,7 +26,8 @@ def home(request):
 @login_required
 def perfil(request):
     reviews_usuario = Evaluacion.objects.filter(usuario_id = request.user)
-    return render(request, "perfil.html", {"reviews_usuario" : reviews_usuario})
+    comentarios_usuario = Comentario.objects.filter(comentarista = request.user)
+    return render(request, "perfil.html", {"reviews_usuario" : reviews_usuario, "comentarios_usuario" : comentarios_usuario})
 
 # Vista que permite mostrar la página de registro de un usuario
 # Cuando se intenta acceder a register/ se ejecuta esta vista

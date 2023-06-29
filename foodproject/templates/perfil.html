@@ -34,16 +34,19 @@
         <div class="card hello">
           <div class="card-body info-card social-about">
             <h2 class="text-blue">Mis Comentarios</h2>
+            {% for comentario in comentarios_usuario|slice:":3" %}
             <div class="row">
               <div class="col-lg-8">
-                <h5>Local de comida</h5>
+                <h5>{{comentario.evaluacion.local_comida}}</h5>
                   <div class="mb-3">
-                    <p>Reseña</p>
+                    <p>{{comentario.evaluacion.usuario}}: "{{comentario.evaluacion.detalle}}"</p>
                   </div>
               </div>
               <div class="col-lg-4">
-                <p>Comentario</p>
+                <h5>Mi comentario</h5>
+                <p>{{comentario.comentario}}</p>
               </div>
+              {% endfor %}
               <div class="col-lg-5">
                 <button class="btn see-more" id="see-more" data-toggle="modal" data-target="#CommentsModal">Ver Más ></button>
               </div>
@@ -169,26 +172,27 @@
             <thead>
               <tr>
                 <th scope="col">Lugar</th>
-                <th scope="col">Reseña</th>
-                <th scope="col">Mi comentario</th>
+                <th scope="col-50">Reseña</th>
+                <th scope="col-50">Mi comentario</th>
               </tr>
             </thead>
             <tbody>
+              {% for comentario in comentarios_usuario %}
                 <tr>
-                  <td>Localll</td>
-                  <td>Reseñaaa</td>
-                  <td>Comentarioooo</td>
+                  <td>{{comentario.evaluacion.local_comida}}</td>
+                  <td>{{comentario.evaluacion.usuario}}: "{{comentario.evaluacion.detalle}}"</td>
+                  <td>{{comentario.comentario}}</td>
                   <td>
                     <ul class="list-inline m-0">
                       <li class="list-inline-item">
-                        <a href="#">
+                        <a href="{% url 'edit_comment' comentario.id %}">
                           <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar">
                           <i class="fa fa-edit"></i>
                           </button>
                         </a>
                       </li>
                       <li class="list-inline-item">
-                        <a href="#">
+                        <a href="{% url 'delete_comment' comentario.id %}">
                           <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Borrar">
                             <i class="fa fa-trash"></i>
                           </button>
@@ -197,6 +201,7 @@
                     </ul>
                   </td>
                 </tr> 
+              {% endfor %}
               </tbody>
             </table>
           </div>
