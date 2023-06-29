@@ -97,7 +97,7 @@ def search_store(request):
     local = Puesto_de_comida.objects.get(id=puesto)
     if request.method == "POST":
         form_agregar_comentario = ComentarioReseña(request.POST)
-        reviews = Evaluacion.objects.filter(local_comida = local)
+        reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha')
         form_crear_reseña = CrearReseñaForm(request.POST)
         if form_crear_reseña.is_valid():
             cleaned_data = form_crear_reseña.cleaned_data
@@ -112,7 +112,7 @@ def search_store(request):
             })
     if request.GET["local"]:
         form_agregar_comentario = ComentarioReseña()
-        reviews = Evaluacion.objects.filter(local_comida = local)
+        reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha')
         form_crear_reseña = CrearReseñaForm()
         return render(request, "show_store.html", {
             "local": local, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario, "list": queryset, "reviews_list": reviews
