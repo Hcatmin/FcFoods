@@ -45,7 +45,10 @@ def register_user(request):
 
         #Crear el nuevo usuario
         User.objects.create_user(username=nombre, password=contraseña, email=mail, pronombre=pronombre)
-
+        user = authenticate(username=nombre, password=contraseña)
+        if user is not None:
+            login(request, user)
+            messages.success(request, f"Te has logueado como {nombre}.")
      #Redireccionar la página /tareas
         return redirect("home")
 
