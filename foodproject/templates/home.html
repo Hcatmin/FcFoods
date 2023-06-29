@@ -18,130 +18,176 @@
       {% endfor %}
   </ul>
   {% endif %}
-  <p class="h4">Menu Principal:</p>
   <!-- Set up your HTML -->
   <div class="row">
     <div class="large-12 columns">
       <h4 id="center-with-loop">Recientes</h4>
       <div class="loop owl-carousel owl-theme">
+      {% for review in reviews_date %}
         <div class="item">
           <div class="card">
-            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
             <div class="card-body">
-              <h4 class="card-title">Title</h4>
-              <p class="card-text">Text</p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
+              <div class="d-flex align-items-center mb-3">
+                <img class="rounded-circle me-3" src="{% static 'img/perfilsf.png' %}" alt="Foto de {{ review.usuario }}" style="max-width: 8%;">
+                <figcaption class="d-2">{{ review.usuario }}</figcaption> 
+              </div>
+              <div class="row">
+                <ul class="list-unstyled fs-6 col-6">
+                  <li>Comida:</li>
+                  <li>Precio:</li>
+                  <li>Presentación:</li>
+                </ul>
+                <ul class="list-unstyled fs-6 col-6">
+                  <li class="calificacion">
+                      {% if review.calificacion_comida == 1 %}
+                          <span>★☆☆☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_comida == 2 %}
+                          <span>★★☆☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_comida == 3 %}
+                          <span>★★★☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_comida == 4 %}
+                          <span>★★★★☆</span>
+                      {% endif %}
+                      {% if review.calificacion_comida == 5 %}
+                          <span>★★★★★</span>
+                      {% endif %}
+                  </li>
+                  <li class="calificacion">
+                      {% if review.calificacion_precio == 1 %}
+                          <span>★☆☆☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_precio == 2 %}
+                          <span>★★☆☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_precio == 3 %}
+                          <span>★★★☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_precio == 4 %}
+                          <span>★★★★☆</span>
+                      {% endif %}
+                      {% if review.calificacion_precio == 5 %}
+                          <span>★★★★★</span>
+                      {% endif %}
+                  </li>
+                  <li class="calificacion">
+                      {% if review.calificacion_presentacion == 1 %}
+                          <span>★☆☆☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_presentacion == 2 %}
+                          <span>★★☆☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_presentacion == 3 %}
+                          <span>★★★☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_presentacion == 4 %}
+                          <span>★★★★☆</span>
+                      {% endif %}
+                      {% if review.calificacion_presentacion == 5 %}
+                          <span>★★★★★</span>
+                      {% endif %}
+                  </li>
+                </ul>
+              </div>
+              <ul class="list-unstyled">
+                  {% if review.detalle != '' %}
+                  <li>Detalle:</li>
+                  <li>{{ review.detalle }}</l>
+                  {% endif %}
+              </ul>
             </div>
           </div>
         </div>
-        <div class="item">
-          <div class="card">
-            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Title</h4>
-              <p class="card-text">Text</p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="card">
-            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Title</h4>
-              <p class="card-text">Text</p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="card">
-            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Title</h4>
-              <p class="card-text">Text</p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="card">
-            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Title</h4>
-              <p class="card-text">Text</p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
-        </div>
-
+      {% empty %}
+        <p>No se encontraron recientes.</p>
+      {% endfor %}
       </div>
       <br>
       <h4 id="center-without-loop">Populares</h4>
-      <div class="nonloop owl-carousel">
+      <div class="loop owl-carousel owl-theme">
+      {% for review in reviews_likes %}
         <div class="item">
           <div class="card">
-            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
             <div class="card-body">
-              <h4 class="card-title">Title</h4>
-              <p class="card-text">Text</p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
+              <div class="d-flex align-items-center mb-3">
+                <img class="rounded-circle me-3" src="{% static 'img/perfilsf.png' %}" alt="Foto de {{ review.usuario }}" style="max-width: 8%;">
+                <figcaption class="d-2">{{ review.usuario }}</figcaption> 
+              </div>
+              <div class="row">
+                <ul class="list-unstyled fs-6 col-6">
+                  <li>Comida:</li>
+                  <li>Precio:</li>
+                  <li>Presentación:</li>
+                </ul>
+                <ul class="list-unstyled fs-6 col-6">
+                  <li class="calificacion">
+                      {% if review.calificacion_comida == 1 %}
+                          <span>★☆☆☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_comida == 2 %}
+                          <span>★★☆☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_comida == 3 %}
+                          <span>★★★☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_comida == 4 %}
+                          <span>★★★★☆</span>
+                      {% endif %}
+                      {% if review.calificacion_comida == 5 %}
+                          <span>★★★★★</span>
+                      {% endif %}
+                  </li>
+                  <li class="calificacion">
+                      {% if review.calificacion_precio == 1 %}
+                          <span>★☆☆☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_precio == 2 %}
+                          <span>★★☆☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_precio == 3 %}
+                          <span>★★★☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_precio == 4 %}
+                          <span>★★★★☆</span>
+                      {% endif %}
+                      {% if review.calificacion_precio == 5 %}
+                          <span>★★★★★</span>
+                      {% endif %}
+                  </li>
+                  <li class="calificacion">
+                      {% if review.calificacion_presentacion == 1 %}
+                          <span>★☆☆☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_presentacion == 2 %}
+                          <span>★★☆☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_presentacion == 3 %}
+                          <span>★★★☆☆</span>
+                      {% endif %}
+                      {% if review.calificacion_presentacion == 4 %}
+                          <span>★★★★☆</span>
+                      {% endif %}
+                      {% if review.calificacion_presentacion == 5 %}
+                          <span>★★★★★</span>
+                      {% endif %}
+                  </li>
+                </ul>
+              </div>
+              <ul class="list-unstyled">
+                  {% if review.detalle != '' %}
+                  <li>Detalle:</li>
+                  <li>{{ review.detalle }}</l>
+                  {% endif %}
+              </ul>
             </div>
           </div>
         </div>
-        <div class="item">
-          <div class="card">
-            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Title</h4>
-              <p class="card-text">Text</p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="card">
-            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Title</h4>
-              <p class="card-text">Text</p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="card">
-            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Title</h4>
-              <p class="card-text">Text</p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
-        </div>
-        <div class="item">
-          <div class="card">
-            <img class="card-img-top" src="{% static 'img/emoji.jpg' %}" alt="Card image cap">
-            <div class="card-body">
-              <h4 class="card-title">Title</h4>
-              <p class="card-text">Text</p>
-              <a href="#" class="card-link">Card link</a>
-              <a href="#" class="card-link">Another link</a>
-            </div>
-          </div>
-        </div>
-
+      {% empty %}
+        <p>No se encontraron recientes.</p>
+      {% endfor %}
       </div>
-
     </div>
   </div>
 

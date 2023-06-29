@@ -17,7 +17,9 @@ from django.contrib.auth.decorators import login_required
 # Vista que permite mostrar la pagina principal (home) del sitio web
 # Cuando se intenta acceder a home/ se ejecuta esta vista
 def home(request):
-    return render(request, "home.html")
+    reviews_date = Evaluacion.objects.order_by('-fecha')[:6]
+    reviews_likes = Evaluacion.objects.order_by('-likes')[:6]
+    return render(request, "home.html", {"reviews_date" : reviews_date, "reviews_likes" : reviews_likes})
 
 # Vista que permite mostrar el perfil de un usuario
 # Cuando se intenta acceder a profile/ se ejecuta esta vista
