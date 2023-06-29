@@ -17,8 +17,15 @@
       <div class="card-body hello">
         <div class="wrapper">
           <img src="https://img.freepik.com/premium-photo/cat-dressed-formal-business-suit-anthropomorphic-businessman-generative-ai_796128-1479.jpg?w=740" alt="" class="user-profile">
-          <h3>Nombre</h3>
-          <p>{{request.user.username}}</p>
+          <h4>{{request.user.username}}</h4>
+        </div>
+        <div class="social-info">
+          <i class="fas fas fa-users mr-2" style="color: #92A9BD"></i>
+          <span>Pronombres: {{request.user.pronombre}}</span>
+        </div>
+        <div class="social-info">
+          <i class="fas fas fa-envelope mr-2" style="color: #92A9BD"></i>
+          <span>Mail: {{request.user.email}}</span>
         </div>
       </div>
     </div>
@@ -26,24 +33,19 @@
       <div class="col-lg-6">
         <div class="card hello">
           <div class="card-body info-card social-about">
-            <h2 class="text-blue">Sobre Mi</h2>
-            <h4><strong>Mis Intereses</strong></h4>
-            <p>Aqui van los hashtags</p>
-            <h4 class="mb-3"><strong>Información Personal</strong></h4>
+            <h2 class="text-blue">Mis Comentarios</h2>
             <div class="row">
-              <div class="col-6">
-                <div class="social-info">
-                  <i class="fas fas fa-users mr-2" style="color: #92A9BD"></i>
-                  <span>Pronombres: {{request.user.pronombre}}</span>
-                </div>
+              <div class="col-lg-8">
+                <h5>Local de comida</h5>
+                  <div class="mb-3">
+                    <p>Reseña</p>
+                  </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col-6">
-                <div class="social-info">
-                  <i class="fas fas fa-envelope mr-2" style="color: #92A9BD"></i>
-                  <span>Mail: {{request.user.email}}</span>
-                </div>
+              <div class="col-lg-4">
+                <p>Comentario</p>
+              </div>
+              <div class="col-lg-5">
+                <button class="btn see-more" id="see-more" data-toggle="modal" data-target="#CommentsModal">Ver Más ></button>
               </div>
             </div>
           </div>
@@ -58,7 +60,7 @@
               <div class="col-lg-8">
                 <h5>{{review.local_comida}}</h5>
                   <div class="mb-3">
-                    <p>{{review.comentario}} </p>
+                    <p>{{review.detalle}} </p>
                   </div>
               </div>
               <div class="col-lg-4">
@@ -89,27 +91,6 @@
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
-        <div class="card info-card hello">
-          <div class="card-body">
-            <h2 class="text-blue">Mis Comentarios</h2>
-            <div class="row">
-              <div class="col-lg-8">
-                <h5>Local de comida</h5>
-                  <div class="mb-3">
-                    <p>Reseña</p>
-                  </div>
-              </div>
-              <div class="col-lg-4">
-                <p>Comentario</p>
-              </div>
-              <div class="col-lg-5">
-                <button class="btn see-more" id="see-more" data-toggle="modal" data-target="#CommentsModal">Ver Más ></button>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
     </div>      
       <!-- Modal Reseñas -->
   <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -136,7 +117,7 @@
             <tbody>
               {% for review in reviews_usuario %}
                 <tr>
-                  <td>{{review.comentario}}</td>
+                  <td>{{review.detalle}}</td>
                   <td>{{review.calificacion_comida}}</td>
                   <td>{{review.calificacion_presentacion}}</td>
                   <td>{{review.calificacion_precio}}</td>
