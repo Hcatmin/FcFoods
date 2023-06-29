@@ -41,9 +41,10 @@ def register_user(request):
         nombre = request.POST['name']
         contraseña = request.POST['password']
         mail = request.POST['email']
+        pronombre = request.POST['pronombre']
 
         #Crear el nuevo usuario
-        user = User.objects.create_user(username=nombre, password=contraseña, email=mail)
+        User.objects.create_user(username=nombre, password=contraseña, email=mail, pronombre=pronombre)
 
      #Redireccionar la página /tareas
         return redirect("home")
