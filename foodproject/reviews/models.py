@@ -71,7 +71,7 @@ class Comentario(models.Model):
     def __str__(self):
       return "f'{self.comentarista.username} comentó la evaluación de {self.evaluacion.usuario.username}'"
     
-    def valirizar_util(self):
+    def valorizar_util(self):
         self.es_util = True
         self.save()
 

@@ -109,13 +109,30 @@
                         <ul class="list-unstyled">
                             <i class="bi bi-hand-thumbs-up"></i> {{review.likes}} <i class="bi bi-hand-thumbs-down"></i> {{review.dislikes}}
                         </ul>
+                        
                         <ul class="list-unstyled">
                             <li>
 
                                 <form method="post" action="">
                                     {% csrf_token %}
                                     <input type="hidden" name="evaluacion" value="{{ review.id }}">
-                                    {{ form_comentario.as_p }}
+                                    {{form_comments.comentario.erros}}
+                                    <div class="form-floating">
+                                        <textarea class="form-control" placeholder="Leave a comment here" 
+                                            id="{{ form_comments.comentario.id_for_label }}"  
+                                            name="{{ form_comments.comentario.html_name }}" 
+                                            value="{{ form_comments.comentario.value|default_if_none:''|escape }}" required>
+                                        </textarea>
+                                        <label for="{{ form_comments.comentario.id_for_label }}">Deja tu comentario</label>
+                                    </div>
+                                    {{form_comments.es_util.erros}}
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" value="" id="{{ form_comments.es_util.id_for_label }}">
+                                        <label class="form-check-label" for="{{ form_comments.es_util.id_for_label }}">
+                                          Es útil
+                                        </label>
+                                    </div>
+                                                                          
                                     <button type="submit" class="btn btn-primary">Enviar</button>
                                 </form>
                             </li>
