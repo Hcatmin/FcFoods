@@ -40,15 +40,18 @@ def register_user(request):
      #Tomar los elementos del formulario que vienen en request.POST
         nombre = request.POST['name']
         contraseña = request.POST['password']
-        mail = request.POST['email']
+        email = request.POST['email']
         pronombre = request.POST['pronombre']
-
-        #Crear el nuevo usuario
-        User.objects.create_user(username=nombre, password=contraseña, email=mail, pronombre=pronombre)
-        user = authenticate(username=nombre, password=contraseña)
-        if user is not None:
+        try:
+            user = User.objects.get(email=email)
+            messages.error(request, "El correo electrónico ya está asociado a una cuenta.")
+            return redirect("register_user")
+        except:
+            #Crear el nuevo usuario
+            User.objects.create_user(username=nombre, password=contraseña, email=email, pronombre=pronombre)
+            user = authenticate(username=nombre, password=contraseña)
             login(request, user)
-            messages.success(request, f"Te has logueado como {nombre}.")
+            messages.success(request, f"Te has registrado satisfactoriamente como {nombre}.")
      #Redireccionar la página /tareas
         return redirect("home")
 
