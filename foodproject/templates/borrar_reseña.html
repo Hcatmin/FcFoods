@@ -22,6 +22,7 @@
       {% if request.user.pronombre == "La" %}
         <p>¿Estás segura que deseas borrar la reseña al puesto de comida: "{{post.local_comida}}"?</p>
       {% endif %}
+      <p style="font-weight: bolder;">Tu reseña: "{{post.detalle}}"</p>
       <div class="opciones">
         <button type="submit">Sí, borrar</button>
         <a class="boton" href="{% url 'profile' %}">Cancelar</a>
