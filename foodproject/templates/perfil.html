@@ -8,211 +8,232 @@
   <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
 </head>
 {% if request.user.is_authenticated %}
-<body>
-  <div class="container">
-    <div class="img" style="    background-color:#D3DEDC;
-      height: 150px;background-size: cover;">
-    </div>
-    <div class="card social-prof">
-      <div class="card-body hello">
-        <div class="wrapper">
-          <img src="https://img.freepik.com/premium-photo/cat-dressed-formal-business-suit-anthropomorphic-businessman-generative-ai_796128-1479.jpg?w=740" alt="" class="user-profile">
-          <h4>{{request.user.username}}</h4>
-        </div>
-        <div class="social-info">
-          <i class="fas fas fa-users mr-2" style="color: #92A9BD"></i>
-          <span>Pronombres: {{request.user.pronombre}}</span>
-        </div>
-        <div class="social-info">
-          <i class="fas fas fa-envelope mr-2" style="color: #92A9BD"></i>
-          <span>Mail: {{request.user.email}}</span>
-        </div>
-      </div>
-    </div>
+<div class="container">
+  <div class="main-body">
     <div class="row">
-      <div class="col-lg-6">
-        <div class="card hello">
-          <div class="card-body info-card social-about">
-            <h2 class="text-blue">Mis Comentarios</h2>
-            {% for comentario in comentarios_usuario|slice:":3" %}
-            <div class="row">
-              <div class="col-lg-8">
-                <h5>{{comentario.evaluacion.local_comida}}</h5>
-                  <div class="mb-3">
-                    <p>{{comentario.evaluacion.usuario}}: "{{comentario.evaluacion.detalle}}"</p>
-                  </div>
-              </div>
-              <div class="col-lg-4">
-                <h5>Mi comentario</h5>
-                <p>{{comentario.comentario}}</p>
-              </div>
-              {% endfor %}
-              <div class="col-lg-5">
-                <button class="btn see-more" id="see-more" data-toggle="modal" data-target="#CommentsModal">Ver Más ></button>
+      <div class="col-lg-4">
+        <div class="card">
+          <div class="card-body">
+            <div class="d-flex flex-column align-items-center text-center">
+              <img src="https://cdn-icons-png.flaticon.com/512/149/149071.png?w=740&t=st=1688231463~exp=1688232063~hmac=ebc33f7db0736a6bbfe91501a4693152d8b848fbe1c4ccbad5159473861be23a" alt="Admin" class="rounded-circle p-1 bg-primary" width="110">
+              <div class="mt-3">
+                <h4>{{request.user.username}}</h4>
               </div>
             </div>
+            <hr class="my-4">
+            <ul class="list-group list-group-flush">
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h6 class="mb-0"><svg class="svg-icon" viewBox="0 0 20 20" width="24" height="24"><path d="M12.075,10.812c1.358-0.853,2.242-2.507,2.242-4.037c0-2.181-1.795-4.618-4.198-4.618S5.921,4.594,5.921,6.775c0,1.53,0.884,3.185,2.242,4.037c-3.222,0.865-5.6,3.807-5.6,7.298c0,0.23,0.189,0.42,0.42,0.42h14.273c0.23,0,0.42-0.189,0.42-0.42C17.676,14.619,15.297,11.677,12.075,10.812 M6.761,6.775c0-2.162,1.773-3.778,3.358-3.778s3.359,1.616,3.359,3.778c0,2.162-1.774,3.778-3.359,3.778S6.761,8.937,6.761,6.775 M3.415,17.69c0.218-3.51,3.142-6.297,6.704-6.297c3.562,0,6.486,2.787,6.705,6.297H3.415z"></path></svg>Pronombres</h6>
+                <span class="text-secondary">{{request.user.pronombre}}</span>
+              </li>
+              <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                <h6 class="mb-0"><svg class="svg-icon" viewBox="0 0 20 20" width="24" height="24"><path d="M17.388,4.751H2.613c-0.213,0-0.389,0.175-0.389,0.389v9.72c0,0.216,0.175,0.389,0.389,0.389h14.775c0.214,0,0.389-0.173,0.389-0.389v-9.72C17.776,4.926,17.602,4.751,17.388,4.751 M16.448,5.53L10,11.984L3.552,5.53H16.448zM3.002,6.081l3.921,3.925l-3.921,3.925V6.081z M3.56,14.471l3.914-3.916l2.253,2.253c0.153,0.153,0.395,0.153,0.548,0l2.253-2.253l3.913,3.916H3.56z M16.999,13.931l-3.921-3.925l3.921-3.925V13.931z"></path></svg>Mail</h6>
+                <span class="text-secondary">{{request.user.email}}</span>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
-      <div class="col-lg-6">
-        <div class="card info-card hello">
+      <div class="col-lg-8">
+        <div class="card">
           <div class="card-body">
-            <h2 class="text-blue">Mis Reseñas</h2>
-            {% for review in reviews_usuario|slice:":3" %}
-            <div class="row">
-              <div class="col-lg-8">
-                <h5>{{review.local_comida}}</h5>
-                  <div class="mb-3">
-                    <p>{{review.detalle}} </p>
-                  </div>
+          <h3>Mis Reseñas</h3>
+          {% for review in reviews_usuario|slice:":3" %}
+            <div class="row mb-3">
+              <div class="col-sm-7">
+                <h6 class="mb-0">Local</h6>
+                <p>{{review.local_comida}}</p>
               </div>
-              <div class="col-lg-4">
-                <h5>Evaluación</h5>
-                <div class="stars-class mb-3 fs-5">
-                  {% if review.calificacion_comida == 1 %}
+              <div class="col-sm-5 text-secondary">
+                <h6>Evaluación Comida</h6>
+                {% if review.calificacion_comida == 1 %}
                       <span>★☆☆☆☆</span>
-                  {% endif %}
-                  {% if review.calificacion_comida == 2 %}
+                    {% endif %}
+                    {% if review.calificacion_comida == 2 %}
                       <span>★★☆☆☆</span>
-                  {% endif %}
-                  {% if review.calificacion_comida == 3 %}
+                    {% endif %}
+                    {% if review.calificacion_comida == 3 %}
                       <span>★★★☆☆</span>
-                  {% endif %}
-                  {% if review.calificacion_comida == 4 %}
+                    {% endif %}
+                    {% if review.calificacion_comida == 4 %}
                       <span>★★★★☆</span>
-                  {% endif %}
-                  {% if review.calificacion_comida == 5 %}
+                    {% endif %}
+                    {% if review.calificacion_comida == 5 %}
                       <span>★★★★★</span>
-                  {% endif %}
-                </div>
+                    {% endif %}
               </div>
             </div>
-            {% endfor %}
-            <div class="col-lg-5">
+            <div class="row mb-7">
+              <div class="col-sm-3">
+                <h6 class="mb-0">Reseña</h6>
+                <p>{{review.detalle}}</p>
+              </div>
+            </div>
+            <hr>
+          {% empty %}
+          <h6>No has realizado reseñas</h6>
+          {% endfor %}
+            <div class="row">
               <button class="btn see-more" id="see-more" data-toggle="modal" data-target="#exampleModal">Ver Más ></button>
             </div>
           </div>
         </div>
-      </div>
-    </div>      
-      <!-- Modal Reseñas -->
-  <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header float-right">
-          <h5>Mis Reseñas</h5>
-            <div class="text-right">
-              <i data-dismiss="modal" aria-label="Close" class="fa fa-close"></i>
-            </div>
-        </div>
-      <div class="modal-body">
-        <div>
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th scope="col">Reseña</th>
-                <th scope="col">Comida</th>
-                <th scope="col">Presentación</th>
-                <th scope="col">Precio</th>
-                <th scope="col">Lugar</th>  
-              </tr>
-            </thead>
-            <tbody>
-              {% for review in reviews_usuario %}
-                <tr>
-                  <td>{{review.detalle}}</td>
-                  <td>{{review.calificacion_comida}}</td>
-                  <td>{{review.calificacion_presentacion}}</td>
-                  <td>{{review.calificacion_precio}}</td>
-                  <td>{{review.local_comida}}</td>
-                  <td>
-                    <ul class="list-inline m-0">
-                      <li class="list-inline-item">
-                        <a href="{% url 'edit_review' review.id %}">
-                          <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar">
-                          <i class="fa fa-edit"></i>
-                          </button>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="{% url 'delete_review' review.id %}">
-                          <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Borrar">
-                            <i class="fa fa-trash"></i>
-                          </button>
-                        </a>  
-                      </li>
-                    </ul>
-                  </td>
-                </tr>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card">
+              <div class="card-body">
+                <h3>Mis Comentarios</h3>
+              {% for comentario in comentarios_usuario|slice:":3" %}
+                <div class="row mb-3">
+                  <div class="col-sm-7">
+                    <h6 class="d-flex align-items-center">Local</h5>
+                    <p>{{comentario.evaluacion.local_comida}}</p>
+                  </div>
+                  <div class="col-sm-5">
+                    <h6>Mi comentario</h6>
+                    <p>{{comentario.comentario}}</p>
+                  </div>
+                  <div class="row mb-7">
+                    <div class="col-sm-3">
+                      <h6 class="mb-0">Reseña</h6>
+                      <p>{{comentario.evaluacion.usuario}}: "{{comentario.evaluacion.detalle}}"</p>
+                    </div>
+                  </div>    
+                </div>
+                <hr> 
+              {% empty %}
+              <h6>Aun no has realizado comentarios</h6>
               {% endfor %}  
-              </tbody>
-            </table>
-          </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!--Modal Comentarios-->
-  <div class="modal fade" id="CommentsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg">
-      <div class="modal-content">
-        <div class="modal-header float-right">
-          <h5>Mis Reseñas</h5>
-            <div class="text-right">
-              <i data-dismiss="modal" aria-label="Close" class="fa fa-close"></i>
+                <div class="row">
+                  <button class="btn see-more" id="see-more" data-toggle="modal" data-target="#commentsModal">Ver Más ></button>
+                </div>
+              </div>
             </div>
-        </div>
-      <div class="modal-body">
-        <div>
-          <table class="table table-bordered">
-            <thead>
-              <tr>
-                <th scope="col">Lugar</th>
-                <th scope="col-50">Reseña</th>
-                <th scope="col-50">Mi comentario</th>
-              </tr>
-            </thead>
-            <tbody>
-              {% for comentario in comentarios_usuario %}
-                <tr>
-                  <td>{{comentario.evaluacion.local_comida}}</td>
-                  <td>{{comentario.evaluacion.usuario}}: "{{comentario.evaluacion.detalle}}"</td>
-                  <td>{{comentario.comentario}}</td>
-                  <td>
-                    <ul class="list-inline m-0">
-                      <li class="list-inline-item">
-                        <a href="{% url 'edit_comment' comentario.id %}">
-                          <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar">
-                          <i class="fa fa-edit"></i>
-                          </button>
-                        </a>
-                      </li>
-                      <li class="list-inline-item">
-                        <a href="{% url 'delete_comment' comentario.id %}">
-                          <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Borrar">
-                            <i class="fa fa-trash"></i>
-                          </button>
-                        </a>  
-                      </li>
-                    </ul>
-                  </td>
-                </tr> 
-              {% endfor %}
-              </tbody>
-            </table>
           </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
         </div>
       </div>
     </div>
   </div>
-</body>
+</div>
+
+<!--Modal Reseñas-->
+<div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header float-right">
+        <h5>Mis Reseñas</h5>
+          <div class="text-right">
+            <i data-dismiss="modal" aria-label="Close" class="fa fa-close"></i>
+          </div>
+      </div>
+    <div class="modal-body">
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Reseña</th>
+              <th scope="col">Comida</th>
+              <th scope="col">Presentación</th>
+              <th scope="col">Precio</th>
+              <th scope="col">Lugar</th>  
+            </tr>
+          </thead>
+          <tbody>
+            {% for review in reviews_usuario %}
+              <tr>
+                <td>{{review.detalle}}</td>
+                <td>{{review.calificacion_comida}}</td>
+                <td>{{review.calificacion_presentacion}}</td>
+                <td>{{review.calificacion_precio}}</td>
+                <td>{{review.local_comida}}</td>
+                <td>
+                  <ul class="list-inline m-0">
+                    <li class="list-inline-item">
+                      <a href="{% url 'edit_review' review.id %}">
+                        <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar">
+                        <i class="fa fa-edit"></i>
+                        </button>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="{% url 'delete_review' review.id %}">
+                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Borrar">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </a>  
+                    </li>
+                  </ul>
+                </td>
+              </tr>
+            {% endfor %}  
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Modal Comentarios-->
+<div class="modal fade" id="commentsModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header float-right">
+        <h5>Mis Comentarios</h5>
+          <div class="text-right">
+            <i data-dismiss="modal" aria-label="Close" class="fa fa-close"></i>
+          </div>
+      </div>
+    <div class="modal-body">
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th scope="col">Lugar</th>
+              <th scope="col-50">Reseña</th>
+              <th scope="col-50">Mi comentario</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for comentario in comentarios_usuario %}
+              <tr>
+                <td>{{comentario.evaluacion.local_comida}}</td>
+                <td>{{comentario.evaluacion.usuario}}: "{{comentario.evaluacion.detalle}}"</td>
+                <td>{{comentario.comentario}}</td>
+                <td>
+                  <ul class="list-inline m-0">
+                    <li class="list-inline-item">
+                      <a href="{% url 'edit_comment' comentario.id %}">
+                        <button class="btn btn-success btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Editar">
+                        <i class="fa fa-edit"></i>
+                        </button>
+                      </a>
+                    </li>
+                    <li class="list-inline-item">
+                      <a href="{% url 'delete_comment' comentario.id %}">
+                        <button class="btn btn-danger btn-sm rounded-0" type="button" data-toggle="tooltip" data-placement="top" title="Borrar">
+                          <i class="fa fa-trash"></i>
+                        </button>
+                      </a>  
+                    </li>
+                  </ul>
+                </td>
+              </tr> 
+            {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/bundle.min.js' %}"></script>
 <script>
@@ -220,5 +241,6 @@
     $('[data-toggle="tooltip"]').tooltip();
   });
 </script>
+
 {%endif%}
-{% endblock %}          
+{% endblock %}
