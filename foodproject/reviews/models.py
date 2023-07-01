@@ -15,7 +15,7 @@ class User(AbstractUser):
 # Posee de atributos: el nombre, el dueño, y la foto del local
 class Puesto_de_comida(models.Model):
     nombre = models.CharField(max_length=200)
-    dueño = models.CharField(max_length=200)
+    dueño = models.CharField(max_length=200, blank=True)
     FotoLocal = models.ImageField(upload_to='Fotos_locales/', null=True, blank=True)
 
     def __str__(self):

@@ -18,10 +18,11 @@
           {% endif %}
           <div class="card-body d-flex flex-column justify-content-around">
             <h4 class="card-title my-auto">{{local.nombre}}</h4>
+            {% if local.dueño%}
             <p class="card-text">{{local.dueño}}</p>
-
+            {% endif %}
             <form action="/search_store/" method="get">
-              <button class="btn btn-primary" type="submit" name ="local" value="{{local.id}}">
+              <button class="btn btn-primary mt-3" type="submit" name ="local" value="{{local.id}}">
                 Mostrar
               </button>
             </form>
