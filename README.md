@@ -27,7 +27,8 @@
     * para activar el ambiente virtual es
 	nombre_ambiente\Scripts\activate
 
-- Antes de correr el proyecto, ejecutar ´´´pip install -r requirements.txt´´´
+- Antes de correr el proyecto, ejecutar:
+  ´´´pip install -r requirements.txt
 
 - Correr proyecto con los siguientes comandos
     python manage.py runserver
