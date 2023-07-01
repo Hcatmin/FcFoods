@@ -109,8 +109,18 @@ def search_store(request):
     form_agregar_comentario = ComentarioReseña()
     if request.method == "POST":
         reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha')
+        
+        if 'like' in  request.POST:
+            review_id = request.POST.get('like')
+            review = get_object_or_404(Evaluacion, id = review_id)
+            review.dar_like()
 
-        if 'review_form' in request.POST:
+        elif 'dislike' in request.POST:
+            review_id = request.POST.get('dislike')
+            review = get_object_or_404(Evaluacion, id=review_id)
+            review.dar_dislike()
+
+        elif 'review_form' in request.POST:
             form_crear_reseña = CrearReseñaForm(request.POST)
             if form_crear_reseña.is_valid():
                 cleaned_data = form_crear_reseña.cleaned_data

@@ -113,6 +113,12 @@
                             </div>
                             <ul class="list-unstyled">
                                 <i class="bi bi-hand-thumbs-up"></i> {{review.likes}} <i class="bi bi-hand-thumbs-down"></i> {{review.dislikes}}
+                                <form method="post">
+                                    {% csrf_token %}
+                                    <button type="submit" name="like" value="{{ review.id }}">Dar Like</button>
+                                    <button type="submit" name="dislike" value="{{ review.id }}">Dar Dislike</button>
+                                </form>
+                            
                             </ul>
 
                             </div>

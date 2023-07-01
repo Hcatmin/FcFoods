@@ -35,6 +35,8 @@ class Evaluacion(models.Model):
     likes = models.IntegerField(default=0)
     dislikes = models.IntegerField(default = 0)
     fecha = models.DateTimeField(auto_now_add=True)
+    usuario_dio_like = models.ManyToManyField(User, related_name='like_reviews', blank=True)
+    usuario_dio_dislike = models.ManyToManyField(User, related_name='dislike_reviews', blank=True)
     
     def __str__(self):
         return f"{self.usuario.username} evaluó {self.local_comida.nombre}"
