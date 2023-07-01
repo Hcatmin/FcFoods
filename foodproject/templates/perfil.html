@@ -8,6 +8,20 @@
   <link rel="stylesheet" href="{% static 'css/perfil.css' %}">
 </head>
 {% if request.user.is_authenticated %}
+{% if messages %}
+<ul class="messages list-unstyled">
+    {% for message in messages %}
+      {% if message.tags %}
+      <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+      {% else %}
+      <div class="alert alert-info alert-dismissible fade show" role="alert">
+      {% endif %}
+        {{ message }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      </div>
+    {% endfor %}
+</ul>
+{% endif %}
 <div class="container">
   <div class="main-body">
     <div class="row">
