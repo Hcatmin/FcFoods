@@ -79,20 +79,6 @@ def login_request(request):
     form = AuthenticationForm()
     return render(request=request, template_name="registration/login.html", context={"login_form":form})
 
-# Vista que permite mostrar la página de la lista de reseñas
-# Cuando se intenta acceder a reviews/ se ejecuta esta vista
-def lista_de_reviews(request):
-    reviews = Evaluacion.objects.all()  # quering all todos with the object manager
-    if request.method == "GET":
-        form_crear_reseña = CrearReseñaForm()
-        return render(request, "lista_de_reviews.html", {"form_tarea": form_crear_reseña, "reviews_list": reviews})
-    if request.method == "POST":
-        form_crear_reseña = CrearReseñaForm(request.POST)
-        if form_crear_reseña.is_valid():
-            cleaned_data = form_crear_reseña.cleaned_data
-            Evaluacion.objects.create(**cleaned_data, usuario=request.user)
-        return render(request, "lista_de_reviews.html", {"form_tarea": form_crear_reseña, "reviews_list": reviews})
-
 # Vista que permite mostrar la página dedicada a buscar y mostrar información de las tiendas
 # Cuando se intenta acceder a tiendas/ se ejecuta esta vista
 def grid_stores(request): 
