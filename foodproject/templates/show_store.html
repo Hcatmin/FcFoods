@@ -36,7 +36,6 @@
             <div class="row">
                 <div class="col">
                     {% for review in reviews_list %}
-<<<<<<< HEAD
                     <div class="d-flex flex-start mt-4">
                         <img class="rounded-circle shadow-1-strong me-3" src="{% static 'img/perfilsf.png' %}"
                             alt="Foto de {{ review.usuario }}" width="50" height="50" />
@@ -46,7 +45,7 @@
                                 <p class="mb-1">
                                 {{ review.usuario }} <span class="small">- {{ review.fecha|timesince|split_timesince}} </span>
                                 </p>
-                                <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small"> reply</span></a>
+                                <!-- <a href="#!"><i class="fas fa-reply fa-xs"></i><span class="small"> reply</span></a> -->
                             </div>
                             <p>
                                 {{review.detalle}}
@@ -141,6 +140,7 @@
 
                             <div class="d-flex flex-start mt-4">
                                 <div class="flex-grow-1 flex-shrink-1">
+                                    {% if user.is_authenticated %}
                                     <form method="post" action="">
                                         {% csrf_token %}
                                         <input type="hidden" name="evaluacion" value="{{ review.id }}">
@@ -154,113 +154,11 @@
                                             Enviar
                                         </button>
                                     </form>
+                                    {% endif %}
+
                                 </div>
                             </div>
                         </div>
-=======
-                    <div class="review-card mx-3 mt-3">
-                        <div class="d-flex align-items-center mb-3">
-                            <img class="rounded-circle me-3" src="{% static 'img/perfilsf.png' %}"
-                                alt="Foto de {{ review.usuario }}" style="max-width: 10%;">
-                            <figcaption class="d-2">{{ review.usuario }}</figcaption>
-                        </div>
-                        <div class="row">
-                            <ul class="list-unstyled fs-6 col-4">
-                                <li>Comida:</li>
-                                <li>Precio:</li>
-                                <li>Presentación:</li>
-                            </ul>
-                            <ul class="list-unstyled fs-6 col-3">
-                                <li class="calificacion">
-                                    {% if review.calificacion_comida == 1 %}
-                                    <span>★☆☆☆☆</span>
-                                    {% endif %}
-                                    {% if review.calificacion_comida == 2 %}
-                                    <span>★★☆☆☆</span>
-                                    {% endif %}
-                                    {% if review.calificacion_comida == 3 %}
-                                    <span>★★★☆☆</span>
-                                    {% endif %}
-                                    {% if review.calificacion_comida == 4 %}
-                                    <span>★★★★☆</span>
-                                    {% endif %}
-                                    {% if review.calificacion_comida == 5 %}
-                                    <span>★★★★★</span>
-                                    {% endif %}
-                                </li>
-                                <li class="calificacion">
-                                    {% if review.calificacion_precio == 1 %}
-                                    <span>★☆☆☆☆</span>
-                                    {% endif %}
-                                    {% if review.calificacion_precio == 2 %}
-                                    <span>★★☆☆☆</span>
-                                    {% endif %}
-                                    {% if review.calificacion_precio == 3 %}
-                                    <span>★★★☆☆</span>
-                                    {% endif %}
-                                    {% if review.calificacion_precio == 4 %}
-                                    <span>★★★★☆</span>
-                                    {% endif %}
-                                    {% if review.calificacion_precio == 5 %}
-                                    <span>★★★★★</span>
-                                    {% endif %}
-                                </li>
-                                <li class="calificacion">
-                                    {% if review.calificacion_presentacion == 1 %}
-                                    <span>★☆☆☆☆</span>
-                                    {% endif %}
-                                    {% if review.calificacion_presentacion == 2 %}
-                                    <span>★★☆☆☆</span>
-                                    {% endif %}
-                                    {% if review.calificacion_presentacion == 3 %}
-                                    <span>★★★☆☆</span>
-                                    {% endif %}
-                                    {% if review.calificacion_presentacion == 4 %}
-                                    <span>★★★★☆</span>
-                                    {% endif %}
-                                    {% if review.calificacion_presentacion == 5 %}
-                                    <span>★★★★★</span>
-                                    {% endif %}
-                                </li>
-                            </ul>
-                        </div>
-                        <ul class="list-unstyled">
-                            {% if review.detalle != '' %}
-                            <li>{{ review.detalle }}</li>
-                            {% endif %}
-                        </ul>
-                        <ul class="list-unstyled">
-                            <i class="bi bi-hand-thumbs-up"></i> {{review.likes}} <i class="bi bi-hand-thumbs-down"></i> {{review.dislikes}}
-                        </ul>
-                        
-                        <ul class="list-unstyled">
-                            <li>
-
-                                <form method="post" action="">
-                                    {% csrf_token %}
-                                    <input type="hidden" name="evaluacion" value="{{ review.id }}">
-                                    {{form_comments.comentario.erros}}
-                                    <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a comment here" 
-                                            id="{{ form_comments.comentario.id_for_label }}"  
-                                            name="{{ form_comments.comentario.html_name }}" 
-                                            value="{{ form_comments.comentario.value|default_if_none:''|escape }}" required>
-                                        </textarea>
-                                        <label for="{{ form_comments.comentario.id_for_label }}">Deja tu comentario</label>
-                                    </div>
-                                    {{form_comments.es_util.erros}}
-                                    <div class="form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="{{ form_comments.es_util.id_for_label }}">
-                                        <label class="form-check-label" for="{{ form_comments.es_util.id_for_label }}">
-                                          Es útil
-                                        </label>
-                                    </div>
-                                                                          
-                                    <button type="submit" class="btn btn-primary">Enviar</button>
-                                </form>
-                            </li>
-                        </ul>
->>>>>>> dbd250964513f22f406dde5ada91f5a4893315dc
                     </div>
                     {% endfor %}
 
