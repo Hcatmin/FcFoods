@@ -22,21 +22,21 @@
             <img src="{{ local.FotoLocal.url }}" class="img-fluid" alt="">
             {% endif %}
         </dl>
-        <dl class="row m-1 mb-0 text-start">
+        <dl class="row mb-0 text-start">
             
-            <dt class="col-sm-3">Dueño</dt>
-            <dd class="col-sm-9">{{local.dueño}}</dd>
-
-
-            <dt class="col-sm-3">Descripción </dt>
-            <dd class="col-sm-9 text-truncate">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime tenetur
-                voluptates
-                vitae aspernatur nesciunt magni consequatur. Saepe velit eum cupiditate, odio molestiae vitae! Maxime
-                omnis animi nobis mollitia ipsa quaerat.</dd>
-            <div class="row">
-                <div class="col mb-3">
+            <div class="mx-3">
+                <dt class="col-sm-3">Dueño</dt>
+                <dd class="col-sm-9">{{local.dueño}}</dd>
+                <dt class="col-sm-3">Descripción </dt>
+                <dd class="col-sm-9 text-truncate">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime tenetur
+                    voluptates
+                    vitae aspernatur nesciunt magni consequatur. Saepe velit eum cupiditate, odio molestiae vitae! Maxime
+                    omnis animi nobis mollitia ipsa quaerat.</dd>
+            </div>
+            <div class="row mx-0">
+                <div class="col p-0 mb-3">
                     {% for review in reviews_list %}
-                    <div class="d-flex flex-start mt-4">
+                    <div class="d-flex flex-start my-4 mx-3">
                         <img class="rounded-circle shadow-1-strong me-3" src="{% static 'img/perfilsf.png' %}"
                             alt="Foto de {{ review.usuario }}" width="50" height="50" />
                         <div class="flex-grow-1 flex-shrink-1">
@@ -160,8 +160,8 @@
                             </div>
                         </div>
                     </div>
+                    <div class="my-0" style="border: 1px solid gray; width: 100%; opacity: 0.6;"></div>
                     {% endfor %}
-
                 </div>
             </div>
         </dl>
