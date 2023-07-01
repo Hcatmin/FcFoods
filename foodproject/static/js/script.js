@@ -1,29 +1,26 @@
-const navmobile = document.getElementById("nav-mobile");
-const navpc = document.getElementById("nav-pc");
-const pcard = document.getElementById("popular");
+var navmobile = document.getElementById("nav-mobile");
+var navpc = document.getElementById("nav-pc");
+var navsearch = document.getElementById("nav-search");
 
+// var display = navpc.style.display;
+var estiloComputado = window.getComputedStyle(navpc);
 
-if (window.innerWidth >= 992  ) {
-  navmobile.hidden = true;
-  navpc.hidden = false;
-}
-else {
-  navmobile.hidden = false;
-  navpc.hidden = true;
-}
-
-function responsiveNav() {
-  if (window.innerWidth >= 992  ) {
-    navmobile.hidden = true;
+function responsive_mode() {
+  var display = estiloComputado.getPropertyValue('display');
+  if (display == "flex") {
     navpc.hidden = false;
+    navmobile.hidden = true;
+    navsearch.hidden = true;
   }
   else {
-    navmobile.hidden = false;
+    // navpc.style.setProperty('display', 'none'); // Oculta el elemento
     navpc.hidden = true;
+    navmobile.hidden = false;
+    navsearch.hidden = false;
   }
-}
+};
 
+responsive_mode();
 
-
-window.onresize = responsiveNav;
+window.onresize = responsive_mode;
 

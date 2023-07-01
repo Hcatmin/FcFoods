@@ -23,7 +23,11 @@
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark " aria-label="Ninth navbar example">
       <div class="container-xl">
         <a class="navbar-brand">Grupo 15</a>
-
+        
+        <a class="nav-link text-light active" aria-current="page" id="nav-search" href="{% url 'buscador' %}" hidden>
+          <i class="bi bi-search"></i>
+          Buscar
+        </a>
         <div class="navbar-collapse" id="nav-pc" hidden>
           <ul class="navbar-nav me-auto mb-2 mb-lg-0">
             <li class="nav-item">
