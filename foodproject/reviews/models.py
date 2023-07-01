@@ -37,7 +37,7 @@ class Evaluacion(models.Model):
     fecha = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return "f'{self.usuario.username} evaluo {self.local_comida.comida.nombre}'"
+        return f"{self.usuario.username} evaluó {self.local_comida.nombre}"
     
     def dar_like(self):
         self.likes += 1
@@ -62,14 +62,14 @@ class Evaluacion(models.Model):
 class Comentario(models.Model):
     evaluacion = models.ForeignKey(Evaluacion, related_name='calificaciones', on_delete=models.CASCADE)
     comentarista = models.ForeignKey(User, on_delete=models.CASCADE)
-    comentario = models.TextField(blank=True)
+    comentario = models.TextField(blank=False)
     es_util = models.BooleanField(default=False)
     like_comentario = models.IntegerField(default=0)
     dislike_comentario = models.IntegerField(default=0)
-    # fechaComentario = models.DateTimeField(auto_now_add=True)
+    fechacomentario = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-      return "f'{self.comentarista.username} comentó la evaluación de {self.evaluacion.usuario.username}'"
+      return f"{self.comentarista.username} comentó la evaluación de {self.evaluacion.usuario.username}"
     
     def valorizar_util(self):
         self.es_util = True

@@ -105,24 +105,30 @@ def search_store(request):
     queryset = Puesto_de_comida.objects.all() # TODO: Se esta haciendo de nuevo la misma query
     puesto = request.GET["local"]
     local = Puesto_de_comida.objects.get(id=puesto)
+    form_crear_reseña = CrearReseñaForm()
+    form_agregar_comentario = ComentarioReseña()
     if request.method == "POST":
-        form_agregar_comentario = ComentarioReseña(request.POST)
         reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha')
-        form_crear_reseña = CrearReseñaForm(request.POST)
-        if form_crear_reseña.is_valid():
-            cleaned_data = form_crear_reseña.cleaned_data
-            Evaluacion.objects.create(**cleaned_data, usuario=request.user, local_comida=local)
-        elif form_agregar_comentario.is_valid():
-            evaluacion = request.POST['evaluacion']
-            cleaned_data = form_agregar_comentario.cleaned_data
-            Comentario.objects.create(**cleaned_data, comentarista=request.user, evaluacion_id = evaluacion)
+
+        if 'review_form' in request.POST:
+            form_crear_reseña = CrearReseñaForm(request.POST)
+            if form_crear_reseña.is_valid():
+                cleaned_data = form_crear_reseña.cleaned_data
+                Evaluacion.objects.create(**cleaned_data, usuario=request.user, local_comida=local)
+            
+        elif 'comment_form' in request.POST:
+            form_agregar_comentario = ComentarioReseña(request.POST)
+            if form_agregar_comentario.is_valid():
+                evaluacion = request.POST['evaluacion']
+                cleaned_data = form_agregar_comentario.cleaned_data
+                Comentario.objects.create(**cleaned_data, comentarista=request.user, evaluacion_id = evaluacion)
 
         return render(request, "show_store.html", {
             "local": local, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario,"list": queryset, "reviews_list": reviews
             })
+    
     if request.GET["local"]:
-        form_agregar_comentario = ComentarioReseña()
-        reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha')
+        reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha').all()
         form_crear_reseña = CrearReseñaForm()
         return render(request, "show_store.html", {
             "local": local, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario, "list": queryset, "reviews_list": reviews
