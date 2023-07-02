@@ -18,7 +18,7 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from reviews.views import home, perfil, register_user, login_request, lista_de_reviews, \
+from reviews.views import home, perfil, register_user, login_request, \
                           search_store, buscador, grid_stores, editar_reseña, \
                           borrar_reseña, cerrar_sesion, editar_comentario, borrar_comentario
 
@@ -30,7 +30,6 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('tiendas/', grid_stores, name='tiendas'),
     path('login/', login_request, name="login"),
-    path('reviews/', lista_de_reviews),
     path('search_store/', search_store),
     path('buscar/', buscador, name="buscador"),
     path('profile/edit_review/<int:id>/', editar_reseña, name="edit_review"),
