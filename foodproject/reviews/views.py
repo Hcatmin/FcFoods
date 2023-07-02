@@ -130,6 +130,8 @@ def search_store(request):
             "local": local, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario, "list": queryset, "reviews_list": reviews
             })
 
+# Vista que permite mostrar la página para realizar busquedas
+# Cuando se presiona el botón "Buscar", en la página buscar/
 def buscador(request):
     if request.method == 'POST':
         form_busqueda = SearchForm(request.POST)

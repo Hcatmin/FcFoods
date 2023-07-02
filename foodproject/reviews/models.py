@@ -1,18 +1,22 @@
 from django.db import models
 #from django.contrib.auth.models import User
 
-# Create your models here.
 
 from django.contrib.auth.models import AbstractUser
 
 # Modelo que representa a los usuarios
-# Posee de atributos: username, mail, pronombre, y contraseña
+# Posee de atributos: username: el nombre de usuario
+#                     mail: el mail del usuario
+#                     pronombre: el pronombre del usuario
+#                     contraseña: la contraseña del usuario
 class User(AbstractUser):
   pronombres = [('La','La'),('El','El'), ('Le','Le'),('Otro','Otro')]
   pronombre = models.CharField(max_length=5,choices=pronombres)
 
 # Modelo que representa los puestos de comida que se instalan fuera de 850
-# Posee de atributos: el nombre, el dueño, y la foto del local
+# Posee de atributos: nombre: el nombre del puesto de comida
+#                     dueño: el dueño del puesto de comida
+#                     FotoLocal: una foto del puesto de comida
 class Puesto_de_comida(models.Model):
     nombre = models.CharField(max_length=200)
     dueño = models.CharField(max_length=200, blank=True)
@@ -22,9 +26,17 @@ class Puesto_de_comida(models.Model):
         return self.nombre
 
 # Modelo que representa las reseñas de los puestos de comida
-# Posee de atributos: el usuario que creo la reseña, el puesto de comida, un comentario, y 
-#                     calficaciones de la comida, el precio, y la presentación.
-#                     también incluye las evaluaciones positivas y negativas dadas a la reseña
+# Posee de atributos: usuario: el usuario que creo la reseña 
+#                     local_comida: el puesto de comida del que se está haciendo la reseña
+#                     detalle: un texto adicional que se le puede agregar a la reseña
+#                     calificacion_comida: un puntaje entre 1 y 5 que se le da a la comida
+#                     calificacion_precio: un puntaje entre 1 y 5 que se le da al precio
+#                     calificacion_presentacion: un puntaje entre 1 y 5 que se le da a la presentación
+#                     likes: cantidad de likes que tiene la reseña
+#                     dislikes: cantidad de dislikes que tiene la reseña
+#                     fecha: fecha en la que se hizo la reseña
+#                     usuario_dio_like: usuarios que dieron like a la reseña
+#                     usuario_dio_dislike: usuarios que dieron dislike a la reseña
 class Evaluacion(models.Model):
     usuario = models.ForeignKey(User, on_delete=models.CASCADE)
     local_comida = models.ForeignKey(Puesto_de_comida, related_name='evaluaciones', on_delete=models.CASCADE)
@@ -58,9 +70,13 @@ class Evaluacion(models.Model):
         self.save()
 
 #Modelo que representa el comentario que se le da a una reseña    
-#Atributos : la evaluación que está comentada
-#            el usuario calificante, que es quien califica la reseña     
-#            comentario a la reseña
+#Atributos : evaluación: la evaluación que está comentada
+#            comentarista: el usuario calificante, que es quien califica la reseña     
+#            comentario: comentario a la reseña
+#            es_util: si el comentario es útil o no
+#            like_comentario: cantidad de likes que tiene el comentario
+#            dislike_comentario: cantidad de dislikes que tiene el comentario
+#            fechacomentario: fecha en la que se hizo el comentario
 class Comentario(models.Model):
     evaluacion = models.ForeignKey(Evaluacion, related_name='calificaciones', on_delete=models.CASCADE)
     comentarista = models.ForeignKey(User, on_delete=models.CASCADE)
