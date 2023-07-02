@@ -8,12 +8,15 @@ from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from reviews.models import Evaluacion, Comentario
 from django.contrib.auth.decorators import login_required
+from django.db.models import Count
 
 # Vista que permite mostrar la pagina principal (home) del sitio web
 # Cuando se intenta acceder a home/ se ejecuta esta vista
 def home(request):
     reviews_date = Evaluacion.objects.order_by('-fecha')[:6]
-    reviews_likes = Evaluacion.objects.order_by('-likes')[:6]
+    #reviews_likes = Evaluacion.objects.order_by('-likes')[:6]
+    reviews_likes = Evaluacion.objects.annotate(num_likes=Count('usuario_dio_like')).order_by('-num_likes')[:6]
+
     return render(request, "home.html", {"reviews_date" : reviews_date, "reviews_likes" : reviews_likes})
 
 # Vista que permite mostrar el perfil de un usuario
@@ -90,41 +93,40 @@ def search_store(request):
     form_agregar_comentario = ComentarioReseña()
     if request.method == "POST":
         reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha')
-        usuario = request.user
         
-        if 'like' in  request.POST:
+    
+        if 'like' in request.POST:
             review_id = request.POST.get('like')
-            review = get_object_or_404(Evaluacion, id = review_id)
-            review.dar_like(usuario)
-
+            review = get_object_or_404(Evaluacion, id=review_id)
+            if review.confirmacion_usuario_liked(request.user):
+                review.usuario_dio_like.remove(request.user)
+            else:
+                review.usuario_dio_like.add(request.user)
+                if review.confirmacion_usuario_disliked(request.user):
+                    review.usuario_dio_dislike.remove(request.user)   
 
         elif 'dislike' in request.POST:
             review_id = request.POST.get('dislike')
             review = get_object_or_404(Evaluacion, id=review_id)
-            review.dar_dislike(usuario)
-
-        elif 'removelike' in request.POST:
-            review_id = request.POST.get('removelike')
-            review = get_object_or_404(Evaluacion, id=review_id)
-            review.quitar_like(usuario)
-
-        elif 'removedislike' in request.POST:
-            review_id = request.POST.get('removedislike')
-            review = get_object_or_404(Evaluacion, id=review_id)
-            review.quitar_dislike(usuario)
+            if review.confirmacion_usuario_disliked(request.user):
+                review.usuario_dio_dislike.remove(request.user)
+            else:
+                review.dar_dislike(request.user)
+                if review.confirmacion_usuario_liked(request.user):
+                    review.usuario_dio_like.remove(request.user)
 
         elif 'review_form' in request.POST:
             form_crear_reseña = CrearReseñaForm(request.POST)
             if form_crear_reseña.is_valid():
                 cleaned_data = form_crear_reseña.cleaned_data
-                Evaluacion.objects.create(**cleaned_data, usuario=usuario, local_comida=local)
+                Evaluacion.objects.create(**cleaned_data, usuario=request.user, local_comida=local)
             
         elif 'comment_form' in request.POST:
             form_agregar_comentario = ComentarioReseña(request.POST)
             if form_agregar_comentario.is_valid():
                 evaluacion = request.POST['evaluacion']
                 cleaned_data = form_agregar_comentario.cleaned_data
-                Comentario.objects.create(**cleaned_data, comentarista=usuario, evaluacion_id = evaluacion)
+                Comentario.objects.create(**cleaned_data, comentarista=request.user, evaluacion_id = evaluacion)
 
         return render(request, "show_store.html", {
             "local": local, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario,"list": queryset, "reviews_list": reviews
@@ -136,7 +138,6 @@ def search_store(request):
         return render(request, "show_store.html", {
             "local": local, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario, "list": queryset, "reviews_list": reviews
             })
-
 # Vista que permite mostrar la página para realizar busquedas
 # Cuando se presiona el botón "Buscar", en la página buscar/
 def buscador(request):

@@ -44,45 +44,33 @@ class Evaluacion(models.Model):
     calificacion_comida = models.IntegerField()
     calificacion_precio = models.IntegerField()
     calificacion_presentacion = models.IntegerField()
-    likes = models.IntegerField(default=0)
-    dislikes = models.IntegerField(default = 0)
     fecha = models.DateTimeField(auto_now_add=True)
-    usuario_dio_like = models.ManyToManyField(User, related_name='like_reviews')
-    usuario_dio_dislike = models.ManyToManyField(User, related_name='dislike_reviews')
+    usuario_dio_like = models.ManyToManyField(User, related_name='like_reviews', blank=True)
+    usuario_dio_dislike = models.ManyToManyField(User, related_name='dislike_reviews', blank=True)
     
-    def __str__(self):
+    def _str_(self):
         return f"{self.usuario.username} evaluó {self.local_comida.nombre}"
     
     def dar_like(self, usuario):
-        if usuario not in self.usuario_dio_like.all():
-            self.likes += 1
-            self.usuario_dio_like.add(usuario)
-        if usuario in self.usuario_dio_dislike.all():
-            self.usuario_dio_dislike.remove(usuario)
-            self.dislikes -= 1
-        self.save()
-    
-    def quitar_like(self, usuario):
-        if usuario in self.usuario_dio_like.all():
-            self.likes -= 1
-            self.usuario_dio_like.remove(usuario)
+        self.usuario_dio_like.add(usuario)
         self.save()
     
     def dar_dislike(self, usuario):
-        if usuario not in self.usuario_dio_dislike.all():
-            self.dislikes += 1
-            self.usuario_dio_dislike.add(usuario)
-        if usuario in self.usuario_dio_like.all():
-            self.usuario_dio_like.remove(usuario)
-            self.likes -= 1
-        self.save()
-    
-    def quitar_dislike(self, usuario):
-        if usuario in self.usuario_dio_dislike.all():
-            self.dislikes -= 1
-            self.usuario_dio_dislike.remove(usuario)
+        self.usuario_dio_dislike.add(usuario)
         self.save()
 
+    def confirmacion_usuario_liked(self, user):
+        return self.usuario_dio_like.filter(id=user.id).exists()
+
+    # método para saber si un usuario ha dado dislike a una reseña
+    def confirmacion_usuario_disliked(self, user):
+        return self.usuario_dio_dislike.filter(id=user.id).exists()
+    
+    def cantidad_likes(self):
+        return self.usuario_dio_like.count()
+    
+    def cantidad_dislikes(self):
+        return self.usuario_dio_dislike.count()
 #Modelo que representa el comentario que se le da a una reseña    
 #Atributos : evaluación: la evaluación que está comentada
 #            comentarista: el usuario calificante, que es quien califica la reseña     
