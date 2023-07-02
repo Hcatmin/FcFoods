@@ -112,20 +112,29 @@
                                 </ul>
                             </div>
                             <ul class="list-unstyled">
-                                <i class="bi bi-hand-thumbs-up"></i> {{review.likes}} <i class="bi bi-hand-thumbs-down"></i> {{review.dislikes}}
                                 <form method="post">
                                     {% csrf_token %}
-                                    {% if not request.user in review.usuario_dio_like.all %}
-                                    <button type="submit" name="like" value="{{ review.id }}">Dar Like</button>
-                                    {% else %}
-                                    <button type="submit" name="removelike" value="{{ review.id }}">Dar Like</button>
-                                    {% endif %}
-                                    
-                                    {% if not request.user in review.usuario_dio_dislike.all %}
-                                    <button type="submit" name="dislike" value="{{ review.id }}">Dar Dislike</button>
-                                    {% else %}
-                                    <button type="submit" name="removedislike" value="{{ review.id }}">Dar Dislike</button>
-                                    {% endif %}
+                                    <div class="btn-group">
+                                        {% if not request.user in review.usuario_dio_like.all %}
+                                        <button type="submit" class="btn btn-outline-secondary" name="like" value="{{ review.id }}">
+                                            <i class="bi bi-hand-thumbs-up"></i> {{review.likes}} 
+                                        </button>
+                                        {% else %}
+                                        <button type="submit" class="btn btn-secondary" name="removelike" value="{{ review.id }}">
+                                            <i class="bi bi-hand-thumbs-up"></i> {{review.likes}} 
+                                        </button>
+                                        {% endif %}
+                                        
+                                        {% if not request.user in review.usuario_dio_dislike.all %}
+                                        <button type="submit" class="btn btn-outline-secondary" name="dislike" value="{{ review.id }}">
+                                            <i class="bi bi-hand-thumbs-down"></i> {{review.dislikes}} 
+                                        </button>
+                                        {% else %}
+                                        <button type="submit" class="btn btn-secondary" name="removedislike" value="{{ review.id }}">
+                                            <i class="bi bi-hand-thumbs-down"></i> {{review.dislikes}} 
+                                        </button>
+                                        {% endif %}
+                                    </div>
                                 </form>
                             
                             </ul>
