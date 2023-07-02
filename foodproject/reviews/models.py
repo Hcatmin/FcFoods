@@ -42,29 +42,33 @@ class Evaluacion(models.Model):
         return f"{self.usuario.username} evaluó {self.local_comida.nombre}"
     
     def dar_like(self, usuario):
-        self.likes += 1
-        self.usuario_dio_like.add(usuario)
+        if usuario not in self.usuario_dio_like.all():
+            self.likes += 1
+            self.usuario_dio_like.add(usuario)
         if usuario in self.usuario_dio_dislike.all():
             self.usuario_dio_dislike.remove(usuario)
             self.dislikes -= 1
         self.save()
     
     def quitar_like(self, usuario):
-        self.likes -= 1
-        self.usuario_dio_like.remove(usuario)
+        if usuario in self.usuario_dio_like.all():
+            self.likes -= 1
+            self.usuario_dio_like.remove(usuario)
         self.save()
     
     def dar_dislike(self, usuario):
-        self.dislikes += 1
-        self.usuario_dio_dislike.add(usuario)
+        if usuario not in self.usuario_dio_dislike.all():
+            self.dislikes += 1
+            self.usuario_dio_dislike.add(usuario)
         if usuario in self.usuario_dio_like.all():
             self.usuario_dio_like.remove(usuario)
             self.likes -= 1
         self.save()
     
     def quitar_dislike(self, usuario):
-        self.dislikes -= 1
-        self.usuario_dio_dislike.remove(usuario)
+        if usuario in self.usuario_dio_dislike.all():
+            self.dislikes -= 1
+            self.usuario_dio_dislike.remove(usuario)
         self.save()
 
 #Modelo que representa el comentario que se le da a una reseña    
