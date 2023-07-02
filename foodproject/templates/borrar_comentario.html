@@ -3,14 +3,14 @@
 {% load static %}
 {% block content %}
 <head>
-  <!--<link rel="stylesheet" href="{% static 'css/borrar_reseña.css' %}">-->
+  <link rel="stylesheet" href="{% static 'css/borrar_reseña.css' %}">
 </head>
 <body>
   <div class="container">
-    <h2>Borrar Reseña n° {{post.id}}</h2>
+    <h2>Borrar Comentario "{{post.comentario}}"</h2>
     <form method="POST">
       {% csrf_token %}
-      <!--<p>¿Estás segur@ que deseas borrar la reseña al puesto de comida: "{{post.local_comida}}"?</p>-->
+      <p>¿Estás segur@ que deseas borrar el comentario realizado a la reseña: "{{post.evaluacion.detalle}}"?</p>
       <div class="opciones">
         <button type="submit">Sí, borrar</button>
         <a class="boton" href="{% url 'profile' %}">Cancelar</a>
