@@ -1,17 +1,12 @@
 # from django.shortcuts import render
-from django.http import HttpResponse
-from django.template import Template, Context
-from django.template.loader import get_template
 from django.shortcuts import render, redirect, get_object_or_404
 from reviews.models import User
 from reviews.models import Puesto_de_comida
-from django.http import HttpResponseRedirect
 from django.contrib.auth.forms import AuthenticationForm
-from reviews.forms import NewUserForm, CrearReseñaForm, SearchForm, ComentarioReseña
-from django.contrib.auth import login, authenticate, logout #add this
-from django.contrib import messages #add this
+from reviews.forms import CrearReseñaForm, SearchForm, ComentarioReseña
+from django.contrib.auth import login, authenticate, logout
+from django.contrib import messages
 from reviews.models import Evaluacion, Comentario
-from django.views.generic.list import ListView
 from django.contrib.auth.decorators import login_required
 
 # Vista que permite mostrar la pagina principal (home) del sitio web
