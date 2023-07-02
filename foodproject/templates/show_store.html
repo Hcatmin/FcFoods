@@ -115,8 +115,17 @@
                                 <i class="bi bi-hand-thumbs-up"></i> {{review.likes}} <i class="bi bi-hand-thumbs-down"></i> {{review.dislikes}}
                                 <form method="post">
                                     {% csrf_token %}
+                                    {% if not request.user in review.usuario_dio_like.all %}
                                     <button type="submit" name="like" value="{{ review.id }}">Dar Like</button>
+                                    {% else %}
+                                    <button type="submit" name="removelike" value="{{ review.id }}">Dar Like</button>
+                                    {% endif %}
+                                    
+                                    {% if not request.user in review.usuario_dio_dislike.all %}
                                     <button type="submit" name="dislike" value="{{ review.id }}">Dar Dislike</button>
+                                    {% else %}
+                                    <button type="submit" name="removedislike" value="{{ review.id }}">Dar Dislike</button>
+                                    {% endif %}
                                 </form>
                             
                             </ul>

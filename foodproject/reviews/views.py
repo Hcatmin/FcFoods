@@ -109,29 +109,41 @@ def search_store(request):
     form_agregar_comentario = ComentarioReseña()
     if request.method == "POST":
         reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha')
+        usuario = request.user
         
         if 'like' in  request.POST:
             review_id = request.POST.get('like')
             review = get_object_or_404(Evaluacion, id = review_id)
-            review.dar_like()
+            review.dar_like(usuario)
+
 
         elif 'dislike' in request.POST:
             review_id = request.POST.get('dislike')
             review = get_object_or_404(Evaluacion, id=review_id)
-            review.dar_dislike()
+            review.dar_dislike(usuario)
+
+        elif 'removelike' in request.POST:
+            review_id = request.POST.get('removelike')
+            review = get_object_or_404(Evaluacion, id=review_id)
+            review.quitar_like(usuario)
+
+        elif 'removedislike' in request.POST:
+            review_id = request.POST.get('removedislike')
+            review = get_object_or_404(Evaluacion, id=review_id)
+            review.quitar_dislike(usuario)
 
         elif 'review_form' in request.POST:
             form_crear_reseña = CrearReseñaForm(request.POST)
             if form_crear_reseña.is_valid():
                 cleaned_data = form_crear_reseña.cleaned_data
-                Evaluacion.objects.create(**cleaned_data, usuario=request.user, local_comida=local)
+                Evaluacion.objects.create(**cleaned_data, usuario=usuario, local_comida=local)
             
         elif 'comment_form' in request.POST:
             form_agregar_comentario = ComentarioReseña(request.POST)
             if form_agregar_comentario.is_valid():
                 evaluacion = request.POST['evaluacion']
                 cleaned_data = form_agregar_comentario.cleaned_data
-                Comentario.objects.create(**cleaned_data, comentarista=request.user, evaluacion_id = evaluacion)
+                Comentario.objects.create(**cleaned_data, comentarista=usuario, evaluacion_id = evaluacion)
 
         return render(request, "show_store.html", {
             "local": local, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario,"list": queryset, "reviews_list": reviews
