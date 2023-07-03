@@ -1,17 +1,54 @@
 {% extends 'base.html' %}
 
 {% load static %}
+
 {% block content %}
 <head>
   <link rel="stylesheet" href="{% static 'css/editar_reseña.css' %}">
+  <link rel="stylesheet" href="{% static 'css/crear_reseña_style_objetivo.css' %}">
 </head>
 <body>
-	<div class="formulario">
-		<h2>Editar Reseña</h2>
+	<div class="formulario col-lg-5 col-md-6 col-10 mx-auto my-3 p-3 rounded" id="createResena">
+		<h2 class="text-center mb-4">Editar Reseña</h2>
 		<form method="post" novalidate>
 			{% csrf_token %}
-			{{ form.as_p }}
-			<input type="submit" value="Guardar Cambios"/>
+			{{ form.non_field_errors }}
+            <div class="modal-body">
+                <div class="row">
+                    <p class="col-4 my-auto fs-5">Comida:</p>
+                    <div class="rating col-auto mx-3">
+                        {% for radio in form.calificacion_comida %}
+                        {{ radio.tag }}
+                        <label for="{{ radio.id_for_label }}">☆</label>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="col-4 my-auto fs-5">Precio:</p>
+                    <div class="rating col-auto mx-3">
+                        {% for radio in form.calificacion_precio %}
+                        {{ radio.tag }}
+                        <label for="{{ radio.id_for_label }}">☆</label>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="row">
+                    <p class="col-4 my-auto fs-5">Presentación:</p>
+                    <div class="rating col-auto mx-3">
+                        {% for radio in form.calificacion_presentacion %}
+                        {{ radio.tag }}
+                        <label for="{{ radio.id_for_label }}">☆</label>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="textAreaWrapper fs-5">
+                    {{ form.detalle.errors }}
+                    <label for="{{ form.detalle.id_for_label }}" class="row m-auto mt-3 mb-2">Deja tu
+                        comentario</label>
+                    {{ form.detalle }}
+                </div>
+            </div>
+			<input type="submit" value="Guardar Cambios" class="my-3 rounded p-1"/>
 		</form>
 	</div>
 </body>
