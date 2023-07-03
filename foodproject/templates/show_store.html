@@ -112,12 +112,29 @@
                                 </ul>
                             </div>
                             <ul class="list-unstyled">
-                                <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}} <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
                                 
                                 <form method="post">
                                     {% csrf_token %}
-                                    <button type="submit" name="like" value="{{ review.id }}">Dar Like</button>
-                                    <button type="submit" name="dislike" value="{{ review.id }}">Dar Dislike</button>
+                                    
+                                    {% if request.user in review.usuario_dio_like.all %}
+                                    <button type="submit" class="btn btn-secondary" name="like" value="{{ review.id }}">
+                                        <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
+                                    </button>
+                                    {% else %}
+                                    <button type="submit" class="btn btn-outline-secondary" name="like" value="{{ review.id }}">
+                                        <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
+                                    </button>
+                                    {% endif %}
+                                    
+                                    {% if request.user in review.usuario_dio_dislike.all %}
+                                    <button type="submit" class="btn btn-secondary" name="dislike" value="{{ review.id }}">
+                                        <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
+                                    </button>
+                                    {% else %}
+                                    <button type="submit" class="btn btn-outline-secondary" name="dislike" value="{{ review.id }}">
+                                        <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
+                                    </button>
+                                    {% endif %}
                                 </form>
                             
                             </ul>
