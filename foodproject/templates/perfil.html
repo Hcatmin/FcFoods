@@ -155,7 +155,7 @@
           <tbody>
             {% for review in reviews_usuario %}
               <tr>
-                <td>{{review.detalle}}</td>
+                <td>{{review.detalle|slice:"80"}}</td>
                 <td>{{review.calificacion_comida}}</td>
                 <td>{{review.calificacion_presentacion}}</td>
                 <td>{{review.calificacion_precio}}</td>
@@ -216,7 +216,7 @@
               <tr>
                 <td>{{comentario.evaluacion.local_comida}}</td>
                 <td>{{comentario.evaluacion.usuario}}: "{{comentario.evaluacion.detalle}}"</td>
-                <td>{{comentario.comentario}}</td>
+                <td>{{comentario.comentario|slice:"60"}}</td>
                 <td>
                   <ul class="list-inline m-0">
                     <li class="list-inline-item">
