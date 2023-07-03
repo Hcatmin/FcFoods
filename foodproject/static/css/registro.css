@@ -1,5 +1,5 @@
 body {
-    background-color: #f0f4f5 !important;; 
+	background-image: linear-gradient(to right bottom, #d3dedc, #dae2dc, #e2e5dd, #ece8df, #f6ebe4, #f4e3e0, #efdcde, #e8d6de, #d2c5d4, #b8b5c9, #9ba7bd, #7c99ac);
 }
 
 .register-body {
@@ -11,7 +11,8 @@ body {
 }
 
 .register-container {
-    background-color: #a9dbea;
+	color: #FFEFEF;
+	background: #92A9BD;
     border-radius: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     padding: 4rem;
@@ -30,7 +31,7 @@ label {
     display: block;
     font-size: 14px;
     margin: 0 0 0.5rem;
-    color: #000000;
+    color: #FFEFEF;
 }
 
 input:focus {
@@ -49,7 +50,9 @@ input:focus {
     margin-top: 1rem;
 }
 .submit-btn:hover {
-    background-color: #042d32;
+    border: 0;
+    background-color: #D3DEDC;
+    
 }
 
 @media (max-width: 600px) {
