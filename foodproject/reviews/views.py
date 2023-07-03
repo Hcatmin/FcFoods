@@ -141,11 +141,10 @@ def tiendas_view(request):
 def buscador(request):
     if request.method == 'POST':
         form_busqueda = SearchForm(request.POST)
-        resultados = ""
         if form_busqueda.is_valid():
             cleaned_data = form_busqueda.cleaned_data
             resultados = Evaluacion.objects.filter(detalle__icontains=cleaned_data['busqueda'])  # Realiza la búsqueda en el campo deseado
-            return render(request, 'resultados.html', {'resultados': resultados})
+            return render(request, 'resultados.html', {'resultados': resultados, 'busqueda': cleaned_data['busqueda']})
         else:
             return render(request, 'buscar.html', {"form_busqueda": form_busqueda})
     if request.method == "GET":

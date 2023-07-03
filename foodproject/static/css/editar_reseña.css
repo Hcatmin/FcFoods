@@ -1,9 +1,6 @@
 .formulario{
   text-align: flex;
   justify-content: center;
-  width: 550px;
-  height: 500px;
-  margin: 0 auto;
   background-color:#92A9BD;
 }
 
@@ -16,13 +13,18 @@
 
 body {
   background-color: #7C99AC;
-  text-align: center;
+  text-align: left;
 }
 
 input[type="submit"]{
-  background-color: #FFEFEF;
+  background-color: #7C99AC;
   color: black;
   border-color: #7C99AC;
-  border-radius: 20%;
+}
+
+input[type="submit"]:hover{
+  background-color: rgb(102, 121, 138);
+  color: black;
+  border-color: #92A9BD;
 }
 

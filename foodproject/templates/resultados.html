@@ -5,7 +5,7 @@
 {% block content %}
 
 <div class="mx-4 my-5">
-  <h3 class="mb-5">Resultados de la busqueda:</h3>
+  <h3 class="mb-5">Resultados de la busqueda: {{ busqueda }}</h3>
   <div class="row row-cols-1 row-cols-md-3 g-4">
   {% for review in resultados %}
     <div class="col">
