@@ -6,7 +6,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Food Project</title>
-  <link rel="shortcut icon" href="#">
+  <link rel="shortcut icon" href="{% static 'img/noodles.ico' %}">
 
   <!-- Owl Carousel 2 CSS -->
   <link rel="stylesheet" href="{% static 'owlcarousel/owl.carousel.min.css' %}">
@@ -58,9 +58,10 @@
             </li>
 
             <li class="nav-item dropdown dropstart py-2 py-lg-1 col-4 col-lg-auto">
-              <a class="nav-link dropdown-toggle fs-4" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+              <button id="bd-theme" class="btn-link nav-link dropdown-toggle fs-4" href="#" data-bs-toggle="dropdown" aria-expanded="false">
                 <i class="bi bi-person-circle"></i>
-              </a>
+                <span class="d-lg-none ms-2" id="dropdownMenuProfile">Toggle theme</span>
+              </button>
               <!-- Dropup menu for profile -->
               <div class="dropdown-menu" aria-labelledby="dropdownMenuProfile">
                 {% if user.is_authenticated %}

@@ -77,24 +77,26 @@ def login_request(request):
     form = AuthenticationForm()
     return render(request=request, template_name="registration/login.html", context={"login_form":form})
 
-# Vista que permite mostrar la página dedicada a buscar y mostrar información de las tiendas
-# Cuando se intenta acceder a tiendas/ se ejecuta esta vista
-def grid_stores(request): 
-    queryset = Puesto_de_comida.objects.all()
-    return render(request, "tiendas.html", {"list": queryset})
-
 # Vista que permite mostrar la información de un puesto de comida
 # Cuando se presiona el botón "Mostrar puesto de comida", en la página stores/
-def search_store(request):
+def tiendas_view(request): 
     queryset = Puesto_de_comida.objects.all() # TODO: Se esta haciendo de nuevo la misma query
-    puesto = request.GET["local"]
-    local = Puesto_de_comida.objects.get(id=puesto)
     form_crear_reseña = CrearReseñaForm()
     form_agregar_comentario = ComentarioReseña()
+
+    if 'local' in request.GET:
+        puesto = request.GET["local"]
+        local = Puesto_de_comida.objects.get(id=puesto)    
+        if request.method == "GET":
+            reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha').all()
+            return render(request, "tiendas.html", {
+                "local": local, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario, "list": queryset, "reviews_list": reviews
+            })
+
+
     if request.method == "POST":
         reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha')
-        
-    
+
         if 'like' in request.POST:
             review_id = request.POST.get('like')
             review = get_object_or_404(Evaluacion, id=review_id)
@@ -128,16 +130,12 @@ def search_store(request):
                 cleaned_data = form_agregar_comentario.cleaned_data
                 Comentario.objects.create(**cleaned_data, comentarista=request.user, evaluacion_id = evaluacion)
 
-        return render(request, "show_store.html", {
+        return render(request, "tiendas.html", {
             "local": local, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario,"list": queryset, "reviews_list": reviews
             })
     
-    if request.GET["local"]:
-        reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha').all()
-        form_crear_reseña = CrearReseñaForm()
-        return render(request, "show_store.html", {
-            "local": local, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario, "list": queryset, "reviews_list": reviews
-            })
+    return render(request, "tiendas.html", {"list": queryset})
+
 # Vista que permite mostrar la página para realizar busquedas
 # Cuando se presiona el botón "Buscar", en la página buscar/
 def buscador(request):
