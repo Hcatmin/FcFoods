@@ -41,15 +41,20 @@ def register_user(request):
         email = request.POST['email']
         pronombre = request.POST['pronombre']
         try:
-            user = User.objects.get(email=email)
-            messages.error(request, "El correo electrónico ya está asociado a una cuenta.")
+            user = User.objects.get(username=nombre)
+            messages.error(request, "El nombre de usuario ya está asociado a una cuenta.")
             return redirect("register_user")
         except:
-            #Crear el nuevo usuario
-            User.objects.create_user(username=nombre, password=contraseña, email=email, pronombre=pronombre)
-            user = authenticate(username=nombre, password=contraseña)
-            login(request, user)
-            messages.success(request, f"Te has registrado satisfactoriamente como {nombre}.")
+            try:
+                user = User.objects.get(email=email)
+                messages.error(request, "El correo electrónico ya está asociado a una cuenta.")
+                return redirect("register_user")
+            except:
+                #Crear el nuevo usuario
+                User.objects.create_user(username=nombre, password=contraseña, email=email, pronombre=pronombre)
+                user = authenticate(username=nombre, password=contraseña)
+                login(request, user)
+                messages.success(request, f"Te has registrado satisfactoriamente como {nombre}.")
      #Redireccionar la página /tareas
         return redirect("home")
 
