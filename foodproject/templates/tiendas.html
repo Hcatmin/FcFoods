@@ -56,16 +56,12 @@
             {% endif %}
         </dl>
         <dl class="row mb-0 text-start">
-            
+            {% if local.dueño%}
             <div class="mx-3">
                 <dt class="col-sm-3">Dueño</dt>
                 <dd class="col-sm-9">{{local.dueño}}</dd>
-                <dt class="col-sm-3">Descripción </dt>
-                <dd class="col-sm-9 text-truncate">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime tenetur
-                    voluptates
-                    vitae aspernatur nesciunt magni consequatur. Saepe velit eum cupiditate, odio molestiae vitae! Maxime
-                    omnis animi nobis mollitia ipsa quaerat.</dd>
             </div>
+            {% endif %}
             <div class="row mx-0">
                 <div class="col p-0 mb-3">
                     {% for review in reviews_list %}
