@@ -118,6 +118,9 @@
                 <img class="rounded-circle me-3" src="{% static 'img/perfilsf.png' %}" alt="Foto de {{ review.usuario }}" style="max-width: 8%;">
                 <figcaption class="d-2">{{ review.usuario }}</figcaption> 
               </div>
+              <ul class="list-unstyled">
+                <li>Puesto: {{ review.local_comida }}</li>
+              </ul>
               <div class="row">
                 <ul class="list-unstyled fs-6 col-6">
                   <li>Comida:</li>
