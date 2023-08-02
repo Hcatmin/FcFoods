@@ -10,6 +10,9 @@ from reviews.models import Evaluacion, Comentario
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 
+from django.template.loader import render_to_string
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
 
 # Vista que permite mostrar la pagina principal (home) del sitio web
 # Cuando se intenta acceder a home/ se ejecuta esta vista
@@ -202,6 +205,40 @@ def tiendas_view(request):
 
     return render(request, "tiendas.html", {"list": queryset})
 
+def stores_view(request):
+    queryset = Puesto_de_comida.objects.all()
+    return render(request, 'stores.html', {'list': queryset})
+
+def display_store(request):
+    id_local = request.GET.get('id_local')
+    puesto = Puesto_de_comida.objects.get(id=id_local)    
+    reviews = Evaluacion.objects.filter(local_comida = puesto).order_by('-fecha').all()
+    form_agregar_comentario = ComentarioReseña()
+    form_crear_reseña = CrearReseñaForm()
+
+    rendered_data = render_to_string('display_store.html', {'id_local': id_local, 'local': puesto, 'list_reviews': reviews, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario, 'user': request.user.is_authenticated})
+
+    return JsonResponse({'rendered_data': rendered_data})
+
+@csrf_exempt
+def display_comment(request):
+    is_ajax = request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest' # verifica si es ajax
+    if request.method == 'POST' and is_ajax:
+        # user = request.POST.get('user')
+        id_local = request.POST.get('id_local')
+        id_review = request.POST.get('id_review')
+        content_comment = request.POST.get('comentario')
+        form_agregar_comentario = ComentarioReseña(request.POST)
+        print(request.POST)
+        if form_agregar_comentario.is_valid():
+            cleaned_data = form_agregar_comentario.cleaned_data
+            Comentario.objects.create(**cleaned_data, comentarista=request.user, evaluacion_id = id_review)
+            response_data = {"id_review": id_review, "content_comment": content_comment}
+            return JsonResponse(response_data)
+        else:
+            return JsonResponse({'error': request.POST})
+    else:
+        return JsonResponse({'error': 'Invalid Request'})
 
 # Vista que permite mostrar la página para realizar busquedas
 # Cuando se presiona el botón "Buscar", en la página buscar/

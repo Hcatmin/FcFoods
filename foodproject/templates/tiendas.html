@@ -42,9 +42,9 @@
 </div>
 
 
-{% if local %}
 
-<div class="offcanvas offcanvas-start p-0" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+{% if local %}
+<div class="offcanvas offcanvas-start show p-0" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h3 class="offcanvas-title" id="offcanvasExampleLabel">{{local.nombre}}</h3>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -72,8 +72,7 @@
                             <div>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <p class="mb-1">
-                                        {{ review.usuario }} <span class="small">- {{
-                                            review.fecha|timesince|split_timesince}} </span>
+                                        {{ review.usuario }} <span class="small">- {{review.fecha|timesince|split_timesince}} </span>
                                     </p>
                                 </div>
                                 <p>
@@ -152,8 +151,7 @@
                                     <div>
                                         <div class="d-flex justify-content-between align-items-center">
                                             <p class="mb-1">
-                                                {{comentario.comentarista}} <span class="small">- {{
-                                                    comentario.fechacomentario|timesince|split_timesince}}</span>
+                                                {{comentario.comentarista}} <span class="small">- {{comentario.fechacomentario|timesince|split_timesince}}</span>
                                             </p>
                                         </div>
                                         <p>
@@ -214,6 +212,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 <!-- Modal -->
 <div class="modal fade text-start" id="createResena" style="backdrop-filter: blur(15px);">
@@ -270,13 +269,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.getElementById("offcanvasExample").classList.add('show');
-</script>
-
-{% endif %}
-
 
 
 {% endblock %}
