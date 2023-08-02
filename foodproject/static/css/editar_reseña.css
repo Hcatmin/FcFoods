@@ -1,10 +1,13 @@
-.formulario{
+.formulario {
   text-align: flex;
   justify-content: center;
-  background-color:#92A9BD;
+  background-color: #92A9BD;
 }
 
-#id_calificacion_comida, #id_calificacion_precio, #id_calificacion_presentacion, #id_comentario{
+#id_calificacion_comida,
+#id_calificacion_precio,
+#id_calificacion_presentacion,
+#id_comentario {
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
@@ -16,15 +19,14 @@ body {
   text-align: left;
 }
 
-input[type="submit"]{
+input[type="submit"] {
   background-color: #7C99AC;
   color: black;
   border-color: #7C99AC;
 }
 
-input[type="submit"]:hover{
+input[type="submit"]:hover {
   background-color: rgb(102, 121, 138);
   color: black;
   border-color: #92A9BD;
 }
-

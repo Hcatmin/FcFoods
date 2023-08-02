@@ -2,16 +2,18 @@
 
 {% load static %}
 {% block content %}
+
 <head>
-  <link rel="stylesheet" href="{% static 'css/editar_reseña.css' %}">
+	<link rel="stylesheet" href="{% static 'css/editar_reseña.css' %}">
 </head>
+
 <body>
-	<div class="formulario">
+	<div class="formulario" style="text-align: center;">
 		<h2>Editar Comentario</h2>
 		<form method="post" novalidate>
 			{% csrf_token %}
 			{{ form.as_p }}
-			<input type="submit" value="Guardar Cambios"/>
+			<input type="submit" value="Guardar Cambios" />
 		</form>
 	</div>
 </body>

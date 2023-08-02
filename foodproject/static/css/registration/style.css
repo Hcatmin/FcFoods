@@ -11,7 +11,7 @@ body {
 	background: #92A9BD;
 }
 
-.login-box h2{
+.login-box h2 {
 	margin-bottom: 4rem;
 }
 
@@ -22,7 +22,7 @@ body {
 .login-box input {
 	border-radius: 0%;
 	border: none;
-  border-bottom: 1px solid #FFEFEF;
+	border-bottom: 1px solid #FFEFEF;
 	background: transparent;
 	z-index: 0;
 }
@@ -46,7 +46,8 @@ body {
 	opacity: 0;
 }
 
-.login-box input:focus::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+.login-box input:focus::-webkit-input-placeholder {
+	/* Chrome/Opera/Safari */
 	transition-delay: 0.2s;
 	opacity: 1;
 	color: #596462;
@@ -58,6 +59,7 @@ body {
 }
 
 .login-box .btn:hover {
-  background-color: #FFEFEF; /* Green */
-  color: black;
+	background-color: #FFEFEF;
+	/* Green */
+	color: black;
 }

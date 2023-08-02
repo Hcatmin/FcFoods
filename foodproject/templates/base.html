@@ -62,6 +62,7 @@
               <hr class="d-lg-none my-2 text-white-50">
             </li>
 
+            {% if user.is_authenticated %}
             <li class="nav-item dropdown dropstart py-2 py-lg-1 col-4 col-lg-auto">
               <button id="bd-theme" class="btn-link nav-link dropdown-toggle fs-4" href="#" data-bs-toggle="dropdown"
                 aria-expanded="false">
@@ -70,16 +71,19 @@
               </button>
               <!-- Dropup menu for profile -->
               <div class="dropdown-menu" aria-labelledby="dropdownMenuProfile">
-                {% if user.is_authenticated %}
                 <a class="dropdown-item" href="{% url 'profile' %}">Mi perfil</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" href="{% url 'logout' %}">Cerrar Sesión</a>
-                {% else %}
-                <a class="dropdown-item" href="{% url 'login' %}">Login</a>
-                <a class="dropdown-item" href="{% url 'register_user' %}">Register</a>
-                {% endif %}
               </div>
             </li>
+            {% else %}
+            <li>
+              <div class="flex-grow-0 my-2">
+                <a class="btn btn-outline-light" href="{% url 'login' %}">Login</a>
+                <a class="btn btn-outline-light" href="{% url 'register_user' %}">Register</a>
+              </div>
+            </li>
+            {% endif %}
           </ul>
 
 

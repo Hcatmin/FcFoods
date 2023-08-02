@@ -1,16 +1,16 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 {% load static %}
 {% block content %}
 
 <head>
-    <link rel="stylesheet" href="{% static 'css/buscar.css' %}">
-  </head>
-  <div class="container">
-    <form action="" method="post" class="centered-form">
-      {% csrf_token %}
-      {{ form_busqueda.as_p }}
-      <button class="btn btn-primary" type="submit">Buscar</button>
-    </form>
-  </div>
-  
+  <link rel="stylesheet" href="{% static 'css/buscar.css' %}">
+</head>
+<main class="w-50 mx-auto my-5">
+  <form action="" method="post" class="centered-form">
+    {% csrf_token %}
+    {{ form_busqueda.as_p }}
+    <button class="btn btn-primary" type="submit">Buscar</button>
+  </form>
+</main>
+
 {% endblock content %}

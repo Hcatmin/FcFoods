@@ -11,34 +11,34 @@
 {% endblock %}
 
 <div class="container my-4">
-  <h2 class="my-4">Lista de comercios</h2>
-  <div class="container text-center">
-    <div class="row">
-      {% for local in list %}
-      <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-4">
-        <div class="card h-100">
-          {% if local.FotoLocal%}
-          <div class="centering">
-            <img class="card-img-top centering" src="{{local.FotoLocal.url}}" alt="Card image cap">
-          </div>
-          {% endif %}
-          <div class="card-body d-flex flex-column justify-content-around">
-            <h4 class="card-title my-auto">{{local.nombre}}</h4>
-            {% if local.dueño%}
-            <p class="card-text">{{local.dueño}}</p>
-            {% endif %}
-            <form id="localFormulario" method="get">
-              <button class="btn btn-primary mt-3" type="submit" name ="local" value="{{local.id}}">
-                Mostrar
-              </button>
-            </form>
-          </div>
-        </div>
-      </div>
-      {% endfor %}
+    <h2 class="my-4">Lista de comercios</h2>
+    <div class="container text-center">
+        <div class="row">
+            {% for local in list %}
+            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-4">
+                <div class="card h-100">
+                    {% if local.FotoLocal%}
+                    <div class="centering">
+                        <img class="card-img-top centering" src="{{local.FotoLocal.url}}" alt="Card image cap">
+                    </div>
+                    {% endif %}
+                    <div class="card-body d-flex flex-column justify-content-around">
+                        <h4 class="card-title my-auto">{{local.nombre}}</h4>
+                        {% if local.dueño%}
+                        <p class="card-text">{{local.dueño}}</p>
+                        {% endif %}
+                        <form method="get">
+                            <button class="btn btn-primary mt-3" type="submit" name="local" value="{{local.id}}">
+                                Mostrar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
 
+        </div>
     </div>
-  </div>
 </div>
 
 
@@ -56,16 +56,12 @@
             {% endif %}
         </dl>
         <dl class="row mb-0 text-start">
-            
+            {% if local.dueño%}
             <div class="mx-3">
                 <dt class="col-sm-3">Dueño</dt>
                 <dd class="col-sm-9">{{local.dueño}}</dd>
-                <dt class="col-sm-3">Descripción </dt>
-                <dd class="col-sm-9 text-truncate">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Maxime tenetur
-                    voluptates
-                    vitae aspernatur nesciunt magni consequatur. Saepe velit eum cupiditate, odio molestiae vitae! Maxime
-                    omnis animi nobis mollitia ipsa quaerat.</dd>
             </div>
+            {% endif %}
             <div class="row mx-0">
                 <div class="col p-0 mb-3">
                     {% for review in reviews_list %}
@@ -74,112 +70,97 @@
                             alt="Foto de {{ review.usuario }}" width="50" height="50" />
                         <div class="flex-grow-1 flex-shrink-1">
                             <div>
-                            <div class="d-flex justify-content-between align-items-center">
-                                <p class="mb-1">
-                                {{ review.usuario }} <span class="small">- {{ review.fecha|timesince|split_timesince}} </span>
-                                </p>
-                            </div>
-                            <p>
-                                {{review.detalle}}
-                            </p>
-
-                            <div class="row">
-                                <ul class="list-unstyled fs-6 col-4">
-                                    <li>Comida:</li>
-                                    <li>Precio:</li>
-                                    <li>Presentación:</li>
-                                </ul>
-                                
-                                <ul class="list-unstyled fs-6 col-3">
-                                    <li class="calificacion">
-                                        {% if review.calificacion_comida == 1 %}
-                                        <span>★☆☆☆☆</span>
-                                        {% elif review.calificacion_comida == 2 %}
-                                        <span>★★☆☆☆</span>
-                                        {% elif review.calificacion_comida == 3 %}
-                                        <span>★★★☆☆</span>
-                                        {% elif review.calificacion_comida == 4 %}
-                                        <span>★★★★☆</span>
-                                        {% elif review.calificacion_comida == 5 %}
-                                        <span>★★★★★</span>
-                                        {% endif %}
-                                    </li>
-                                    <li class="calificacion">
-                                        {% if review.calificacion_precio == 1 %}
-                                        <span>★☆☆☆☆</span>
-                                        {% elif review.calificacion_precio == 2 %}
-                                        <span>★★☆☆☆</span>
-                                        {% elif review.calificacion_precio == 3 %}
-                                        <span>★★★☆☆</span>
-                                        {% elif review.calificacion_precio == 4 %}
-                                        <span>★★★★☆</span>
-                                        {% elif review.calificacion_precio == 5 %}
-                                        <span>★★★★★</span>
-                                        {% endif %}
-                                    </li>
-                                    <li class="calificacion">
-                                        {% if review.calificacion_presentacion == 1 %}
-                                        <span>★☆☆☆☆</span>
-                                        {% elif review.calificacion_presentacion == 2 %}
-                                        <span>★★☆☆☆</span>
-                                        {% elif review.calificacion_presentacion == 3 %}
-                                        <span>★★★☆☆</span>
-                                        {% elif review.calificacion_presentacion == 4 %}
-                                        <span>★★★★☆</span>
-                                        {% elif review.calificacion_presentacion == 5 %}
-                                        <span>★★★★★</span>
-                                        {% endif %}
-                                    </li>
-                                </ul>
-                            </div>
-                            <ul class="list-unstyled">
-                                
-                                <form method="post">
-                                    {% csrf_token %}
-                                    
-                                    {% if request.user in review.usuario_dio_like.all %}
-                                    <button type="submit" class="btn btn-secondary" name="like" value="{{ review.id }}">
-                                        <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
-                                    </button>
-                                    {% else %}
-                                    <button type="submit" class="btn btn-outline-secondary" name="like" value="{{ review.id }}">
-                                        <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
-                                    </button>
-                                    {% endif %}
-                                    
-                                    {% if request.user in review.usuario_dio_dislike.all %}
-                                    <button type="submit" class="btn btn-secondary" name="dislike" value="{{ review.id }}">
-                                        <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
-                                    </button>
-                                    {% else %}
-                                    <button type="submit" class="btn btn-outline-secondary" name="dislike" value="{{ review.id }}">
-                                        <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
-                                    </button>
-                                    {% endif %}
-                                </form>
-                            
-                            </ul>
-
-                            </div>
-                        
-                            {% for comentario in review.calificaciones.all %}  
-                            <div class="d-flex flex-start mt-4">
-                            <a class="me-3" href="#">
-                                <img class="rounded-circle shadow-1-strong" src="{% static 'img/perfilsf.png' %}"
-                                alt="avatar" width="50" height="50" />
-                            </a>
-                            <div class="flex-grow-1 flex-shrink-1">
-                                <div>
                                 <div class="d-flex justify-content-between align-items-center">
                                     <p class="mb-1">
-                                        {{comentario.comentarista}} <span class="small">- {{ comentario.fechacomentario|timesince|split_timesince}}</span>
+                                        {{ review.usuario }} <span class="small">- {{
+                                            review.fecha|timesince|split_timesince}} </span>
                                     </p>
                                 </div>
                                 <p>
-                                    {{comentario.comentario}}
+                                    {{review.detalle}}
                                 </p>
+
+                                <div class="row">
+                                    <ul class="list-unstyled fs-6 col-4">
+                                        <li>Comida:</li>
+                                        <li>Precio:</li>
+                                        <li>Presentación:</li>
+                                    </ul>
+                                    <ul class="list-unstyled fs-6 col-3">
+                                        <li class="calificacion">
+                                            {% include "_calificacion_comida.html" %}
+                                        </li>
+                                        <li class="calificacion">
+                                            {% include "_calificacion_precio.html" %}
+                                        </li>
+                                        <li class="calificacion">
+                                            {% include "_calificacion_presentacion.html" %}
+                                        </li>
+                                    </ul>
                                 </div>
+                                <ul class="list-unstyled">
+
+                                    <form method="post">
+                                        {% csrf_token %}
+                                        {% if user.is_authenticated %}
+                                        {% if request.user in review.usuario_dio_like.all %}
+                                        <button type="submit" class="btn btn-secondary" name="like"
+                                            value="{{ review.id }}">
+                                            <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
+                                        </button>
+                                        {% else %}
+                                        <button type="submit" class="btn btn-outline-secondary" name="like"
+                                            value="{{ review.id }}">
+                                            <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
+                                        </button>
+                                        {% endif %}
+
+                                        {% if request.user in review.usuario_dio_dislike.all %}
+                                        <button type="submit" class="btn btn-secondary" name="dislike"
+                                            value="{{ review.id }}">
+                                            <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
+                                        </button>
+                                        {% else %}
+                                        <button type="submit" class="btn btn-outline-secondary" name="dislike"
+                                            value="{{ review.id }}">
+                                            <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
+                                        </button>
+                                        {% endif %}
+                                        {% else %}
+                                        <button type="submit" class="btn btn-outline-secondary" name="like"
+                                            value="{{ review.id }}" disabled>
+                                            <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
+                                        </button>
+                                        <button type="submit" class="btn btn-outline-secondary" name="dislike"
+                                            value="{{ review.id }}" disabled>
+                                            <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
+                                        </button>
+                                        {% endif %}
+                                    </form>
+
+                                </ul>
+
                             </div>
+
+                            {% for comentario in review.calificaciones.all %}
+                            <div class="d-flex flex-start mt-4">
+                                <a class="me-3" href="#">
+                                    <img class="rounded-circle shadow-1-strong" src="{% static 'img/perfilsf.png' %}"
+                                        alt="avatar" width="50" height="50" />
+                                </a>
+                                <div class="flex-grow-1 flex-shrink-1">
+                                    <div>
+                                        <div class="d-flex justify-content-between align-items-center">
+                                            <p class="mb-1">
+                                                {{comentario.comentarista}} <span class="small">- {{
+                                                    comentario.fechacomentario|timesince|split_timesince}}</span>
+                                            </p>
+                                        </div>
+                                        <p>
+                                            {{comentario.comentario}}
+                                        </p>
+                                    </div>
+                                </div>
                             </div>
                             {% endfor %}
 
@@ -191,9 +172,14 @@
                                         <input type="hidden" name="evaluacion" value="{{ review.id }}">
                                         {{form_comentario.comentario.erros}}
                                         <div class="form-floating mb-3">
-                                            <textarea class="form-control" placeholder="Leave a comment here" id="{{ form_comentario.comentario.id_for_label }}"  name="{{ form_comentario.comentario.html_name }}" value="{{ form_comentario.comentario.value|default_if_none:''|escape }}" required></textarea>
-                                            <label for="{{ form_comentario.comentario.id_for_label }}">Deja tu comentario</label>
-                                        </div>   
+                                            <textarea class="form-control" placeholder="Leave a comment here"
+                                                id="{{ form_comentario.comentario.id_for_label }}"
+                                                name="{{ form_comentario.comentario.html_name }}"
+                                                value="{{ form_comentario.comentario.value|default_if_none:''|escape }}"
+                                                required></textarea>
+                                            <label for="{{ form_comentario.comentario.id_for_label }}">Deja tu
+                                                comentario</label>
+                                        </div>
                                         <button type="submit" class="btn btn-primary" name="comment_form">
                                             <i class="bi bi-send-fill"></i>
                                             Enviar
@@ -231,7 +217,7 @@
 {% endif %}
 
 <!-- Modal -->
-<div class="modal fade text-start" id="createResena">
+<div class="modal fade text-start" id="createResena" style="backdrop-filter: blur(15px);">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content p-4">
             <div class="modal-header">
