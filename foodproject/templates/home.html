@@ -25,42 +25,7 @@
       <div class="loop owl-carousel owl-theme">
         {% for review in reviews_date %}
         <div class="item">
-          <div class="card">
-            <div class="card-body">
-              <div class="d-flex align-items-center mb-3">
-                <img class="rounded-circle me-3" src="{% static 'img/perfilsf.png' %}"
-                  alt="Foto de {{ review.usuario }}" style="max-width: 8%;">
-                <figcaption class="d-2">{{ review.usuario }}</figcaption>
-              </div>
-              <ul class="list-unstyled">
-                <li>Puesto: {{ review.local_comida }}</li>
-              </ul>
-              <div class="row">
-                <ul class="list-unstyled fs-6 col-6">
-                  <li>Comida:</li>
-                  <li>Precio:</li>
-                  <li>Presentación:</li>
-                </ul>
-                <ul class="list-unstyled fs-6 col-6">
-                  <li class="calificacion">
-                    {% include "_calificacion_comida.html" %}
-                  </li>
-                  <li class="calificacion">
-                    {% include "_calificacion_precio.html" %}
-                  </li>
-                  <li class="calificacion">
-                    {% include "_calificacion_presentacion.html" %}
-                  </li>
-                </ul>
-              </div>
-              <ul class="list-unstyled">
-                {% if review.detalle != '' %}
-                <li>Detalle:</li>
-                <li>{{ review.detalle }}</li>
-                {% endif %}
-              </ul>
-            </div>
-          </div>
+          {% include "_card_review.html" %}
         </div>
         {% empty %}
         <p>No se encontraron recientes.</p>
