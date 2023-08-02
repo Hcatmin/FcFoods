@@ -1,0 +1,240 @@
+{% load static %}
+
+{% load custom_filters %}
+
+<div class="offcanvas-header">
+  <h3 class="offcanvas-title" id="offcanvasExampleLabel">{{local.nombre}}</h3>
+  <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+</div>
+
+<div class="offcanvas-body p-0 overflow-x-hidden">
+  <dl class="row">
+    {% if local.FotoLocal%}
+    <img src="{{ local.FotoLocal.url }}" class="img-fluid" alt="">
+    {% endif %}
+  </dl>
+  <dl class="row mb-0 text-start">
+    {% if local.dueño%}
+    <div class="mx-3">
+      <dt class="col-sm-3">Dueño</dt>
+      <dd class="col-sm-9">{{local.dueño}}</dd>
+    </div>
+    {% endif %}
+
+    <div class="row mx-0">
+      <div class="col p-0 mb-3">
+        {% for review in list_reviews %}
+        <div class="d-flex flex-start my-4 mx-3">
+          <img class="rounded-circle shadow-1-strong me-3" src="{% static 'img/perfilsf.png' %}"
+            alt="Foto de {{ review.usuario }}" width="50" height="50" />
+          <div class="flex-grow-1 flex-shrink-1">
+            <div>
+              <div class="d-flex justify-content-between align-items-center">
+                <p class="mb-1">
+                  {{ review.usuario }} <span class="small">- {{ review.fecha|timesince|split_timesince}} </span>
+                </p>
+              </div>
+              <p>
+                {{review.detalle}}
+              </p>
+
+              <div class="row">
+                <ul class="list-unstyled fs-6 col-4">
+                  <li>Comida:</li>
+                  <li>Precio:</li>
+                  <li>Presentación:</li>
+                </ul>
+
+                <ul class="list-unstyled fs-6 col-3">
+                  <li class="calificacion">
+                    {% if review.calificacion_comida == 1 %}
+                    <span>★☆☆☆☆</span>
+                    {% elif review.calificacion_comida == 2 %}
+                    <span>★★☆☆☆</span>
+                    {% elif review.calificacion_comida == 3 %}
+                    <span>★★★☆☆</span>
+                    {% elif review.calificacion_comida == 4 %}
+                    <span>★★★★☆</span>
+                    {% elif review.calificacion_comida == 5 %}
+                    <span>★★★★★</span>
+                    {% endif %}
+                  </li>
+                  <li class="calificacion">
+                    {% if review.calificacion_precio == 1 %}
+                    <span>★☆☆☆☆</span>
+                    {% elif review.calificacion_precio == 2 %}
+                    <span>★★☆☆☆</span>
+                    {% elif review.calificacion_precio == 3 %}
+                    <span>★★★☆☆</span>
+                    {% elif review.calificacion_precio == 4 %}
+                    <span>★★★★☆</span>
+                    {% elif review.calificacion_precio == 5 %}
+                    <span>★★★★★</span>
+                    {% endif %}
+                  </li>
+                  <li class="calificacion">
+                    {% if review.calificacion_presentacion == 1 %}
+                    <span>★☆☆☆☆</span>
+                    {% elif review.calificacion_presentacion == 2 %}
+                    <span>★★☆☆☆</span>
+                    {% elif review.calificacion_presentacion == 3 %}
+                    <span>★★★☆☆</span>
+                    {% elif review.calificacion_presentacion == 4 %}
+                    <span>★★★★☆</span>
+                    {% elif review.calificacion_presentacion == 5 %}
+                    <span>★★★★★</span>
+                    {% endif %}
+                  </li>
+                </ul>
+              </div>
+              <ul class="list-unstyled">
+
+                <form method="post">
+
+                  {% if request.user in review.usuario_dio_like.all %}
+                  <button type="submit" class="btn btn-secondary" name="like" value="{{ review.id }}">
+                    <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
+                  </button>
+                  {% else %}
+                  <button type="submit" class="btn btn-outline-secondary" name="like" value="{{ review.id }}">
+                    <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
+                  </button>
+                  {% endif %}
+
+                  {% if request.user in review.usuario_dio_dislike.all %}
+                  <button type="submit" class="btn btn-secondary" name="dislike" value="{{ review.id }}">
+                    <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
+                  </button>
+                  {% else %}
+                  <button type="submit" class="btn btn-outline-secondary" name="dislike" value="{{ review.id }}">
+                    <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
+                  </button>
+                  {% endif %}
+                </form>
+
+              </ul>
+
+            </div>
+
+            <div id="container-comentarios-{{review.id}}">
+              {% for comentario in review.calificaciones.all %}
+              <div class="d-flex flex-start mt-4">
+                <a class="me-3" href="#">
+                  <img class="rounded-circle shadow-1-strong" src="{% static 'img/perfilsf.png' %}" alt="avatar" width="50"
+                    height="50" />
+                </a>
+                <div class="flex-grow-1 flex-shrink-1">
+                    <div class="d-flex justify-content-between align-items-center">
+                      <p class="mb-1">
+                        {{comentario.comentarista}} <span class="small">-
+                          {{comentario.fechacomentario|timesince|split_timesince}}</span>
+                      </p>
+                    </div>
+                    <p>
+                      {{comentario.comentario}}
+                    </p>
+                </div>
+              </div>
+              {% endfor %}
+            </div>
+
+            <div class="d-flex flex-start mt-4">
+              <div class="flex-grow-1 flex-shrink-1">
+                {% if user%}
+                <form class="add-comentarios" method="post">
+                  {% csrf_token %}
+                  <input type="hidden" name="evaluacion" value="{{ review.id }}">
+                  {{form_comentario.comentario.erros}}
+                  <div class="form-floating mb-3">
+                    <textarea class="form-control" placeholder="Leave a comment here"
+                      id="{{ form_comentario.comentario.id_for_label }}"
+                      name="{{ form_comentario.comentario.html_name }}"
+                      value="{{ form_comentario.comentario.value|default_if_none:''|escape }}" required></textarea>
+                    <label for="{{ form_comentario.comentario.id_for_label }}">Deja tu comentario</label>
+                  </div>
+                  <button type="submit" class="btn btn-primary" name="comment_form">
+                    <i class="bi bi-send-fill"></i>
+                    Enviar
+                  </button>
+                </form>
+                {% endif %}
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="my-0" style="border: 1px solid gray; width: 100%; opacity: 0.6;"></div>
+        {% endfor %}
+      </div>
+    </div>
+  </dl>
+</div>
+
+<script text="text/javascript" language="javascript">
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                // Does this cookie string begin with the name we want?
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    };
+
+    $(document).ready(function () {
+      $('.add-comentarios').submit(function (event) { // escucha la clase del form
+        event.preventDefault();
+        
+            var form = $(this);
+            var idReview = form.find('input[name="evaluacion"]').val();
+            var content = form.find('textarea[name="{{ form_comentario.comentario.html_name }}"]').val();
+            // var csrftoken = getCookie('csrftoken');
+
+            $.ajax({
+                url: '/display_comment/',
+                method: 'POST',
+                data: {
+                    // 'user': "{{user}}",
+                    // 'id_local': '{{id_local}}',
+                    'id_review': idReview,
+                    'comentario': content,
+                    'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+                },
+                success: function (response) {
+                    $('#container-comentarios-'+idReview).append(`
+                    <div class="d-flex flex-start mt-4">
+                      <a class="me-3" href="#">
+                        <img class="rounded-circle shadow-1-strong" src="{% static 'img/perfilsf.png' %}" alt="avatar" width="50"
+                          height="50" />
+                      </a>
+                      <div class="flex-grow-1 flex-shrink-1">
+                          <div class="d-flex justify-content-between align-items-center">
+                            <p class="mb-1">
+                              `+user+` <span class="small">- 0 secs</span>
+                            </p>
+                          </div>
+                          <p>
+                            `+content+`
+                          </p>
+                      </div>
+                    </div>
+                    `);
+                    // var id_review = response.id_review;
+                    // var container = $('#container-comentarios'+id_review);
+                    // container.append(response);
+                    console.log(response);
+                },
+                error: function (error) {
+                  console.log("Unexpected error");
+                  console.log(error);
+                }
+            });
+        });
+    });
+</script>
