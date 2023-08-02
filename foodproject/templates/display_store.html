@@ -187,7 +187,6 @@
         return cookieValue;
     };
 
-    
     $(document).ready(function () {
       $('.add-comentarios').submit(function (event) { // escucha la clase del form
         event.preventDefault();
@@ -204,7 +203,7 @@
                     // 'user': "{{user}}",
                     // 'id_local': '{{id_local}}',
                     'id_review': idReview,
-                    'content_comment': content,
+                    'comentario': content,
                     'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
                 },
                 success: function (response) {
@@ -217,7 +216,7 @@
                       <div class="flex-grow-1 flex-shrink-1">
                           <div class="d-flex justify-content-between align-items-center">
                             <p class="mb-1">
-                              {{user}} <span class="small">-xd</span>
+                              `+user+` <span class="small">- 0 secs</span>
                             </p>
                           </div>
                           <p>
@@ -232,6 +231,7 @@
                     console.log(response);
                 },
                 error: function (error) {
+                  console.log("Unexpected error");
                   console.log(error);
                 }
             });

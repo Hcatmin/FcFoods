@@ -162,12 +162,16 @@ def display_comment(request):
         # user = request.POST.get('user')
         id_local = request.POST.get('id_local')
         id_review = request.POST.get('id_review')
-        content_comment = request.POST.get('content_comment')
+        content_comment = request.POST.get('comentario')
         form_agregar_comentario = ComentarioReseña(request.POST)
-        cleaned_data = form_agregar_comentario.cleaned_data
-        Comentario.objects.create(**cleaned_data, comentarista=request.user, evaluacion_id = id_review)
-        response_data = {"id_review": id_review, "content_comment": content_comment}
-        return JsonResponse(response_data)
+        print(request.POST)
+        if form_agregar_comentario.is_valid():
+            cleaned_data = form_agregar_comentario.cleaned_data
+            Comentario.objects.create(**cleaned_data, comentarista=request.user, evaluacion_id = id_review)
+            response_data = {"id_review": id_review, "content_comment": content_comment}
+            return JsonResponse(response_data)
+        else:
+            return JsonResponse({'error': request.POST})
     else:
         return JsonResponse({'error': 'Invalid Request'})
 
