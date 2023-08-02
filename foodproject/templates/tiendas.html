@@ -88,55 +88,13 @@
                                     </ul>
                                     <ul class="list-unstyled fs-6 col-3">
                                         <li class="calificacion">
-                                            {% if review.calificacion_comida == 1 %}
-                                            <span>★☆☆☆☆</span>
-                                            {% endif %}
-                                            {% if review.calificacion_comida == 2 %}
-                                            <span>★★☆☆☆</span>
-                                            {% endif %}
-                                            {% if review.calificacion_comida == 3 %}
-                                            <span>★★★☆☆</span>
-                                            {% endif %}
-                                            {% if review.calificacion_comida == 4 %}
-                                            <span>★★★★☆</span>
-                                            {% endif %}
-                                            {% if review.calificacion_comida == 5 %}
-                                            <span>★★★★★</span>
-                                            {% endif %}
+                                            {% include "_calificacion_comida.html" %}
                                         </li>
                                         <li class="calificacion">
-                                            {% if review.calificacion_precio == 1 %}
-                                            <span>★☆☆☆☆</span>
-                                            {% endif %}
-                                            {% if review.calificacion_precio == 2 %}
-                                            <span>★★☆☆☆</span>
-                                            {% endif %}
-                                            {% if review.calificacion_precio == 3 %}
-                                            <span>★★★☆☆</span>
-                                            {% endif %}
-                                            {% if review.calificacion_precio == 4 %}
-                                            <span>★★★★☆</span>
-                                            {% endif %}
-                                            {% if review.calificacion_precio == 5 %}
-                                            <span>★★★★★</span>
-                                            {% endif %}
+                                            {% include "_calificacion_precio.html" %}
                                         </li>
                                         <li class="calificacion">
-                                            {% if review.calificacion_presentacion == 1 %}
-                                            <span>★☆☆☆☆</span>
-                                            {% endif %}
-                                            {% if review.calificacion_presentacion == 2 %}
-                                            <span>★★☆☆☆</span>
-                                            {% endif %}
-                                            {% if review.calificacion_presentacion == 3 %}
-                                            <span>★★★☆☆</span>
-                                            {% endif %}
-                                            {% if review.calificacion_presentacion == 4 %}
-                                            <span>★★★★☆</span>
-                                            {% endif %}
-                                            {% if review.calificacion_presentacion == 5 %}
-                                            <span>★★★★★</span>
-                                            {% endif %}
+                                            {% include "_calificacion_presentacion.html" %}
                                         </li>
                                     </ul>
                                 </div>

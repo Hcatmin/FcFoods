@@ -1,0 +1,17 @@
+{# templates/_calificacion_comida.html #}
+
+{% if review.calificacion_comida == 1 %}
+<span>★☆☆☆☆</span>
+{% endif %}
+{% if review.calificacion_comida == 2 %}
+<span>★★☆☆☆</span>
+{% endif %}
+{% if review.calificacion_comida == 3 %}
+<span>★★★☆☆</span>
+{% endif %}
+{% if review.calificacion_comida == 4 %}
+<span>★★★★☆</span>
+{% endif %}
+{% if review.calificacion_comida == 5 %}
+<span>★★★★★</span>
+{% endif %}
