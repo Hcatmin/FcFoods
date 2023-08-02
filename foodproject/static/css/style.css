@@ -8,4 +8,6 @@ body {
   padding-bottom: 90px;
 }
 
-section#tail { display: none; }
+section#tail {
+  display: none;
+}

@@ -1,7 +1,8 @@
-body{
+body {
   background: #f7f7ff;
-  margin-top:20px;
+  margin-top: 20px;
 }
+
 .card {
   position: relative;
   display: flex;
@@ -15,8 +16,9 @@ body{
   margin-bottom: 1.5rem;
   box-shadow: 0 2px 6px 0 rgb(218 218 253 / 65%), 0 2px 6px 0 rgb(206 206 238 / 54%);
 }
+
 .me-2 {
-  margin-right: .5rem!important;
+  margin-right: .5rem !important;
 }
 
 .see-more {
@@ -25,9 +27,9 @@ body{
   font-weight: bold;
   border-color: #7C99AC;
 }
- 
+
 .see-more:hover {
   background-color: #FFEFEF;
   color: darkblue;
-  border-color: #FFEFEF; 
+  border-color: #FFEFEF;
 }

@@ -1,26 +1,28 @@
-{% extends 'base.html' %} 
+{% extends 'base.html' %}
 
 {% load static %}
 {% block content %}
+
 <head>
   <link rel="stylesheet" href="{% static 'css/borrar_reseña.css' %}">
 </head>
+
 <body>
   <div class="container">
     <h2>Borrar Reseña n° {{post.id}}</h2>
     <form method="POST">
       {% csrf_token %}
       {% if request.user.pronombre == "Otro" %}
-        <p>¿Estás segur@ que deseas borrar la reseña al puesto de comida: "{{post.local_comida}}"?</p>
+      <p>¿Estás segur@ que deseas borrar la reseña al puesto de comida: "{{post.local_comida}}"?</p>
       {% endif %}
       {% if request.user.pronombre == "El" %}
-        <p>¿Estás seguro que deseas borrar la reseña al puesto de comida: "{{post.local_comida}}"?</p>
+      <p>¿Estás seguro que deseas borrar la reseña al puesto de comida: "{{post.local_comida}}"?</p>
       {% endif %}
       {% if request.user.pronombre == "Le" %}
-        <p>¿Estás segure que deseas borrar la reseña al puesto de comida: "{{post.local_comida}}"?</p>
+      <p>¿Estás segure que deseas borrar la reseña al puesto de comida: "{{post.local_comida}}"?</p>
       {% endif %}
       {% if request.user.pronombre == "La" %}
-        <p>¿Estás segura que deseas borrar la reseña al puesto de comida: "{{post.local_comida}}"?</p>
+      <p>¿Estás segura que deseas borrar la reseña al puesto de comida: "{{post.local_comida}}"?</p>
       {% endif %}
       <p style="font-weight: bolder;">Tu reseña: "{{post.detalle}}"</p>
       <div class="opciones">

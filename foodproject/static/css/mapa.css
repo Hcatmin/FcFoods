@@ -1,15 +1,16 @@
 body {
-  background-color: #f8f8f8; 
+  background-color: #f8f8f8;
   font-family: Arial, sans-serif;
   font-size: 16px;
   line-height: 1.5;
 }
+
 #espacio-abajo {
 
   width: 100%;
   padding: 50px;
   background-color: #f8f8f8;
- 
+
 }
 
 #espacio-arriba {
@@ -21,27 +22,29 @@ body {
 }
 
 
-h1, h2, h3 {
-  color: #4b4b4b; 
+h1,
+h2,
+h3 {
+  color: #4b4b4b;
   font-weight: bold;
 }
 
 a {
-  color: #B19CD9; 
+  color: #B19CD9;
   text-decoration: none;
 }
 
 
 
 p {
-  color: #4b4b4b; 
+  color: #4b4b4b;
 }
 
 button {
-  background-color: #B19CD9; 
+  background-color: #B19CD9;
   border: none;
   border-radius: 3px;
-  color: #fff; 
+  color: #fff;
   cursor: pointer;
   padding: 8px 16px;
 }
@@ -59,11 +62,12 @@ img {
   width: 370px;
   height: 380px;
 }
+
 body {
   display: flex;
   flex-direction: column;
-  align-items: center; 
-  height: 100vh; 
+  align-items: center;
+  height: 100vh;
 }
 
 form {

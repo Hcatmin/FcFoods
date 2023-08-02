@@ -4,10 +4,11 @@
   width: 550px;
   height: 200px;
   margin: 0 auto;
-  background-color:#92A9BD;
+  background-color: #92A9BD;
 }
 
-h2, .opciones{
+h2,
+.opciones {
   text-align: center;
 }
 
@@ -33,7 +34,6 @@ button[type="submit"] {
   border-radius: 20%;
 }
 
-body{
+body {
   background-color: #7C99AC;
 }
-

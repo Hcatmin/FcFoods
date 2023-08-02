@@ -1,42 +1,47 @@
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-  }
-  
-  .centered-form {
-    width: 90%;
-    height: 30%; 
-    background-color: #bbc7d2; 
-    padding: 20px; 
-    border-radius: 5px; 
-  }
-  
-  .centered-form input,
-  .centered-form select {
-    /* Estilos para los campos de entrada */
-    width: 100%; /* Ancho completo */
-    padding: 10px; /* Espaciado interno */
-    margin-bottom: 10px; /* Margen inferior */
-    border: 2px solid #b3adde; /* Borde */
-    border-radius: 3px; /* Bordes redondeados */
-  }
-  
-  .centered-form button {
-    
-    display: block; 
-    width: 100%; 
-    padding: 10px; 
-    background-color: #337ab7; 
-    color: #ffffff; 
-    border: navajowhite; 
-    border-radius: 10px; 
-    cursor: pointer; /* Cambiar el cursor al pasar por encima */
-  }
-  
-  .centered-form button:hover {
-    background-color: #4293da; /* Color de fondo al pasar el ratón */
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 
-  
+.centered-form {
+  width: 90%;
+  height: 30%;
+  background-color: #bbc7d2;
+  padding: 20px;
+  border-radius: 5px;
+}
+
+.centered-form input,
+.centered-form select {
+  /* Estilos para los campos de entrada */
+  width: 100%;
+  /* Ancho completo */
+  padding: 10px;
+  /* Espaciado interno */
+  margin-bottom: 10px;
+  /* Margen inferior */
+  border: 2px solid #b3adde;
+  /* Borde */
+  border-radius: 3px;
+  /* Bordes redondeados */
+}
+
+.centered-form button {
+
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background-color: #337ab7;
+  color: #ffffff;
+  border: navajowhite;
+  border-radius: 10px;
+  cursor: pointer;
+  /* Cambiar el cursor al pasar por encima */
+}
+
+.centered-form button:hover {
+  background-color: #4293da;
+  /* Color de fondo al pasar el ratón */
+}

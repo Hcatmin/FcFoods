@@ -7,13 +7,14 @@
 <div class="mx-4 my-5">
   <h3 class="mb-5">Resultados de la busqueda: {{ busqueda }}</h3>
   <div class="row row-cols-1 row-cols-md-3 g-4">
-  {% for review in resultados %}
+    {% for review in resultados %}
     <div class="col">
       <div class="card">
         <div class="card-body">
           <div class="d-flex align-items-center mb-3">
-            <img class="rounded-circle me-3" src="{% static 'img/perfilsf.png' %}" alt="Foto de {{ review.usuario }}" style="max-width: 10%;">
-            <figcaption class="d-2">{{ review.usuario }}</figcaption> 
+            <img class="rounded-circle me-3" src="{% static 'img/perfilsf.png' %}" alt="Foto de {{ review.usuario }}"
+              style="max-width: 10%;">
+            <figcaption class="d-2">{{ review.usuario }}</figcaption>
           </div>
           <ul class="list-unstyled">
             <li>Puesto: {{ review.local_comida }}</li>
@@ -26,62 +27,62 @@
             </ul>
             <ul class="list-unstyled fs-6 col-3">
               <li class="calificacion">
-                  {% if review.calificacion_comida == 1 %}
-                      <span>★☆☆☆☆</span>
-                  {% endif %}
-                  {% if review.calificacion_comida == 2 %}
-                      <span>★★☆☆☆</span>
-                  {% endif %}
-                  {% if review.calificacion_comida == 3 %}
-                      <span>★★★☆☆</span>
-                  {% endif %}
-                  {% if review.calificacion_comida == 4 %}
-                      <span>★★★★☆</span>
-                  {% endif %}
-                  {% if review.calificacion_comida == 5 %}
-                      <span>★★★★★</span>
-                  {% endif %}
+                {% if review.calificacion_comida == 1 %}
+                <span>★☆☆☆☆</span>
+                {% endif %}
+                {% if review.calificacion_comida == 2 %}
+                <span>★★☆☆☆</span>
+                {% endif %}
+                {% if review.calificacion_comida == 3 %}
+                <span>★★★☆☆</span>
+                {% endif %}
+                {% if review.calificacion_comida == 4 %}
+                <span>★★★★☆</span>
+                {% endif %}
+                {% if review.calificacion_comida == 5 %}
+                <span>★★★★★</span>
+                {% endif %}
               </li>
               <li class="calificacion">
-                  {% if review.calificacion_precio == 1 %}
-                      <span>★☆☆☆☆</span>
-                  {% endif %}
-                  {% if review.calificacion_precio == 2 %}
-                      <span>★★☆☆☆</span>
-                  {% endif %}
-                  {% if review.calificacion_precio == 3 %}
-                      <span>★★★☆☆</span>
-                  {% endif %}
-                  {% if review.calificacion_precio == 4 %}
-                      <span>★★★★☆</span>
-                  {% endif %}
-                  {% if review.calificacion_precio == 5 %}
-                      <span>★★★★★</span>
-                  {% endif %}
+                {% if review.calificacion_precio == 1 %}
+                <span>★☆☆☆☆</span>
+                {% endif %}
+                {% if review.calificacion_precio == 2 %}
+                <span>★★☆☆☆</span>
+                {% endif %}
+                {% if review.calificacion_precio == 3 %}
+                <span>★★★☆☆</span>
+                {% endif %}
+                {% if review.calificacion_precio == 4 %}
+                <span>★★★★☆</span>
+                {% endif %}
+                {% if review.calificacion_precio == 5 %}
+                <span>★★★★★</span>
+                {% endif %}
               </li>
               <li class="calificacion">
-                  {% if review.calificacion_presentacion == 1 %}
-                      <span>★☆☆☆☆</span>
-                  {% endif %}
-                  {% if review.calificacion_presentacion == 2 %}
-                      <span>★★☆☆☆</span>
-                  {% endif %}
-                  {% if review.calificacion_presentacion == 3 %}
-                      <span>★★★☆☆</span>
-                  {% endif %}
-                  {% if review.calificacion_presentacion == 4 %}
-                      <span>★★★★☆</span>
-                  {% endif %}
-                  {% if review.calificacion_presentacion == 5 %}
-                      <span>★★★★★</span>
-                  {% endif %}
+                {% if review.calificacion_presentacion == 1 %}
+                <span>★☆☆☆☆</span>
+                {% endif %}
+                {% if review.calificacion_presentacion == 2 %}
+                <span>★★☆☆☆</span>
+                {% endif %}
+                {% if review.calificacion_presentacion == 3 %}
+                <span>★★★☆☆</span>
+                {% endif %}
+                {% if review.calificacion_presentacion == 4 %}
+                <span>★★★★☆</span>
+                {% endif %}
+                {% if review.calificacion_presentacion == 5 %}
+                <span>★★★★★</span>
+                {% endif %}
               </li>
             </ul>
           </div>
           <ul class="list-unstyled">
-              {% if review.detalle != '' %}
-              <li>Detalle:</li>
-              <li>{{ review.detalle }}</l>
+            {% if review.detalle != '' %}
+            <li>Detalle:</li>
+            <li>{{ review.detalle }}</l>
               {% endif %}
           </ul>
         </div>

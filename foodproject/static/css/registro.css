@@ -1,9 +1,9 @@
 body {
-	background-image: linear-gradient(to right bottom, #d3dedc, #dae2dc, #e2e5dd, #ece8df, #f6ebe4, #f4e3e0, #efdcde, #e8d6de, #d2c5d4, #b8b5c9, #9ba7bd, #7c99ac);
+    background-image: linear-gradient(to right bottom, #d3dedc, #dae2dc, #e2e5dd, #ece8df, #f6ebe4, #f4e3e0, #efdcde, #e8d6de, #d2c5d4, #b8b5c9, #9ba7bd, #7c99ac);
 }
 
 .register-body {
-    font-family:Arial, Helvetica, sans-serif ;
+    font-family: Arial, Helvetica, sans-serif;
     display: flex;
     justify-content: center;
     height: 100vh;
@@ -11,8 +11,8 @@ body {
 }
 
 .register-container {
-	color: #FFEFEF;
-	background: #92A9BD;
+    color: #FFEFEF;
+    background: #92A9BD;
     border-radius: 20px;
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
     padding: 4rem;
@@ -21,7 +21,7 @@ body {
 }
 
 h1 {
-    font-size:  50px;
+    font-size: 50px;
     margin: 0 0 1rem;
     color: #0c0c0c;
     text-align: center;
@@ -38,6 +38,7 @@ input:focus {
     border-color: #0790a2;
 
 }
+
 .submit-btn {
     width: 100%;
     padding: 0.5rem;
@@ -49,10 +50,11 @@ input:focus {
     cursor: pointer;
     margin-top: 1rem;
 }
+
 .submit-btn:hover {
     border: 0;
     background-color: #D3DEDC;
-    
+
 }
 
 @media (max-width: 600px) {
