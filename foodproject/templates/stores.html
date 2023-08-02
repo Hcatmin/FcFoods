@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+{% load custom_filters %}
+
+{% block styles %}
+<link rel="stylesheet" href="{% static 'css/crear_reseña_style_objetivo.css' %}">
+{% endblock %}
+
+<div class="container my-4">
+    <h2 class="my-4">Lista de comercios</h2>
+
+    {% if user.is_authenticated %}
+    <p>Welcome, {{ user.username }}. Thanks for logging in.</p>
+{% else %}
+    <p>Welcome, new user. Please log in.</p>
+{% endif %}
+    <div class="container text-center">
+        <div class="row">
+            {% for local in list %}
+            <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-4">
+                <div class="card h-100">
+                    {% if local.FotoLocal%}
+                    <div class="centering">
+                        <img class="card-img-top centering" src="{{local.FotoLocal.url}}" alt="Card image cap">
+                    </div>
+                    {% endif %}
+                    <div class="card-body d-flex flex-column justify-content-around">
+                        <h4 class="card-title my-auto">{{local.nombre}}</h4>
+                        {% if local.dueño%}
+                        <p class="card-text">{{local.dueño}}</p>
+                        {% endif %}
+                        <form class="localFormulario" method="get">
+                            <button class="btn btn-primary mt-3" type="submit" name="id_local" value="{{local.id}}" data-bs-toggle="offcanvas" data-bs-target="#offcanvasExample" aria-controls="offcanvasExample">
+                                Mostrar
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+
+
+<div class="offcanvas offcanvas-start p-0" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+</div>
+
+
+<script type="text/javascript" language="javascript">
+    $(document).ready(function () {
+        $('.localFormulario').submit(function (event) {
+            event.preventDefault();
+
+            var form = $(this);
+            var idLocal = form.find('button[name="id_local"]').val();
+
+            $.ajax({
+                url: '/display_store/',
+                method: 'GET',
+                data: {
+                    'id_local': idLocal
+                },
+                success: function (response) {
+                    $('#offcanvasExample').html(response.rendered_data);
+                },
+                error: function (error) {
+                    console.log(error);
+                }
+            });
+        });
+    });
+
+</script>
+
+
+{% endblock %}

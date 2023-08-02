@@ -3,6 +3,7 @@
 <html lang="en">
 
 <head>
+
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Food Project</title>
@@ -16,6 +17,10 @@
   <link rel="stylesheet" href="{% static 'bootstrap-icons-1.10.5/font/bootstrap-icons.css' %}">
   <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
+  <!-- ✅ load jQuery ✅ -->
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+    integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
@@ -23,7 +28,7 @@
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark " aria-label="Ninth navbar example">
       <div class="container-xl">
         <a class="navbar-brand">Grupo 15</a>
-        
+
         <a class="nav-link text-light active" aria-current="page" id="nav-search" href="{% url 'buscador' %}" hidden>
           <i class="bi bi-search"></i>
           Buscar
@@ -58,7 +63,8 @@
             </li>
 
             <li class="nav-item dropdown dropstart py-2 py-lg-1 col-4 col-lg-auto">
-              <button id="bd-theme" class="btn-link nav-link dropdown-toggle fs-4" href="#" data-bs-toggle="dropdown" aria-expanded="false">
+              <button id="bd-theme" class="btn-link nav-link dropdown-toggle fs-4" href="#" data-bs-toggle="dropdown"
+                aria-expanded="false">
                 <i class="bi bi-person-circle"></i>
                 <span class="d-lg-none ms-2" id="dropdownMenuProfile">Toggle theme</span>
               </button>
@@ -118,10 +124,11 @@
   </footer>
 
   <section id="tail">
+
     <script src="{% static 'js/popper.min.js' %}"></script>
     <script src="{% static 'bootstrap-5.3.0-alpha3/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'js/script.js' %}"></script>
-    
+
     <!-- Owl Carousel 2 JS -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'owlcarousel/owl.carousel.min.js' %}"></script>
@@ -131,17 +138,17 @@
           center: true,
           loop: true,
           margin: 10,
-          items:3,   
-          responsive:{
-              0:{
-                  items:1
-              },
-              600:{
-                  items:2
-              },
-              1000:{
-                  items:3
-              }
+          items: 3,
+          responsive: {
+            0: {
+              items: 1
+            },
+            600: {
+              items: 2
+            },
+            1000: {
+              items: 3
+            }
           }
         });
         $('.nonloop').owlCarousel({

@@ -27,7 +27,7 @@
             {% if local.dueño%}
             <p class="card-text">{{local.dueño}}</p>
             {% endif %}
-            <form method="get">
+            <form id="localFormulario" method="get">
               <button class="btn btn-primary mt-3" type="submit" name ="local" value="{{local.id}}">
                 Mostrar
               </button>
@@ -42,9 +42,9 @@
 </div>
 
 
-{% if local %}
 
-<div class="offcanvas offcanvas-start p-0" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+{% if local %}
+<div class="offcanvas offcanvas-start show p-0" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
     <div class="offcanvas-header">
         <h3 class="offcanvas-title" id="offcanvasExampleLabel">{{local.nombre}}</h3>
         <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -89,55 +89,44 @@
                                     <li>Precio:</li>
                                     <li>Presentación:</li>
                                 </ul>
+                                
                                 <ul class="list-unstyled fs-6 col-3">
                                     <li class="calificacion">
                                         {% if review.calificacion_comida == 1 %}
                                         <span>★☆☆☆☆</span>
-                                        {% endif %}
-                                        {% if review.calificacion_comida == 2 %}
+                                        {% elif review.calificacion_comida == 2 %}
                                         <span>★★☆☆☆</span>
-                                        {% endif %}
-                                        {% if review.calificacion_comida == 3 %}
+                                        {% elif review.calificacion_comida == 3 %}
                                         <span>★★★☆☆</span>
-                                        {% endif %}
-                                        {% if review.calificacion_comida == 4 %}
+                                        {% elif review.calificacion_comida == 4 %}
                                         <span>★★★★☆</span>
-                                        {% endif %}
-                                        {% if review.calificacion_comida == 5 %}
+                                        {% elif review.calificacion_comida == 5 %}
                                         <span>★★★★★</span>
                                         {% endif %}
                                     </li>
                                     <li class="calificacion">
                                         {% if review.calificacion_precio == 1 %}
                                         <span>★☆☆☆☆</span>
-                                        {% endif %}
-                                        {% if review.calificacion_precio == 2 %}
+                                        {% elif review.calificacion_precio == 2 %}
                                         <span>★★☆☆☆</span>
-                                        {% endif %}
-                                        {% if review.calificacion_precio == 3 %}
+                                        {% elif review.calificacion_precio == 3 %}
                                         <span>★★★☆☆</span>
-                                        {% endif %}
-                                        {% if review.calificacion_precio == 4 %}
+                                        {% elif review.calificacion_precio == 4 %}
                                         <span>★★★★☆</span>
-                                        {% endif %}
-                                        {% if review.calificacion_precio == 5 %}
+                                        {% elif review.calificacion_precio == 5 %}
                                         <span>★★★★★</span>
                                         {% endif %}
                                     </li>
                                     <li class="calificacion">
                                         {% if review.calificacion_presentacion == 1 %}
                                         <span>★☆☆☆☆</span>
-                                        {% endif %}
-                                        {% if review.calificacion_presentacion == 2 %}
+                                        {% elif review.calificacion_presentacion == 2 %}
                                         <span>★★☆☆☆</span>
-                                        {% endif %}
-                                        {% if review.calificacion_presentacion == 3 %}
+                                        {% elif review.calificacion_presentacion == 3 %}
                                         <span>★★★☆☆</span>
-                                        {% endif %}
-                                        {% if review.calificacion_presentacion == 4 %}
+                                        {% elif review.calificacion_presentacion == 4 %}
                                         <span>★★★★☆</span>
-                                        {% endif %}
-                                        {% if review.calificacion_presentacion == 5 %}
+                                        {% elif review.calificacion_presentacion == 5 %}
                                         <span>★★★★★</span>
                                         {% endif %}
                                     </li>
@@ -239,6 +228,7 @@
         </div>
     </div>
 </div>
+{% endif %}
 
 <!-- Modal -->
 <div class="modal fade text-start" id="createResena">
@@ -295,13 +285,6 @@
         </div>
     </div>
 </div>
-
-<script>
-    document.getElementById("offcanvasExample").classList.add('show');
-</script>
-
-{% endif %}
-
 
 
 {% endblock %}
