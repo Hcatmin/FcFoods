@@ -5,12 +5,12 @@
 <head>
   <link rel="stylesheet" href="{% static 'css/buscar.css' %}">
 </head>
-<div class="container">
+<main class="w-50 mx-auto my-5">
   <form action="" method="post" class="centered-form">
     {% csrf_token %}
     {{ form_busqueda.as_p }}
     <button class="btn btn-primary" type="submit">Buscar</button>
   </form>
-</div>
+</main>
 
 {% endblock content %}
