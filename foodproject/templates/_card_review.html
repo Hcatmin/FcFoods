@@ -20,13 +20,19 @@
             </ul>
             <ul class="list-unstyled fs-6 col-4">
                 <li class="calificacion">
-                    {% include "_calificacion_comida.html" %}
+                    {% with stars=review.calificacion_comida %}
+                    {% include "_stars_display.html" %}
+                    {% endwith %}
                 </li>
                 <li class="calificacion">
-                    {% include "_calificacion_precio.html" %}
+                    {% with stars=review.calificacion_precio %}
+                    {% include "_stars_display.html" %}
+                    {% endwith %}
                 </li>
                 <li class="calificacion">
-                    {% include "_calificacion_presentacion.html" %}
+                    {% with stars=review.calificacion_presentacion %}
+                    {% include "_stars_display.html" %}
+                    {% endwith %}
                 </li>
             </ul>
         </section>
