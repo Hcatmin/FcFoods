@@ -12,30 +12,7 @@
         <ul class="list-unstyled">
             <li>Puesto: {{ review.local_comida }}</li>
         </ul>
-        <section class="row">
-            <ul class="list-unstyled fs-6 col-5">
-                <li>Comida:</li>
-                <li>Precio:</li>
-                <li>Presentación:</li>
-            </ul>
-            <ul class="list-unstyled fs-6 col-4">
-                <li class="calificacion">
-                    {% with stars=review.calificacion_comida %}
-                    {% include "_stars_display.html" %}
-                    {% endwith %}
-                </li>
-                <li class="calificacion">
-                    {% with stars=review.calificacion_precio %}
-                    {% include "_stars_display.html" %}
-                    {% endwith %}
-                </li>
-                <li class="calificacion">
-                    {% with stars=review.calificacion_presentacion %}
-                    {% include "_stars_display.html" %}
-                    {% endwith %}
-                </li>
-            </ul>
-        </section>
+        {% include "_review_content.html" %}
         <ul class="list-unstyled">
             {% if review.detalle != '' %}
             <li>Detalle:</li>

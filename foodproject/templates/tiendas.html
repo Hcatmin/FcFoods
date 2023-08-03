@@ -78,31 +78,7 @@
                                 <p>
                                     {{review.detalle}}
                                 </p>
-
-                                <div class="row">
-                                    <ul class="list-unstyled fs-6 col-4">
-                                        <li>Comida:</li>
-                                        <li>Precio:</li>
-                                        <li>Presentación:</li>
-                                    </ul>
-                                    <ul class="list-unstyled fs-6 col-3">
-                                        <li class="calificacion">
-                                            {% with stars=review.calificacion_comida %}
-                                            {% include "_stars_display.html" %}
-                                            {% endwith %}
-                                        </li>
-                                        <li class="calificacion">
-                                            {% with stars=review.calificacion_precio %}
-                                            {% include "_stars_display.html" %}
-                                            {% endwith %}
-                                        </li>
-                                        <li class="calificacion">
-                                            {% with stars=review.calificacion_presentacion %}
-                                            {% include "_stars_display.html" %}
-                                            {% endwith %}
-                                        </li>
-                                    </ul>
-                                </div>
+                                {% include "_review_content.html" %}
                                 <ul class="list-unstyled">
 
                                     <form method="post">

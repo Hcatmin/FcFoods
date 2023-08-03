@@ -1,0 +1,28 @@
+{# templates/_card_review.html #}
+
+{% load static %}
+
+<section class="row">
+    <ul class="list-unstyled fs-6 col-5">
+        <li>Comida:</li>
+        <li>Precio:</li>
+        <li>Presentación:</li>
+    </ul>
+    <ul class="list-unstyled fs-6 col-4">
+        <li class="calificacion">
+            {% with stars=review.calificacion_comida %}
+            {% include "_stars_display.html" %}
+            {% endwith %}
+        </li>
+        <li class="calificacion">
+            {% with stars=review.calificacion_precio %}
+            {% include "_stars_display.html" %}
+            {% endwith %}
+        </li>
+        <li class="calificacion">
+            {% with stars=review.calificacion_presentacion %}
+            {% include "_stars_display.html" %}
+            {% endwith %}
+        </li>
+    </ul>
+</section>
