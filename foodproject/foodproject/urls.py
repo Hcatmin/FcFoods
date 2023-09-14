@@ -18,16 +18,17 @@ from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
-from reviews.views import home, perfil, register_user, login_request, \
+from reviews.views import home, perfil, login_request, \
                           buscador, tiendas_view, editar_reseña, \
                           stores_view, display_store, display_comment, \
-                          borrar_reseña, cerrar_sesion, editar_comentario, borrar_comentario
+                          borrar_reseña, cerrar_sesion, editar_comentario, borrar_comentario, \
+                          SignUpView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', home, name="home"),
     path('profile/', perfil, name="profile"),
-    path('register', register_user, name='register_user'),
+    path('register', SignUpView.as_view(), name='register_user'),
     path('accounts/', include('django.contrib.auth.urls')),
     path('tiendas/', tiendas_view, name='tiendas'),
     path('stores/', stores_view, name='stores'),
@@ -39,5 +40,5 @@ urlpatterns = [
     path('profile/delete_review/<int:id>/', borrar_reseña, name="delete_review"),
     path('profile/edit_comment/<int:id>/', editar_comentario, name="edit_comment"),
     path('profile/delete_comment/<int:id>/', borrar_comentario, name="delete_comment"),
-    path('logout/', cerrar_sesion, name= "logout")
+    path('logout/', cerrar_sesion, name= "logout"),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

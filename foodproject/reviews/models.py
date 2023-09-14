@@ -8,7 +8,7 @@ from django.contrib.auth.models import AbstractUser
 
 # Modelo que representa a los usuarios
 # Posee de atributos: username: el nombre de usuario
-#                     mail: el mail del usuario
+#                     email: el mail del usuario
 #                     pronombre: el pronombre del usuario
 #                     contraseña: la contraseña del usuario
 class User(AbstractUser):

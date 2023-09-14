@@ -1,15 +1,15 @@
 # from django.shortcuts import render
 from django.shortcuts import render, redirect, get_object_or_404
-from reviews.models import User
 from reviews.models import Puesto_de_comida
 from django.contrib.auth.forms import AuthenticationForm
-from reviews.forms import CrearReseñaForm, SearchForm, ComentarioReseña
+from reviews.forms import CrearReseñaForm, SearchForm, ComentarioReseña, CustomUserCreationForm
 from django.contrib.auth import login, authenticate, logout
 from django.contrib import messages
 from reviews.models import Evaluacion, Comentario
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
-
+from django.urls import reverse_lazy
+from django.views.generic.edit import CreateView
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
@@ -46,52 +46,11 @@ def perfil(request):
     )
 
 
-# Función para procesar el formulario de registro de usuario
-def procesar_registro(request):
-    if request.method == "POST":
-        nombre = request.POST["name"]
-        contraseña = request.POST["password"]
-        email = request.POST["email"]
-        pronombre = request.POST["pronombre"]
-
-        try:
-            user = User.objects.get(username=nombre)
-            messages.error(
-                request, "El nombre de usuario ya está asociado a una cuenta."
-            )
-            return redirect("register_user")
-        except User.DoesNotExist:
-            try:
-                user = User.objects.get(email=email)
-                messages.error(
-                    request, "El correo electrónico ya está asociado a una cuenta."
-                )
-                return redirect("register_user")
-            except User.DoesNotExist:
-                # Crear el nuevo usuario
-                User.objects.create_user(
-                    username=nombre,
-                    password=contraseña,
-                    email=email,
-                    pronombre=pronombre,
-                )
-                user = authenticate(username=nombre, password=contraseña)
-                login(request, user)
-                messages.success(
-                    request, f"Te has registrado satisfactoriamente como {nombre}."
-                )
-                return redirect("home")
-
-
 # Vista que permite mostrar la página de registro de un usuario
-# Cuando se intenta acceder a register/ se ejecuta esta vista
-def register_user(request):
-    if request.method == "GET":  # Si estamos cargando la página
-        # Mostrar el template
-        return render(request, "registro.html")
-
-    elif request.method == "POST":  # Si estamos recibiendo el form de registro
-        procesar_registro(request)
+class SignUpView(CreateView):
+    form_class = CustomUserCreationForm
+    success_url = reverse_lazy("login")
+    template_name = "registro.html"
 
 
 # Vista que permite mostrar la página de ingreso de un usuario
