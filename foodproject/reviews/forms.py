@@ -3,13 +3,15 @@ from reviews.models import Puesto_de_comida, User, Evaluacion, Comentario
 
 
 class CustomUserCreationForm(forms.ModelForm):
+    # Es necesario usar placeholders vacios para que el los labels en el front
+    # se vean bien
     password1 = forms.CharField(
         label="Password",
-        widget=forms.PasswordInput(attrs={"class": "form-control"})
+        widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": ""})
     )
     password2 = forms.CharField(
         label="Confirm password",
-        widget=forms.PasswordInput(attrs={"class": "form-control"})
+        widget=forms.PasswordInput(attrs={"class": "form-control", "placeholder": ""})
     )
 
     class Meta:
@@ -17,9 +19,9 @@ class CustomUserCreationForm(forms.ModelForm):
         fields = ["username", "email", "password1", "password2", "pronombre"]
 
         widgets = {
-            "username": forms.TextInput(attrs={"class": "form-control"}),
-            "email": forms.EmailInput(attrs={"class": "form-control"}),
-            "pronombre": forms.Select(attrs={"class": "form-control"}),
+            "username": forms.TextInput(attrs={"class": "form-control", "placeholder": ""}),
+            "email": forms.EmailInput(attrs={"class": "form-control", "placeholder": ""}),
+            "pronombre": forms.Select(attrs={"class": "form-control pronombre", "placeholder": ""}),
         }
 
     def clean_password2(self):

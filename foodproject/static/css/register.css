@@ -1,0 +1,58 @@
+body {
+	background-image: linear-gradient(to right bottom, #d3dedc, #dae2dc, #e2e5dd, #ece8df, #f6ebe4, #f4e3e0, #efdcde, #e8d6de, #d2c5d4, #b8b5c9, #9ba7bd, #7c99ac);
+}
+
+.reg-box {
+	color: hsl(0, 100%, 97%);
+	background: #92A9BD;
+}
+
+.reg-box input {
+	border-radius: 0%;
+	border: none;
+	border-bottom: 1px solid #FFEFEF;
+	background: transparent;
+	z-index: 0;
+	margin: 3rem 0;
+}
+
+.reg-box input:focus {
+	background: transparent;
+}
+
+
+.reg-box label {
+	position: absolute;
+	pointer-events: none;
+	text-align: start;
+	transition: .5s;
+	color: #FFEFEF;
+}
+
+label:has(+ input:focus),
+label:has(+ input:not(:placeholder-shown)),
+label:has(+ select) {
+	transform: translate(0, -2rem);
+	font-size: smaller;
+}
+
+
+.helptext {
+	display: none;
+}
+
+button {
+	border: solid 2px #f8f9fa;
+	color : #f8f9fa;
+	background-color: #D3DEDC;
+	margin-top: 1rem;
+	border-radius: 5%;
+	padding: 0.5rem 1rem;
+	background-color: #92A9BD;
+}
+
+button:hover {
+	background-color: #f8f9fa;
+	color: black;
+	transition: 0.5s;
+}
