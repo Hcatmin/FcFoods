@@ -1,7 +1,3 @@
-html {
-	height: 100%;
-}
-
 body {
 	background-image: linear-gradient(to right bottom, #d3dedc, #dae2dc, #e2e5dd, #ece8df, #f6ebe4, #f4e3e0, #efdcde, #e8d6de, #d2c5d4, #b8b5c9, #9ba7bd, #7c99ac);
 }
@@ -32,7 +28,11 @@ body {
 	pointer-events: none;
 	text-align: start;
 	transition: .5s;
-	color: #FFEFEF;
+	color: #FFEFEF !important;
+}
+
+label::after {
+	background-color: transparent !important;
 }
 
 .login-box label:has(+ input:focus),
