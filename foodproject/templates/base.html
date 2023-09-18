@@ -107,8 +107,13 @@
         </li>
         <li class="nav-item dropup">
           <a href="{% url 'profile' %}" class="nav-link text-center fs-3">
+            {% if user.is_authenticated %}
             <i class="bi bi-person-circle"></i>
             <span class="small d-block">Perfil</span>
+            {% else %}
+            <i class="bi bi-key-fill"></i>
+            <span class="small d-block">Login</span>
+            {% endif %}
           </a>
         </li>
       </ul>
