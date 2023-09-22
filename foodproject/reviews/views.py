@@ -11,8 +11,8 @@ from django.db.models import Count
 from django.urls import reverse_lazy
 from django.views.generic.edit import CreateView
 from django.template.loader import render_to_string
-from django.views.decorators.csrf import csrf_exempt
-from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.http import JsonResponse, HttpResponse
 
 # Vista que permite mostrar la pagina principal (home) del sitio web
 # Cuando se intenta acceder a home/ se ejecuta esta vista
@@ -175,11 +175,65 @@ def display_store(request):
     form_agregar_comentario = ComentarioReseña()
     form_crear_reseña = CrearReseñaForm()
 
-    rendered_data = render_to_string('display_store.html', {'id_local': id_local, 'local': puesto, 'list_reviews': reviews, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario, 'user': request.user.is_authenticated})
+    rendered_data = render_to_string('display_store.html', {'id_local': id_local, 'local': puesto, 'list_reviews': reviews, "form_tarea": form_crear_reseña, "form_comentario": form_agregar_comentario, 'user_is_authenticated': request.user.is_authenticated, 'user': request.user})
 
     return JsonResponse({'rendered_data': rendered_data})
 
-@csrf_exempt
+@csrf_protect
+def display_like_and_dislike(request):
+    is_ajax = request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest' # verifica si es ajax
+    if request.method == 'POST' and is_ajax:
+        id_review = request.POST.get('id_review')
+        request_type = request.POST.get('type')
+
+        review = get_object_or_404(Evaluacion, id=id_review)
+        response = ''
+        if request_type == 'like':
+            if review.confirmacion_usuario_liked(request.user):
+                review.usuario_dio_like.remove(request.user)
+                response+= '''
+                <button type="submit" class="btn btn-outline-secondary" name="like" value="'''+str(id_review)+'''">
+                    <i class="bi bi-hand-thumbs-up"></i>'''+str(review.usuario_dio_like.count())+'''
+                </button>'''
+            else:
+                review.usuario_dio_like.add(request.user)
+                if review.confirmacion_usuario_disliked(request.user):
+                    review.usuario_dio_dislike.remove(request.user)
+                response+= '''
+                <button type="submit" class="btn btn-secondary" name="like" value="'''+str(id_review)+'''">
+                    <i class="bi bi-hand-thumbs-up"></i>'''+str(review.usuario_dio_like.count())+'''
+                </button>'''
+            response+= '''
+                <button type="submit" class="btn btn-outline-secondary" name="dislike" value="'''+str(id_review)+'''">
+                <i class="bi bi-hand-thumbs-down"></i>'''+str(review.usuario_dio_dislike.count())+'''
+                </button>'''
+        elif request_type == 'dislike':
+            if review.confirmacion_usuario_disliked(request.user):
+                review.usuario_dio_dislike.remove(request.user)
+                response+= '''
+                  <button type="submit" class="btn btn-outline-secondary" name="dislike" value="'''+str(id_review)+'''">
+                    <i class="bi bi-hand-thumbs-down"></i>'''+str(review.usuario_dio_dislike.count())+'''
+                  </button>'''
+            else:
+                review.dar_dislike(request.user)
+                if review.confirmacion_usuario_liked(request.user):
+                    review.usuario_dio_like.remove(request.user)
+                response+= '''
+                <button type="submit" class="btn btn-secondary" name="dislike" value="'''+str(id_review)+'''">
+                    <i class="bi bi-hand-thumbs-down"></i>'''+str(review.usuario_dio_dislike.count())+'''
+                </button>'''
+
+            response = '''
+                <button type="submit" class="btn btn-outline-secondary" name="like" value="'''+str(id_review)+'''">
+                <i class="bi bi-hand-thumbs-up"></i>'''+str(review.usuario_dio_like.count())+'''
+                </button>''' + response
+
+        return HttpResponse(response)
+        
+    else:
+        return JsonResponse({'error': 'Invalid Request'})
+
+@csrf_protect
 def display_comment(request):
     is_ajax = request.META.get('HTTP_X_REQUESTED_WITH') == 'XMLHttpRequest' # verifica si es ajax
     if request.method == 'POST' and is_ajax:

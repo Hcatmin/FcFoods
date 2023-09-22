@@ -88,10 +88,11 @@
                 </ul>
               </div>
               <ul class="list-unstyled">
-
-                <form method="post">
-
-                  {% if request.user in review.usuario_dio_like.all %}
+                <form class="add-like-or-dislike" method="post">
+                  {% csrf_token %}
+                  <div id="container-likes-{{review.id}}">
+                    
+                  {% if user in review.usuario_dio_like.all %}
                   <button type="submit" class="btn btn-secondary" name="like" value="{{ review.id }}">
                     <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
                   </button>
@@ -101,7 +102,7 @@
                   </button>
                   {% endif %}
 
-                  {% if request.user in review.usuario_dio_dislike.all %}
+                  {% if user in review.usuario_dio_dislike.all %}
                   <button type="submit" class="btn btn-secondary" name="dislike" value="{{ review.id }}">
                     <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
                   </button>
@@ -110,6 +111,7 @@
                     <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
                   </button>
                   {% endif %}
+                  </div>
                 </form>
 
               </ul>
@@ -194,8 +196,8 @@
             var form = $(this);
             var idReview = form.find('input[name="evaluacion"]').val();
             var content = form.find('textarea[name="{{ form_comentario.comentario.html_name }}"]').val();
-            // var csrftoken = getCookie('csrftoken');
-
+            const csrftoken = getCookie('csrftoken');
+            console.log(csrftoken);
             $.ajax({
                 url: '/display_comment/',
                 method: 'POST',
@@ -204,7 +206,8 @@
                     // 'id_local': '{{id_local}}',
                     'id_review': idReview,
                     'comentario': content,
-                    'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+                    // 'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+                    'csrfmiddlewaretoken': csrftoken,
                 },
                 success: function (response) {
                     $('#container-comentarios-'+idReview).append(`
@@ -236,5 +239,35 @@
                 }
             });
         });
+
+        $('.add-like-or-dislike').submit(function (event) { // escucha la clase del form
+        event.preventDefault();
+        
+            var form = $(this);
+            var submit_value = document.activeElement.value; // can be a like or a dislike
+            var submit_type = document.activeElement.name;
+            const csrftoken = getCookie('csrftoken');
+            console.log(submit_type);
+            console.log(csrftoken);
+            $.ajax({
+                url: '/display_like_and_dislike/',
+                method: 'POST',
+                data: {
+                    'user': "{{user}}",
+                    'id_review': submit_value,
+                    'type': submit_type,
+                    'csrfmiddlewaretoken': csrftoken,
+                },
+                success: function (response) {
+                    document.getElementById('container-likes-'+submit_value).innerHTML= response;
+                    console.log(response);
+                },
+                error: function (error) {
+                  console.log("Unexpected error");
+                  console.log(error);
+                }
+            });
+        });
+
     });
 </script>

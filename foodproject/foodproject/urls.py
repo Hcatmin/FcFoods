@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from reviews.views import home, perfil, login_request, \
                           buscador, tiendas_view, editar_reseña, \
-                          stores_view, display_store, display_comment, \
+                          stores_view, display_store, display_comment, display_like_and_dislike, \
                           borrar_reseña, cerrar_sesion, editar_comentario, borrar_comentario, \
                           SignUpView
 
@@ -34,6 +34,7 @@ urlpatterns = [
     path('stores/', stores_view, name='stores'),
     path('display_store/', display_store, name='display_store'),
     path('display_comment/', display_comment, name='display_comment'),
+    path('display_like_and_dislike/', display_like_and_dislike, name='display_like_and_dislike'),
     path('login/', login_request, name="login"),
     path('buscar/', buscador, name="buscador"),
     path('profile/edit_review/<int:id>/', editar_reseña, name="edit_review"),
