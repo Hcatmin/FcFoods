@@ -1,4 +1,5 @@
 # from django.shortcuts import render
+from django.http import HttpRequest
 from django.shortcuts import render, redirect, get_object_or_404
 from reviews.models import Puesto_de_comida
 from django.contrib.auth.forms import AuthenticationForm
@@ -55,7 +56,7 @@ class SignUpView(CreateView):
 
 # Vista que permite mostrar la página de ingreso de un usuario
 # Cuando se intenta acceder a login/ se ejecuta esta vista
-def login_request(request):
+def login_request(request: HttpRequest):
     if request.method == "POST":
         form = AuthenticationForm(request, data=request.POST)
         # To clean the messages
@@ -63,22 +64,17 @@ def login_request(request):
         for message in system_messages:
             pass
         if form.is_valid():
-            username = form.cleaned_data.get("username")
-            password = form.cleaned_data.get("password")
-            user = authenticate(username=username, password=password)
-            if user is not None:
-                login(request, user)
-                messages.success(request, f"Te has logueado como {username}.")
-                return redirect("home")
-            else:
-                messages.error(request, "Usuario o contraseña inválidos.")
+            user = form.get_user()
+            login(request, user)
+            messages.success(request, f"Te has logueado como {user.username}.")
+            return redirect("home")
         else:
             messages.error(request, "Usuario o contraseña inválidos")
     form = AuthenticationForm()
     return render(
         request=request,
         template_name="registration/login.html",
-        context={"login_form": form},
+        context={"form": form},
     )
 
 
