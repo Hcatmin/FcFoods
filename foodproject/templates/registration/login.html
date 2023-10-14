@@ -11,6 +11,8 @@ integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+f
 <link rel="stylesheet" href="{% static 'css/registration/style.css' %}">
 {% endblock %}
 
+{% load widget_tweaks %}
+
 <div class="container-lg p-0">
   {% if messages %}
   <ul class="messages list-unstyled">
@@ -32,12 +34,11 @@ integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+f
     <form method="POST">
       {% csrf_token %}
       <div class="form-floating mb-3 mx-4 mx-sm-5 my-5 text-start">
-        <input class="form-control bg-transparent text-white m-0" name="username" id="username" placeholder=" ">
+        {{ form.username|add_class:"form-control bg-transparent text-white m-0"|attr:"placeholder:' '" }}
         <label for="username">Nombre de usuario</label>
       </div>
       <div class="form-floating mb-3 mx-4 mx-sm-5 my-5 text-start">
-        <input type="password" class="form-control bg-transparent text-white" name="password" id="password"
-          placeholder=" ">
+        {{ form.password|add_class:"form-control bg-transparent text-white"|attr:"placeholder:' '" }}
         <label for="password">Password</label>
       </div>
       <p class="small mb-5 pb-lg-2"><a class="" href="#!">Forgot password?</a></p>
