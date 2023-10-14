@@ -52,6 +52,13 @@ class SignUpView(CreateView):
     form_class = CustomUserCreationForm
     success_url = reverse_lazy("login")
     template_name = "registro.html"
+    
+    def form_valid(self, form):
+        response = super().form_valid(form)  # Llama al método original form_valid()
+        password = form.cleaned_data.get('password1')
+        self.object.set_password(password)  # Establece la contraseña
+        self.object.save()  # Guarda el objeto
+        return response
 
 
 # Vista que permite mostrar la página de ingreso de un usuario
