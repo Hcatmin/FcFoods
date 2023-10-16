@@ -38,55 +38,7 @@
                 {{review.detalle}}
               </p>
 
-              <div class="row">
-                <ul class="list-unstyled fs-6 col-4">
-                  <li>Comida:</li>
-                  <li>Precio:</li>
-                  <li>Presentación:</li>
-                </ul>
-
-                <ul class="list-unstyled fs-6 col-3">
-                  <li class="calificacion">
-                    {% if review.calificacion_comida == 1 %}
-                    <span>★☆☆☆☆</span>
-                    {% elif review.calificacion_comida == 2 %}
-                    <span>★★☆☆☆</span>
-                    {% elif review.calificacion_comida == 3 %}
-                    <span>★★★☆☆</span>
-                    {% elif review.calificacion_comida == 4 %}
-                    <span>★★★★☆</span>
-                    {% elif review.calificacion_comida == 5 %}
-                    <span>★★★★★</span>
-                    {% endif %}
-                  </li>
-                  <li class="calificacion">
-                    {% if review.calificacion_precio == 1 %}
-                    <span>★☆☆☆☆</span>
-                    {% elif review.calificacion_precio == 2 %}
-                    <span>★★☆☆☆</span>
-                    {% elif review.calificacion_precio == 3 %}
-                    <span>★★★☆☆</span>
-                    {% elif review.calificacion_precio == 4 %}
-                    <span>★★★★☆</span>
-                    {% elif review.calificacion_precio == 5 %}
-                    <span>★★★★★</span>
-                    {% endif %}
-                  </li>
-                  <li class="calificacion">
-                    {% if review.calificacion_presentacion == 1 %}
-                    <span>★☆☆☆☆</span>
-                    {% elif review.calificacion_presentacion == 2 %}
-                    <span>★★☆☆☆</span>
-                    {% elif review.calificacion_presentacion == 3 %}
-                    <span>★★★☆☆</span>
-                    {% elif review.calificacion_presentacion == 4 %}
-                    <span>★★★★☆</span>
-                    {% elif review.calificacion_presentacion == 5 %}
-                    <span>★★★★★</span>
-                    {% endif %}
-                  </li>
-                </ul>
-              </div>
+              {% include "_review_ratings.html" %}
               <ul class="list-unstyled">
                 <form class="add-like-or-dislike" method="post">
                   {% csrf_token %}
