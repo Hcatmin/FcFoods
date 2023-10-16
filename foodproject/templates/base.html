@@ -27,7 +27,11 @@
   <header>
     <nav class="navbar fixed-top navbar-expand-lg navbar-dark " aria-label="Ninth navbar example">
       <div class="container-xl">
-        <a class="navbar-brand">Grupo 15</a>
+        <!-- <a class="navbar-brand">logo title</a> -->
+        <a class="navbar-brand">
+          <img src="{% static 'img/logo.svg' %}" alt="triangle with all three sides equal" style="width: 200px; height: auto;"/> 
+        </a>
+
 
         <a class="nav-link text-light active" aria-current="page" id="nav-search" href="{% url 'buscador' %}" hidden>
           <i class="bi bi-search"></i>

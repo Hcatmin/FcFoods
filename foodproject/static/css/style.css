@@ -3,7 +3,8 @@ nav.navbar {
 }
 
 body {
-  background-color: #FFEFEF;
+  /* background-color: #FFEFEF; */
+  background: #f7f7ff;
   padding-top: 70px;
   padding-bottom: 90px;
 }
