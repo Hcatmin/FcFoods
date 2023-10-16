@@ -108,14 +108,7 @@
                                         </button>
                                         {% endif %}
                                         {% else %}
-                                        <button type="submit" class="btn btn-outline-secondary" name="like"
-                                            value="{{ review.id }}" disabled>
-                                            <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
-                                        </button>
-                                        <button type="submit" class="btn btn-outline-secondary" name="dislike"
-                                            value="{{ review.id }}" disabled>
-                                            <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
-                                        </button>
+                                        {% include "_disabled_like_buttons.html" %}
                                         {% endif %}
                                     </form>
 
