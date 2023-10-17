@@ -1,6 +1,6 @@
 var navmobile = document.getElementById("nav-mobile");
 var navpc = document.getElementById("nav-pc");
-var navsearch = document.getElementById("nav-search");
+var navsearch = document.getElementById("search_mobile");
 
 // var display = navpc.style.display;
 var estiloComputado = window.getComputedStyle(navpc);

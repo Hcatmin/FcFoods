@@ -267,10 +267,14 @@
 
 <script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/bundle.min.js' %}"></script>
-<script>
+<script text="text/javascript" language="javascript">
   $(function () {
     $('[data-toggle="tooltip"]').tooltip();
   });
+  var profile = document.getElementById("profile_pc");
+  var profile_mobile = document.getElementById("profile_mobile");
+  profile.setAttribute("class", profile.getAttribute("class") + " active");
+  profile_mobile.setAttribute("class", profile_mobile.getAttribute("class") + " active");
 </script>
 
 {%endif%}

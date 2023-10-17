@@ -14,6 +14,9 @@ from django.views.generic.edit import CreateView
 from django.template.loader import render_to_string
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.http import JsonResponse, HttpResponse
+from django.core import serializers
+import logging
+logger = logging.getLogger('django')
 
 # Vista que permite mostrar la pagina principal (home) del sitio web
 # Cuando se intenta acceder a home/ se ejecuta esta vista
@@ -169,7 +172,12 @@ def tiendas_view(request):
 
 def stores_view(request):
     queryset = Puesto_de_comida.objects.all()
-    return render(request, 'stores.html', {'list': queryset})
+    form_crear_reseña = CrearReseñaForm()
+    return render(request, 
+                  'stores.html', 
+                  {'list': queryset,
+                   "form_tarea": form_crear_reseña
+                   })
 
 def display_store(request):
     id_local = request.GET.get('id_local')
@@ -255,6 +263,28 @@ def display_comment(request):
             return JsonResponse({'error': request.POST})
     else:
         return JsonResponse({'error': 'Invalid Request'})
+
+
+@csrf_protect 
+def display_review(request):
+    if request.method == 'POST':
+        form = CrearReseñaForm(request.POST)
+        id_local = request.POST.get('id_local')
+        local = Puesto_de_comida.objects.get(id=id_local)
+        if form.is_valid():
+            cleaned_data = form.cleaned_data
+            Evaluacion.objects.create(**cleaned_data, usuario=request.user, local_comida=local)
+            # Process the form data here...
+            reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha').all()
+            form_agregar_comentario = ComentarioReseña()
+
+            rendered_data = render_to_string('display_review_list.html', {'id_local': id_local, 'local': local, 'list_reviews': reviews, "form_comentario": form_agregar_comentario})
+
+            return JsonResponse({'rendered_data': rendered_data})
+        else:
+            return JsonResponse({'success': False, 'errors': form.errors})
+    else:
+        redirect(stores_view)
 
 # Vista que permite mostrar la página para realizar busquedas
 # Cuando se presiona el botón "Buscar", en la página buscar/

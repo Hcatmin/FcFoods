@@ -21,7 +21,7 @@
     </div>
     {% endif %}
 
-    <div class="row mx-0">
+    <div class="row mx-0" id="review-container">
       <div class="col p-0 mb-3">
         {% for review in list_reviews %}
         <div class="d-flex flex-start my-4 mx-3">
@@ -172,7 +172,26 @@
   </dl>
 </div>
 
+<div class="bottom-0 position-sticky">
+  <div class="d-flex align-items-center p-2 justify-content-around" style="background-color: #7C99AC;">
+      <!-- Button trigger modal -->
+      {% if user.is_authenticated %}
+      <h5 class="">¿Deseas contribuir?</h5>
+      <button type="button" class="btn btn-primary my-3" data-bs-toggle="modal" data-bs-target="#createResena">
+          Crear reseña
+      </button>
+      {% else %}
+      <div class="text-center d-block align-self-center">
+          <h5 class="">¿Deseas contribuir?</h5>
+          <p class="text-danger fw-bold my-auto fs-6">Debes iniciar sesión para crear una reseña.</p>
+      </div>
+      {% endif %}
+  </div>
+</div>
+
+
 <script text="text/javascript" language="javascript">
+    console.log('{{local}}')
     function getCookie(name) {
         let cookieValue = null;
         if (document.cookie && document.cookie !== '') {
@@ -241,7 +260,7 @@
         });
 
         $('.add-like-or-dislike').submit(function (event) { // escucha la clase del form
-        event.preventDefault();
+            event.preventDefault();
         
             var form = $(this);
             var submit_value = document.activeElement.value; // can be a like or a dislike
@@ -267,6 +286,29 @@
                   console.log(error);
                 }
             });
+        });
+
+        $('.add-review').submit(function (event) { // escucha la clase del form
+            event.preventDefault();
+            var form = $(this);
+            const csrftoken = getCookie('csrftoken');
+            $.ajax({
+                url: '/display_review/',
+                method: 'POST',
+                data: form.serialize() +'&id_local={{id_local}}',
+                dataType: 'json',
+                success: function (response) {
+                  console.log(response);
+                  $('#createResena').modal('hide');
+                  $('#review-container').html(response.rendered_data);
+                  
+                },
+                error: function (error) {
+                  console.log("Unexpected error");
+                  console.log(error);
+                }
+            });
+
         });
 
     });
