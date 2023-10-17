@@ -278,7 +278,7 @@ def display_review(request):
             reviews = Evaluacion.objects.filter(local_comida = local).order_by('-fecha').all()
             form_agregar_comentario = ComentarioReseña()
 
-            rendered_data = render_to_string('display_review_list.html', {'id_local': id_local, 'local': local, 'list_reviews': reviews, "form_comentario": form_agregar_comentario})
+            rendered_data = render_to_string('display_review_list.html', {'id_local': id_local, 'local': local, 'list_reviews': reviews, "form_comentario": form_agregar_comentario, 'user_is_authenticated': request.user.is_authenticated, 'user': request.user})
 
             return JsonResponse({'rendered_data': rendered_data})
         else:

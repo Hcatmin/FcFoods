@@ -72,24 +72,28 @@
             {% csrf_token %}
             <div id="container-likes-{{review.id}}">
               
-            {% if user in review.usuario_dio_like.all %}
-            <button type="submit" class="btn btn-secondary" name="like" value="{{ review.id }}">
-              <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
-            </button>
-            {% else %}
-            <button type="submit" class="btn btn-outline-secondary" name="like" value="{{ review.id }}">
-              <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
-            </button>
-            {% endif %}
+            {% if user.is_authenticated %}
+              {% if user in review.usuario_dio_like.all %}
+                <button type="submit" class="btn btn-secondary" name="like" value="{{ review.id }}">
+                  <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
+                </button>
+              {% else %}
+                <button type="submit" class="btn btn-outline-secondary" name="like" value="{{ review.id }}">
+                  <i class="bi bi-hand-thumbs-up"></i> {{review.usuario_dio_like.count}}
+                </button>
+              {% endif %}
 
-            {% if user in review.usuario_dio_dislike.all %}
-            <button type="submit" class="btn btn-secondary" name="dislike" value="{{ review.id }}">
-              <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
-            </button>
+              {% if user in review.usuario_dio_dislike.all %}
+                <button type="submit" class="btn btn-secondary" name="dislike" value="{{ review.id }}">
+                  <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
+                </button>
+              {% else %}
+                <button type="submit" class="btn btn-outline-secondary" name="dislike" value="{{ review.id }}">
+                  <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
+                </button>
+              {% endif %}
             {% else %}
-            <button type="submit" class="btn btn-outline-secondary" name="dislike" value="{{ review.id }}">
-              <i class="bi bi-hand-thumbs-down"></i> {{review.usuario_dio_dislike.count}}
-            </button>
+              {% include "_disabled_like_buttons.html" %}
             {% endif %}
             </div>
           </form>
@@ -122,7 +126,7 @@
 
       <div class="d-flex flex-start mt-4">
         <div class="flex-grow-1 flex-shrink-1">
-          {% if user%}
+          {% if user_is_authenticated%}
           <form class="add-comentarios" method="post">
             {% csrf_token %}
             <input type="hidden" name="evaluacion" value="{{ review.id }}">
@@ -148,3 +152,128 @@
   <div class="my-0" style="border: 1px solid gray; width: 100%; opacity: 0.6;"></div>
   {% endfor %}
 </div>
+
+
+<script type="text/javascript" language="javascript">
+
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+};
+
+$(document).ready(function () {
+  $('.add-comentarios').submit(function (event) { // escucha la clase del form
+    event.preventDefault();
+    
+        var form = $(this);
+        var idReview = form.find('input[name="evaluacion"]').val();
+        var content = form.find('textarea[name="{{ form_comentario.comentario.html_name }}"]').val();
+        const csrftoken = getCookie('csrftoken');
+        // console.log(csrftoken);
+        $.ajax({
+            url: '/display_comment/',
+            method: 'POST',
+            data: {
+                // 'user': "{{user}}",
+                // 'id_local': '{{id_local}}',
+                'id_review': idReview,
+                'comentario': content,
+                // 'csrfmiddlewaretoken':$('input[name=csrfmiddlewaretoken]').val(),
+                'csrfmiddlewaretoken': csrftoken,
+            },
+            success: function (response) {
+                $('#container-comentarios-'+idReview).append(`
+                <div class="d-flex flex-start mt-4">
+                  <a class="me-3" href="#">
+                    <img class="rounded-circle shadow-1-strong" src="{% static 'img/perfilsf.png' %}" alt="avatar" width="50"
+                      height="50" />
+                  </a>
+                  <div class="flex-grow-1 flex-shrink-1">
+                      <div class="d-flex justify-content-between align-items-center">
+                        <p class="mb-1">
+                          `+user+` <span class="small">- 0 secs</span>
+                        </p>
+                      </div>
+                      <p>
+                        `+content+`
+                      </p>
+                  </div>
+                </div>
+                `);
+                // var id_review = response.id_review;
+                // var container = $('#container-comentarios'+id_review);
+                // container.append(response);
+                console.log(response);
+            },
+            error: function (error) {
+              console.log("Unexpected error");
+              console.log(error);
+            }
+        });
+    });
+
+    $('.add-like-or-dislike').submit(function (event) { // escucha la clase del form
+        event.preventDefault();
+    
+        var form = $(this);
+        var submit_value = document.activeElement.value; // can be a like or a dislike
+        var submit_type = document.activeElement.name;
+        const csrftoken = getCookie('csrftoken');
+        // console.log(submit_type);
+        $.ajax({
+            url: '/display_like_and_dislike/',
+            method: 'POST',
+            data: {
+                'user': "{{user}}",
+                'id_review': submit_value,
+                'type': submit_type,
+                'csrfmiddlewaretoken': csrftoken,
+            },
+            success: function (response) {
+                document.getElementById('container-likes-'+submit_value).innerHTML= response;
+                console.log(response);
+            },
+            error: function (error) {
+              console.log("Unexpected error");
+              console.log(error);
+            }
+        });
+    });
+
+    $('.add-review').submit(function (event) { // escucha la clase del form
+        event.preventDefault();
+        var form = $(this);
+        const csrftoken = getCookie('csrftoken');
+        $.ajax({
+            url: '/display_review/',
+            method: 'POST',
+            data: form.serialize() +'&id_local={{id_local}}',
+            dataType: 'json',
+            success: function (response) {
+              console.log(response);
+              $('#createResena').modal('hide');
+              $('#review-container').html(response.rendered_data);
+              
+            },
+            error: function (error) {
+              console.log("Unexpected error");
+              console.log(error);
+            }
+        });
+
+    });
+
+});
+
+</script>
