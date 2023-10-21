@@ -1,4 +1,7 @@
 from django.db import models
+from PIL import Image as PILImage
+import os
+
 
 # from django.contrib.auth.models import User
 
@@ -23,10 +26,33 @@ class User(AbstractUser):
 class Puesto_de_comida(models.Model):
     nombre = models.CharField(max_length=200)
     dueño = models.CharField(max_length=200, blank=True)
-    FotoLocal = models.ImageField(upload_to="Fotos_locales/", null=True, blank=True)
+    FotoLocal = models.ImageField(upload_to="Fotos_locales", null=True, blank=True)
 
     def __str__(self):
         return self.nombre
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+
+        sizes = [(200, 300), (400, 600), (600, 900)]
+        
+        img_path = self.imagen.path
+
+        with PILImage.open(img_path) as img:
+            for size in sizes:
+                img_cropped = self.crop_center(img, *size)
+                dest_directory = os.path.join('media', 'Fotos_locales', f"{size[0]}x{size[1]}")
+                os.makedirs(dest_directory, exist_ok=True)
+                img_cropped.save(os.path.join(dest_directory, os.path.basename(img_path)))
+
+    @staticmethod
+    def crop_center(img: PILImage.Image, target_width: int, target_height: int):
+        img_width, img_height = img.size
+        left = (img_width - target_width)/2
+        top = (img_height - target_height)/2
+        right = (img_width + target_width)/2
+        bottom = (img_height + target_height)/2
+        return img.crop((left, top, right, bottom))
 
 
 # Modelo que representa las reseñas de los puestos de comida

@@ -16,10 +16,19 @@
         <div class="row">
             {% for local in list %}
             <div class="col-6 col-sm-6 col-md-4 col-lg-2 mb-4">
-                <div class="card h-100">
+                <div class="card">
                     {% if local.FotoLocal%}
-                    <div class="centering">
-                        <img class="card-img-top centering" src="{{local.FotoLocal.url}}" alt="Card image cap">
+                    <div class="centering overflow-hidden">
+                        <img src="{{ local.FotoLocal.url }}" 
+                            srcset="/media/Fotos_locales/600x900/{{ local.FotoLocal.name|slice:"14:" }} 600w,
+                                    /media/Fotos_locales/400x600/{{ local.FotoLocal.name|slice:"14:" }} 400w,
+                                    /media/Fotos_locales/200x300/{{ local.FotoLocal.name|slice:"14:" }} 200w"
+                            sizes="(max-width: 600px) 200px,
+                                (max-width: 900px) 400px,
+                                600px"
+                            alt="Imagen descriptiva"
+                            style="width: 100%; height: auto;">
+                   
                     </div>
                     {% endif %}
                     <div class="card-body d-flex flex-column justify-content-around">
