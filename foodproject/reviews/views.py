@@ -167,6 +167,11 @@ def tiendas_view(request):
                 "reviews_list": reviews,
             },
         )
+        
+    # Añadir el nombre de la imagen a cada objeto
+    for puesto in queryset:
+        imagen_original = puesto.FotoLocal.name
+        puesto.nombre_imagen = imagen_original.split('/')[-1]
 
     return render(request, "tiendas.html", {"list": queryset})
 
