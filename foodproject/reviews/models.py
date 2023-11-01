@@ -36,22 +36,38 @@ class Puesto_de_comida(models.Model):
 
         sizes = [(200, 300), (400, 600), (600, 900)]
         
-        img_path = self.imagen.path
+        img_path = self.FotoLocal.path
 
         with PILImage.open(img_path) as img:
             for size in sizes:
-                img_cropped = self.crop_center(img, *size)
+                img_cropped = self.resize_and_crop(img, size)
                 dest_directory = os.path.join('media', 'Fotos_locales', f"{size[0]}x{size[1]}")
                 os.makedirs(dest_directory, exist_ok=True)
                 img_cropped.save(os.path.join(dest_directory, os.path.basename(img_path)))
 
     @staticmethod
-    def crop_center(img: PILImage.Image, target_width: int, target_height: int):
+    def resize_and_crop(img: PILImage.Image, target_size: tuple):
+        target_width, target_height = target_size
         img_width, img_height = img.size
-        left = (img_width - target_width)/2
-        top = (img_height - target_height)/2
-        right = (img_width + target_width)/2
-        bottom = (img_height + target_height)/2
+        target_aspect = target_width / target_height
+        img_aspect = img_width / img_height
+
+        # Si la imagen es más pequeña que el tamaño objetivo, la redimensionamos primero
+        if img_width < target_width or img_height < target_height:
+            if img_aspect < target_aspect:
+                new_width = target_width
+                new_height = int(target_width / img_aspect)
+            else:
+                new_height = target_height
+                new_width = int(target_height * img_aspect)
+            img = img.resize((new_width, new_height), PILImage.LANCZOS)
+
+        # Luego, recortamos el centro de la imagen
+        left = (img.width - target_width) / 2
+        top = (img.height - target_height) / 2
+        right = (img.width + target_width) / 2
+        bottom = (img.height + target_height) / 2
+
         return img.crop((left, top, right, bottom))
 
 
