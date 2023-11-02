@@ -178,6 +178,10 @@ def tiendas_view(request):
 def stores_view(request):
     queryset = Puesto_de_comida.objects.all()
     form_crear_reseña = CrearReseñaForm()
+    # Añadir el nombre de la imagen a cada objeto
+    for puesto in queryset:
+        imagen_original = puesto.FotoLocal.name
+        puesto.nombre_imagen = imagen_original.split('/')[-1]
     return render(request, 
                   'stores.html', 
                   {'list': queryset,
